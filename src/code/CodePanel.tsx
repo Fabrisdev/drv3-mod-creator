@@ -14,7 +14,7 @@ export function CodePanel() {
 	if (!visible) return null;
 	return (
 		<Panel position="top-right">
-			<Node className="w-70 whitespace-pre-line">
+			<Node className="whitespace-pre-line">
 				<p className="text-center">Code generated</p>
 				<p>{code}</p>
 			</Node>
