@@ -41,10 +41,13 @@ export function useCode() {
 
 	function textNodeToCode(node: Node) {
 		const text = typeof node.data.text === "string" ? node.data.text : "";
+		const textWithNextLines = text.replaceAll("\n", "\\n");
 		const character =
 			typeof node.data.character === "string" ? node.data.character : "unset";
-		if (character === "unset") return `<LOC ${text}>\n<BTN>`;
-		return [`<CHN ${character}>`, `<LOC ${text}>`, "<BTN>"].join("\n");
+		if (character === "unset") return `<LOC ${textWithNextLines}>\n<BTN>`;
+		return [`<CHN ${character}>`, `<LOC ${textWithNextLines}>`, "<BTN>"].join(
+			"\n",
+		);
 	}
 
 	function startNodeToCode() {
