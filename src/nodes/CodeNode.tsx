@@ -1,13 +1,11 @@
 import { Handle, type NodeProps, Position } from "@xyflow/react";
+import { CodeParameter } from "./components/CodeParameter";
 import { Node } from "./components/Node";
-import { TextParameter } from "./components/TextParameter";
 
 export function CodeNode({ id, data }: NodeProps) {
 	return (
 		<Node>
-			<TextParameter id={id} data={data}>
-				Code
-			</TextParameter>
+			<CodeParameter id={id} data={data} />
 			<Handle type="target" position={Position.Left} />
 			<Handle type="source" position={Position.Right} />
 		</Node>
