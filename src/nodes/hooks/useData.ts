@@ -6,6 +6,6 @@ type Props = {
 };
 
 export function useData({ id, prop }: Props): any {
-	const nodes = useNodes((state) => state.nodes);
-	return nodes.find((node) => node.id === id)?.data[prop];
+	const node = useNodes((store) => store.nodes.find((node) => node.id === id));
+	return node?.data[prop];
 }
