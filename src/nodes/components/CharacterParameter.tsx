@@ -22,7 +22,7 @@ export function CharacterParameter({ id, data }: ParameterProps) {
 				}
 			>
 				<option value="unset">Same as before</option>
-				<option value="chara_blank">Blank</option>
+				<option value="chara_Blank">Blank</option>
 				<option value="chara_Hatena">"???"</option>
 				<option value="C013_Yonag">Angie Yonaga</option>
 				<option value="C004_Gokuh">Gonta Gokuhara</option>
