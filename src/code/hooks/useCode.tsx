@@ -11,7 +11,8 @@ export function useCode() {
 		if (currentNode === undefined) return "";
 		let output = "";
 		while (currentNode !== undefined) {
-			output += `${convertNodeToCode(currentNode)}\n`;
+			const code = convertNodeToCode(currentNode);
+			if (code.trim() !== "") output += `${code}\n`;
 			const nextNode = findNextNode(currentNode);
 			currentNode = nextNode;
 		}
@@ -29,6 +30,7 @@ export function useCode() {
 		if (node.type === "text") return textNodeToCode(node);
 		if (node.type === "code") return extractTextFromCodeNode(node);
 		if (node.type === "end") return "<END>";
+		return "";
 	}
 
 	function extractTextFromCodeNode(node: Node) {
@@ -36,6 +38,7 @@ export function useCode() {
 		return text
 			.split("\n")
 			.map((line) => line.split("//")[0].trim())
+			.filter((line) => line !== "")
 			.join("\n");
 	}
 
