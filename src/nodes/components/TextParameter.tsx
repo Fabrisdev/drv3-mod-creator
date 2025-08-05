@@ -1,15 +1,15 @@
 import { type PropsWithChildren, useId } from "react";
+import { useData } from "../hooks/useData";
 import { useNodes } from "../store/store";
 import type { ParameterProps } from "../types";
 
 export function TextParameter({
 	id,
-	data,
 	children,
 }: PropsWithChildren<ParameterProps>) {
 	const inputId = useId();
 	const { updateNodeData } = useNodes((store) => store.actions);
-	const text = typeof data.text === "string" ? data.text : "";
+	const text = useData({ id, prop: "text" });
 
 	return (
 		<div className="flex flex-col">

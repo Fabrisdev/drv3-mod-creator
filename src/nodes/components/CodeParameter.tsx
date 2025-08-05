@@ -1,12 +1,13 @@
 import { useId } from "react";
 import Editor from "react-simple-code-editor";
+import { useData } from "../hooks/useData";
 import { useNodes } from "../store/store";
 import type { ParameterProps } from "../types";
 
-export function CodeParameter({ id, data }: ParameterProps) {
+export function CodeParameter({ id }: ParameterProps) {
 	const inputId = useId();
 	const { updateNodeData } = useNodes((store) => store.actions);
-	const text = typeof data.text === "string" ? data.text : "";
+	const text = useData({ id, prop: "text" });
 
 	function highlight(text: string) {
 		const code = text

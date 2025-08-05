@@ -39,6 +39,9 @@ export const useNodes = create<Store>()(
 						type: node,
 						data: {},
 					};
+					if (node === "code" || node === "text") {
+						newNode.data.text = "";
+					}
 
 					set((state) => ({
 						nodes: [...state.nodes, newNode],
