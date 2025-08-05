@@ -25,17 +25,7 @@ export function useCode() {
 	}
 
 	function convertNodeToCode(node: Node) {
-		if (node.type === "start")
-			return [
-				"<LAB lab_Top>",
-				"<WAK wkChapter = Prologue>",
-				"<WAK wkDayTimes = TimeNon>",
-				"<WAK wkEveryday = Everyday>",
-				"<WAK wakTrialWindow = WindowAkamatu>",
-				"<WAK wkMode = wkModeTansaku>",
-				"<FDS fadeInStop fdColBlack Speed060>",
-				"<FLG on flgTexWindow>",
-			].join("\n");
+		if (node.type === "start") return startNodeToCode();
 		if (node.type === "text") return textNodeToCode(node);
 		if (node.type === "end") return "<END>";
 	}
@@ -46,6 +36,19 @@ export function useCode() {
 			typeof node.data.character === "string" ? node.data.character : "unset";
 		if (character === "unset") return `<LOC ${text}>\n<BTN>`;
 		return [`<CHN ${character}>`, `<LOC ${text}>`, "<BTN>"].join("\n");
+	}
+
+	function startNodeToCode() {
+		return [
+			"<LAB lab_Top>",
+			"<WAK wkChapter = Prologue>",
+			"<WAK wkDayTimes = TimeNon>",
+			"<WAK wkEveryday = Everyday>",
+			"<WAK wakTrialWindow = WindowAkamatu>",
+			"<WAK wkMode = wkModeTansaku>",
+			"<FDS fadeInStop fdColBlack Speed060>",
+			"<FLG on flgTexWindow>",
+		].join("\n");
 	}
 
 	return { code };
