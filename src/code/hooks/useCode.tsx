@@ -36,8 +36,16 @@ export function useCode() {
 				"<FDS fadeInStop fdColBlack Speed060>",
 				"<FLG on flgTexWindow>",
 			].join("\n");
-		if (node.type === "text") return `<LOC ${node.data.text}>\n<BTN>`;
+		if (node.type === "text") return textNodeToCode(node);
 		if (node.type === "end") return "<END>";
+	}
+
+	function textNodeToCode(node: Node) {
+		const text = typeof node.data.text === "string" ? node.data.text : "";
+		const character =
+			typeof node.data.character === "string" ? node.data.character : "unset";
+		if (character === "unset") return `<LOC ${text}>\n<BTN>`;
+		return [`<CHN ${character}>`, `<LOC ${text}>`, "<BTN>"].join("\n");
 	}
 
 	return { code };
