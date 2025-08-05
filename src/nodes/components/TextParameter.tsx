@@ -9,7 +9,7 @@ export function TextParameter({
 }: PropsWithChildren<ParameterProps>) {
 	const inputId = useId();
 	const { updateNodeData } = useNodes((store) => store.actions);
-	const text = useData({ id, prop: "text" });
+	const text = useData<string>({ id, prop: "text" });
 
 	return (
 		<div className="flex flex-col">
