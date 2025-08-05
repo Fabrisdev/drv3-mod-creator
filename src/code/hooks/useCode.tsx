@@ -33,7 +33,10 @@ export function useCode() {
 
 	function extractTextFromCodeNode(node: Node) {
 		const text = typeof node.data.text === "string" ? node.data.text : "";
-		return text;
+		return text
+			.split("\n")
+			.map((line) => line.split("//")[0].trim())
+			.join("\n");
 	}
 
 	function textNodeToCode(node: Node) {
