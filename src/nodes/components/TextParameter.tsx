@@ -1,16 +1,20 @@
-import { useId } from "react";
+import { type PropsWithChildren, useId } from "react";
 import { useNodes } from "../store/store";
 import type { ParameterProps } from "../types";
 
-export function TextParameter({ id, data }: ParameterProps) {
+export function TextParameter({
+	id,
+	data,
+	children,
+}: PropsWithChildren<ParameterProps>) {
 	const inputId = useId();
 	const { updateNodeData } = useNodes((store) => store.actions);
 	const text = typeof data.text === "string" ? data.text : "";
 
 	return (
-		<>
-			<label htmlFor={inputId} className="text-center">
-				Text
+		<div className="flex flex-col">
+			<label htmlFor={inputId} className="text-center w-full">
+				{children}
 			</label>
 			<textarea
 				id={inputId}
@@ -20,6 +24,6 @@ export function TextParameter({ id, data }: ParameterProps) {
 				placeholder="Text to display"
 				onChange={(e) => updateNodeData(id, { text: e.target.value })}
 			/>
-		</>
+		</div>
 	);
 }

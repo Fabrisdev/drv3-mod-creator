@@ -27,7 +27,13 @@ export function useCode() {
 	function convertNodeToCode(node: Node) {
 		if (node.type === "start") return startNodeToCode();
 		if (node.type === "text") return textNodeToCode(node);
+		if (node.type === "code") return extractTextFromCodeNode(node);
 		if (node.type === "end") return "<END>";
+	}
+
+	function extractTextFromCodeNode(node: Node) {
+		const text = typeof node.data.text === "string" ? node.data.text : "";
+		return text;
 	}
 
 	function textNodeToCode(node: Node) {

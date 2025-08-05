@@ -37,6 +37,7 @@ export function NodesPanel() {
 				</div>
 				<StartNodeOption />
 				<NodeOption type="text">Add Text node</NodeOption>
+				<NodeOption type="code">Add Code node</NodeOption>
 				<NodeOption type="end">Add End node</NodeOption>
 				<hr />
 				<p>Options</p>

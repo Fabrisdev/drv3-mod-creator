@@ -14,6 +14,7 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { CodePanel } from "@/code/CodePanel";
+import { CodeNode } from "@/nodes/CodeNode";
 import { EndNode } from "@/nodes/EndNode";
 import { StartNode } from "@/nodes/StartNode";
 import { useNodes } from "@/nodes/store/store";
@@ -30,6 +31,7 @@ export default function Home() {
 		text: TextNode,
 		start: StartNode,
 		end: EndNode,
+		code: CodeNode,
 	};
 
 	function onNodesChange(changes: NodeChange[]) {
