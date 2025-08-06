@@ -8,7 +8,7 @@ import type { ParameterProps } from "../types";
 export function CodeParameter({ id }: ParameterProps) {
 	const inputId = useId();
 	const { updateNodeData } = useNodes((store) => store.actions);
-	const text = useData<string>({ id, prop: "text" });
+	const text = useData<string>({ id, prop: "text" }) ?? "";
 	const { filename } = useParams();
 
 	function highlight(text: string) {
