@@ -1,6 +1,5 @@
 import { Panel } from "@xyflow/react";
 import { useParams } from "next/navigation";
-import { useNodes } from "@/nodes/store/store";
 
 export function CurrentFilePanel() {
 	const { filename } = useParams();
