@@ -12,7 +12,11 @@ export function File({ children }: { children: React.ReactNode }) {
 				<button
 					type="button"
 					className="border-2 border-[#3c3c3c] p-2 rounded-sm hover:bg-red-400 cursor-pointer"
-					onClick={() => deleteFile(children as string)}
+					onClick={(e) => {
+						e.stopPropagation();
+						e.preventDefault();
+						deleteFile(children as string);
+					}}
 				>
 					<Image
 						src={"/close.png"}
