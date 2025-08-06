@@ -12,6 +12,7 @@ export function FilePicker() {
 	));
 	return (
 		<Node className="min-w-100 min-h-40 flex flex-col gap-2">
+			Files
 			{filenamesMapped}
 		</Node>
 	);
