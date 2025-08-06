@@ -1,14 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Node } from "@/nodes/components/Node";
+import { useNodes } from "@/nodes/store/store";
 
 export function File({ children }: { children: React.ReactNode }) {
+	const { deleteFile } = useNodes((state) => state.actions);
 	return (
 		<Node className="hover:bg-[#3c3c3c] cursor-pointer flex justify-between items-center">
 			<Link href={`/file/${children}`}>{children}</Link>
 			<button
 				type="button"
 				className="border-2 border-[#3c3c3c] p-2 rounded-sm hover:bg-red-400 cursor-pointer"
+				onClick={() => deleteFile(children as string)}
 			>
 				<Image
 					src={"/close.png"}

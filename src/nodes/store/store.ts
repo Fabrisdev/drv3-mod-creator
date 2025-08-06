@@ -26,6 +26,7 @@ type Actions = {
 		fileName: string,
 	) => void;
 	updateEdgeType: (type: string, fileName: string) => void;
+	deleteFile: (fileName: string) => void;
 };
 
 type Position = {
@@ -40,6 +41,13 @@ export const useNodes = create<Store>()(
 			files: {},
 			defaultEdgeType: "bezier",
 			actions: {
+				deleteFile: (fileName) => {
+					set((state) => {
+						const newFiles = { ...state.files };
+						delete newFiles[fileName];
+						return { files: newFiles };
+					});
+				},
 				setNodes: (nodes, fileName) => {
 					const files = get().files;
 					const file = files[fileName] ?? {
