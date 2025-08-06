@@ -4,14 +4,16 @@ import { useParams } from "next/navigation";
 import { useShallow } from "zustand/shallow";
 import { Node } from "@/nodes/components/Node";
 import { useNodes } from "@/nodes/store/store";
+import { CloseIcon } from "../icons/CloseIcon";
 import { CreateFile } from "./CreateFile";
 import { File } from "./File";
 
 type Props = {
 	className?: string;
+	onAskToClose?: () => void;
 };
 
-export function FilePicker({ className }: Props) {
+export function FilePicker({ className, onAskToClose }: Props) {
 	const { filename } = useParams();
 	const filenames = useNodes(
 		useShallow((state) => Object.keys(state.files)),
@@ -32,7 +34,18 @@ export function FilePicker({ className }: Props) {
 
 	return (
 		<Node className={`min-w-100 flex flex-col gap-2 ${className}`}>
-			Pick a file
+			<div className="flex justify-between items-center">
+				<p>Pick a file</p>
+				{onAskToClose && (
+					<button
+						type="button"
+						onClick={onAskToClose}
+						className="cursor-pointer"
+					>
+						<CloseIcon alt="Close file picker menu" size={15} />
+					</button>
+				)}
+			</div>
 			{filenamesMapped}
 			Or...
 			<CreateFile />

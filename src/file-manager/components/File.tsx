@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Node } from "@/nodes/components/Node";
 import { useNodes } from "@/nodes/store/store";
+import { CloseIcon } from "../icons/CloseIcon";
 
 export function File({ children }: { children: React.ReactNode }) {
 	const { deleteFile } = useNodes((state) => state.actions);
@@ -18,12 +18,7 @@ export function File({ children }: { children: React.ReactNode }) {
 						deleteFile(children as string);
 					}}
 				>
-					<Image
-						src={"/close.png"}
-						alt={`Delete ${children} file`}
-						width={20}
-						height={20}
-					/>
+					<CloseIcon alt={`Delete ${children} file`} size={20} />
 				</button>
 			</Node>
 		</Link>
