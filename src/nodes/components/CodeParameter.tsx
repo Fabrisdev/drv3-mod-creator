@@ -1,3 +1,4 @@
+import { useParams } from "next/navigation";
 import { useId } from "react";
 import Editor from "react-simple-code-editor";
 import { useData } from "../hooks/useData";
@@ -8,6 +9,7 @@ export function CodeParameter({ id }: ParameterProps) {
 	const inputId = useId();
 	const { updateNodeData } = useNodes((store) => store.actions);
 	const text = useData<string>({ id, prop: "text" });
+	const { filename } = useParams();
 
 	function highlight(text: string) {
 		const code = text
@@ -40,7 +42,9 @@ export function CodeParameter({ id }: ParameterProps) {
 				value={text}
 				highlight={highlight}
 				className="nodrag resize border-2 border-[#3c3c3c] rounded-sm p-2 min-w-full"
-				onValueChange={(value) => updateNodeData(id, { text: value })}
+				onValueChange={(value) =>
+					updateNodeData(id, { text: value }, filename as string)
+				}
 			/>
 		</div>
 	);

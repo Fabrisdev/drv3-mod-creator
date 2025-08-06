@@ -4,18 +4,28 @@ import { persist } from "zustand/middleware";
 import type { NodeNameTypes } from "../types";
 
 type Store = {
-	nodes: Node[];
-	edges: Edge[];
+	files: Record<
+		string,
+		| {
+				nodes: Node[];
+				edges: Edge[];
+		  }
+		| undefined
+	>;
 	defaultEdgeType: string;
 	actions: Actions;
 };
 
 type Actions = {
-	setNodes: (nodes: Node[]) => void;
-	setEdges: (edges: Edge[]) => void;
-	addNode: (node: NodeNameTypes, position: Position) => void;
-	updateNodeData: (nodeId: string, data: Record<string, unknown>) => void;
-	updateEdgeType: (type: string) => void;
+	setNodes: (nodes: Node[], fileName: string) => void;
+	setEdges: (edges: Edge[], fileName: string) => void;
+	addNode: (node: NodeNameTypes, position: Position, fileName: string) => void;
+	updateNodeData: (
+		nodeId: string,
+		data: Record<string, unknown>,
+		fileName: string,
+	) => void;
+	updateEdgeType: (type: string, fileName: string) => void;
 };
 
 type Position = {
@@ -26,13 +36,31 @@ type Position = {
 export const useNodes = create<Store>()(
 	persist(
 		(set, get) => ({
-			nodes: [],
-			edges: [],
+			filename: "",
+			files: {},
 			defaultEdgeType: "bezier",
 			actions: {
-				setNodes: (nodes) => set({ nodes }),
-				setEdges: (edges) => set({ edges }),
-				addNode: (node, position) => {
+				setNodes: (nodes, fileName) => {
+					const files = get().files;
+					const file = files[fileName] ?? {
+						nodes: [],
+						edges: [],
+					};
+					const newFile = { ...file, nodes };
+					const newFiles = { ...files, [fileName]: newFile };
+					set({ files: newFiles });
+				},
+				setEdges: (edges, fileName) => {
+					const files = get().files;
+					const file = files[fileName] ?? {
+						nodes: [],
+						edges: [],
+					};
+					const newFile = { ...file, edges };
+					const newFiles = { ...files, [fileName]: newFile };
+					set({ files: newFiles });
+				},
+				addNode: (node, position, fileName) => {
 					const newNode: Node = {
 						id: crypto.randomUUID(),
 						position,
@@ -42,23 +70,45 @@ export const useNodes = create<Store>()(
 					if (node === "code" || node === "text") {
 						newNode.data.text = "";
 					}
-
-					set((state) => ({
-						nodes: [...state.nodes, newNode],
-					}));
+					const files = get().files;
+					const file = files[fileName] ?? {
+						nodes: [],
+						edges: [],
+					};
+					const newNodes = [...file.nodes, newNode];
+					const newFile = { ...file, nodes: newNodes };
+					const newFiles = { ...files };
+					newFiles[fileName] = newFile;
+					set({ files: newFiles });
 				},
-				updateNodeData: (nodeId, data) => {
-					const nodes = get().nodes;
+				updateNodeData: (nodeId, data, fileName) => {
+					const files = get().files;
+					const file = files[fileName] ?? {
+						nodes: [],
+						edges: [],
+					};
+					const nodes = file.nodes;
 					const newNodes = nodes.map((node) => {
 						if (node.id !== nodeId) return node;
 						return { ...node, data: { ...node.data, ...data } };
 					});
-					set({ nodes: newNodes });
+					const { setNodes } = get().actions;
+					setNodes(newNodes, fileName);
 				},
 				updateEdgeType: (type) => {
-					const edges = get().edges;
-					const newEdges = edges.map((edge) => ({ ...edge, type }));
-					set({ edges: newEdges, defaultEdgeType: type });
+					const files = get().files;
+					const newFiles = Object.fromEntries(
+						Object.entries(files).map(([fileName, file]) => [
+							fileName,
+							file
+								? {
+										...file,
+										edges: file.edges.map((edge) => ({ ...edge, type })),
+									}
+								: { nodes: [], edges: [] },
+						]),
+					);
+					set({ files: newFiles });
 				},
 			},
 		}),

@@ -1,6 +1,7 @@
 "use client";
 
 import { useReactFlow } from "@xyflow/react";
+import { useParams } from "next/navigation";
 import type { PropsWithChildren } from "react";
 import { useNodes } from "@/nodes/store/store";
 import type { NodeNameTypes } from "@/nodes/types";
@@ -15,6 +16,7 @@ export function NodeOption({
 	disabled,
 	children,
 }: PropsWithChildren<Props>) {
+	const { filename } = useParams();
 	const { addNode } = useNodes((state) => state.actions);
 	const { screenToFlowPosition } = useReactFlow();
 
@@ -24,7 +26,7 @@ export function NodeOption({
 			y: window.innerHeight / 2,
 		});
 
-		addNode(type, position);
+		addNode(type, position, filename as string);
 	}
 
 	if (disabled)

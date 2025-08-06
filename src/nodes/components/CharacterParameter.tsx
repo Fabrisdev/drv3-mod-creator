@@ -1,9 +1,11 @@
+import { useParams } from "next/navigation";
 import { useId } from "react";
 import { useNodes } from "../store/store";
 import type { ParameterProps } from "../types";
 
 export function CharacterParameter({ id, data }: ParameterProps) {
 	const { updateNodeData } = useNodes((state) => state.actions);
+	const { filename } = useParams();
 	const characterSelectId = useId();
 	const character =
 		typeof data.character === "string" ? data.character : "unset";
@@ -16,9 +18,13 @@ export function CharacterParameter({ id, data }: ParameterProps) {
 				id={characterSelectId}
 				className="bg-[#3c3c3c] w-full p-1 rounded-sm"
 				onChange={(e) =>
-					updateNodeData(id, {
-						character: e.target.value,
-					})
+					updateNodeData(
+						id,
+						{
+							character: e.target.value,
+						},
+						filename as string,
+					)
 				}
 			>
 				<option value="unset">Same as before</option>

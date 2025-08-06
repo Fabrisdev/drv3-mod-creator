@@ -1,9 +1,10 @@
 import type { Node } from "@xyflow/react";
-import { useNodes } from "@/nodes/store/store";
+import { useQueryEdges } from "@/nodes/hooks/useQueryEdges";
+import { useQueryNodes } from "@/nodes/hooks/useQueryNodes";
 
 export function useCode() {
-	const nodes = useNodes((state) => state.nodes);
-	const edges = useNodes((state) => state.edges);
+	const nodes = useQueryNodes();
+	const edges = useQueryEdges();
 	const code = getCode();
 
 	function getCode() {
