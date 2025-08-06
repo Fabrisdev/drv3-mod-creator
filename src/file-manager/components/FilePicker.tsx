@@ -6,12 +6,16 @@ import { useNodes } from "@/nodes/store/store";
 import { CreateFile } from "./CreateFile";
 import { File } from "./File";
 
-export function FilePicker() {
+type Props = {
+	className?: string;
+};
+
+export function FilePicker({ className }: Props) {
 	const filenames = useNodes(useShallow((state) => Object.keys(state.files)));
 
 	if (filenames.length === 0) {
 		return (
-			<Node className="min-w-100 flex flex-col gap-2">
+			<Node className={`min-w-100 flex flex-col gap-2 ${className}`}>
 				<p>You don't have any files yet. How about creating one?</p>
 				<CreateFile />
 			</Node>
@@ -23,7 +27,7 @@ export function FilePicker() {
 	));
 
 	return (
-		<Node className="min-w-100 flex flex-col gap-2">
+		<Node className={`min-w-100 flex flex-col gap-2 ${className}`}>
 			Pick a file
 			{filenamesMapped}
 			Or...

@@ -25,6 +25,7 @@ import { TextNode } from "@/nodes/TextNode";
 import type { NodeTypes } from "@/nodes/types";
 import { NodesPanel } from "@/panel/NodesPanel";
 import "@xyflow/react/dist/style.css";
+import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
 
 type Props = {
 	params: Promise<{ filename: string }>;
@@ -81,6 +82,7 @@ export default function Home({ params }: Props) {
 				<CodePanel />
 				<CurrentFilePanel />
 			</ReactFlow>
+			<OpenFilePicker />
 		</div>
 	);
 }
