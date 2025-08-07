@@ -29,6 +29,7 @@ import { NodesPanel } from "@/panel/NodesPanel";
 import "@xyflow/react/dist/style.css";
 import type { Node } from "@xyflow/react";
 import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
+import { FileNode } from "@/nodes/FileNode";
 
 type Props = {
 	params: Promise<{ filename: string }>;
@@ -48,6 +49,7 @@ export default function Home({ params }: Props) {
 		start: StartNode,
 		end: EndNode,
 		code: CodeNode,
+		file: FileNode,
 	};
 
 	function onNodesChange(changes: NodeChange[]) {
