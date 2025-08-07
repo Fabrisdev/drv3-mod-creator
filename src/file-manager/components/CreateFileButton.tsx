@@ -1,8 +1,14 @@
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function CreateFileButton() {
 	const [filename, setFilename] = useState("");
+	const router = useRouter();
+
+	function handleClick() {
+		if (filename === "") return;
+		router.push(`/file/${filename}`);
+	}
 
 	return (
 		<form className="flex gap-2">
@@ -11,12 +17,13 @@ export function CreateFileButton() {
 				className="border-2 border-[#3c3c3c] rounded-sm p-2 w-full"
 				onChange={(e) => setFilename(e.target.value)}
 			/>
-			<Link
-				href={`/file/${filename}`}
-				className="p-2 rounded-sm bg-[#1e1e1e] border-2 border-[#3c3c3c] cursor-pointer hover:bg-[#3c3c3c]"
+			<button
+				type="button"
+				className={`p-2 rounded-sm bg-[#1e1e1e] border-2 border-[#3c3c3c] hover:bg-[#3c3c3c] ${filename !== "" && "cursor-pointer"}`}
+				onClick={handleClick}
 			>
 				Create
-			</Link>
+			</button>
 		</form>
 	);
 }
