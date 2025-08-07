@@ -7,7 +7,9 @@ import {
 	Background,
 	type Connection,
 	Controls,
+	type Edge,
 	type EdgeChange,
+	getOutgoers,
 	MiniMap,
 	type NodeChange,
 	ReactFlow,
@@ -25,6 +27,7 @@ import { TextNode } from "@/nodes/TextNode";
 import type { NodeTypes } from "@/nodes/types";
 import { NodesPanel } from "@/panel/NodesPanel";
 import "@xyflow/react/dist/style.css";
+import type { Node } from "@xyflow/react";
 import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
 
 type Props = {
@@ -59,6 +62,24 @@ export default function Home({ params }: Props) {
 		setEdges(addEdge(params, edges), filename);
 	}
 
+	function isValidConnection(connection: Edge | Connection) {
+		const target = nodes.find((node) => node.id === connection.target);
+		if (target === undefined) return true;
+		const hasCycle = (node: Node, visited = new Set()) => {
+			if (visited.has(node.id)) return false;
+
+			visited.add(node.id);
+
+			for (const outgoer of getOutgoers(node, nodes, edges)) {
+				if (outgoer.id === connection.source) return true;
+				if (hasCycle(outgoer, visited)) return true;
+			}
+		};
+
+		if (target.id === connection.source) return false;
+		return !hasCycle(target);
+	}
+
 	return (
 		<div className="h-svh">
 			<ReactFlow
@@ -74,6 +95,7 @@ export default function Home({ params }: Props) {
 					hideAttribution: true,
 				}}
 				defaultEdgeOptions={{ type: defaultEdgeType }}
+				isValidConnection={isValidConnection}
 			>
 				<Background />
 				<Controls />
