@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Position } from "@/nodes/types";
 import { Menu } from "./components/Menu";
 
 export function ContextMenu({ children }: { children: React.ReactNode }) {
 	const [position, setPosition] = useState<Position | null>(null);
+	const menuRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		function handleKey(e: KeyboardEvent) {
@@ -12,7 +13,10 @@ export function ContextMenu({ children }: { children: React.ReactNode }) {
 
 		function handleClick(e: MouseEvent) {
 			const PRIMARY_BUTTON = 0;
-			if (e.button === PRIMARY_BUTTON) setPosition(null);
+			if (e.button !== PRIMARY_BUTTON) return;
+			const target = e.target as HTMLElement;
+			if (menuRef.current?.contains(target)) return;
+			setPosition(null);
 		}
 
 		window.addEventListener("keydown", handleKey);
@@ -32,7 +36,7 @@ export function ContextMenu({ children }: { children: React.ReactNode }) {
 			}}
 		>
 			{children}
-			<Menu position={position} />
+			<Menu position={position} ref={menuRef} />
 		</div>
 	);
 }
