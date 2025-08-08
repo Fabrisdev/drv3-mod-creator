@@ -30,8 +30,14 @@ export function useCode() {
 		if (node.type === "start") return startNodeToCode();
 		if (node.type === "text") return textNodeToCode(node);
 		if (node.type === "code") return extractTextFromCodeNode(node);
+		if (node.type === "file") return fileNodeToCode(node);
 		if (node.type === "end") return "<END>";
 		return "";
+	}
+
+	function fileNodeToCode(node: Node) {
+		const text = typeof node.data.text === "string" ? node.data.text : "";
+		return `<FIL ${text} lab_Top>`;
 	}
 
 	function extractTextFromCodeNode(node: Node) {
