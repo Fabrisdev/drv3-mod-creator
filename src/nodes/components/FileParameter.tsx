@@ -15,7 +15,7 @@ export function FileParameter({ id, hideCurrentFile }: Props) {
 	const filteredFiles = hideCurrentFile
 		? files.filter((file) => file !== filename)
 		: files;
-	const text = useData<string>({ id, prop: "text" });
+	const text = useData({ id, prop: "text" });
 	const filesMapped = filteredFiles.map((file) => (
 		<option value={file} key={file}>
 			{file}

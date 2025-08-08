@@ -1,14 +1,14 @@
 import { useParams } from "next/navigation";
 import { useId } from "react";
+import { useData } from "../hooks/useData";
 import { useNodes } from "../store/store";
 import type { ParameterProps } from "../types";
 
-export function CharacterParameter({ id, data }: ParameterProps) {
+export function CharacterParameter({ id }: ParameterProps) {
 	const { updateNodeData } = useNodes((state) => state.actions);
 	const { filename } = useParams();
 	const characterSelectId = useId();
-	const character =
-		typeof data.character === "string" ? data.character : "unset";
+	const character = useData({ id, prop: "character" });
 
 	return (
 		<div className="flex gap-2 items-center">
