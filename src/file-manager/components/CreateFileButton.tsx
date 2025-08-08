@@ -11,7 +11,13 @@ export function CreateFileButton() {
 	}
 
 	return (
-		<form className="flex gap-2">
+		<form
+			className="flex gap-2"
+			onSubmit={(e) => {
+				e.preventDefault();
+				handleClick();
+			}}
+		>
 			<input
 				placeholder="File name"
 				className="border-2 border-[#3c3c3c] rounded-sm p-2 w-full"
