@@ -1,17 +1,18 @@
 import type { Ref } from "react";
 import type { Position } from "@/nodes/types";
-import { Button } from "@/ui/Button";
 import { Container } from "@/ui/Container";
+import { SpawnOption } from "../options/SpawnOption";
 
 type Props = {
 	position: Position | null;
 	ref: Ref<HTMLDivElement> | null;
+	closeMenu: () => void;
 };
 
-export function Menu({ position, ref }: Props) {
+export function Menu({ position, ref, closeMenu }: Props) {
 	return (
 		<Container
-			className="fixed"
+			className="fixed min-w-80"
 			ref={ref}
 			style={{
 				top: position?.y,
@@ -19,7 +20,7 @@ export function Menu({ position, ref }: Props) {
 			}}
 		>
 			<p>Options</p>
-			<Button onClick={() => {}}>Spawn</Button>
+			<SpawnOption closeMenu={closeMenu} />
 		</Container>
 	);
 }

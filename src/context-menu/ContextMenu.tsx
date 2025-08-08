@@ -36,7 +36,11 @@ export function ContextMenu({ children }: { children: React.ReactNode }) {
 			}}
 		>
 			{children}
-			<Menu position={position} ref={menuRef} />
+			<Menu
+				position={position}
+				ref={menuRef}
+				closeMenu={() => setPosition(null)}
+			/>
 		</div>
 	);
 }
