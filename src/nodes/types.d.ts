@@ -5,3 +5,8 @@ export type ParameterProps = {
 	id: string;
 	data: Record<string, unknown>;
 };
+
+export type Position = {
+	x: number;
+	y: number;
+};
