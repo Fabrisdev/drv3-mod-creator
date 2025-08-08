@@ -25,7 +25,7 @@ export function FileParameter({ id, hideCurrentFile }: Props) {
 	return (
 		<select
 			value={text}
-			className="nodrag resize border-2 border-[#3c3c3c] rounded-sm p-2 min-w-full"
+			className="nodrag resize border-2 border-[#3c3c3c] min-w-full bg-[#3c3c3c] p-1 rounded-sm"
 			onChange={(e) =>
 				updateNodeData(id, { text: e.target.value }, filename as string)
 			}
