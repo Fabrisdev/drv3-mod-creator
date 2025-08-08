@@ -6,7 +6,7 @@ export function FileNode({ id, data }: NodeProps) {
 	return (
 		<Node>
 			<p>File</p>
-			<FileParameter id={id} data={data} />
+			<FileParameter id={id} data={data} hideCurrentFile />
 			<Handle type="target" position={Position.Left} />
 			<Handle type="source" position={Position.Right} />
 		</Node>
