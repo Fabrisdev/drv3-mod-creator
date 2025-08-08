@@ -5,7 +5,7 @@ import { Node } from "./components/Node";
 export function FileNode({ id, data }: NodeProps) {
 	return (
 		<Node>
-			<p>File</p>
+			<p>Switch to file</p>
 			<FileParameter id={id} data={data} hideCurrentFile />
 			<Handle type="target" position={Position.Left} />
 			<Handle type="source" position={Position.Right} />
