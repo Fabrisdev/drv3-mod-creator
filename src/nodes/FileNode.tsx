@@ -1,12 +1,14 @@
-import type { NodeProps } from "@xyflow/react";
+import { Handle, type NodeProps, Position } from "@xyflow/react";
+import { FileParameter } from "./components/FileParameter";
 import { Node } from "./components/Node";
-import { TextParameter } from "./components/TextParameter";
 
 export function FileNode({ id, data }: NodeProps) {
 	return (
 		<Node>
 			<p>File</p>
-			<TextParameter id={id} data={data} placeholder="File to switch to" />
+			<FileParameter id={id} data={data} />
+			<Handle type="target" position={Position.Left} />
+			<Handle type="source" position={Position.Right} />
 		</Node>
 	);
 }
