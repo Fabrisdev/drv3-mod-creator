@@ -1,6 +1,7 @@
 import type { Node } from "@xyflow/react";
 import { useQueryEdges } from "@/nodes/hooks/useQueryEdges";
 import { useQueryNodes } from "@/nodes/hooks/useQueryNodes";
+import type { NodeNameTypes } from "@/nodes/types";
 
 export function useCode() {
 	const nodes = useQueryNodes();
@@ -27,12 +28,14 @@ export function useCode() {
 	}
 
 	function convertNodeToCode(node: Node) {
-		if (node.type === "start") return startNodeToCode();
-		if (node.type === "text") return textNodeToCode(node);
-		if (node.type === "code") return extractTextFromCodeNode(node);
-		if (node.type === "file") return fileNodeToCode(node);
-		if (node.type === "end") return "<END>";
-		return "";
+		const logic: Record<NodeNameTypes, () => string> = {
+			start: startNodeToCode,
+			text: () => textNodeToCode(node),
+			code: () => extractTextFromCodeNode(node),
+			file: () => fileNodeToCode(node),
+			end: () => "<END>",
+		};
+		return logic[node.type as NodeNameTypes]();
 	}
 
 	function fileNodeToCode(node: Node) {
