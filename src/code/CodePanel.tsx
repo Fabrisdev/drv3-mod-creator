@@ -14,7 +14,7 @@ export function CodePanel() {
 	if (!visible) return null;
 	return (
 		<Panel position="top-right">
-			<Node className="whitespace-pre-line opacity-30 hover:opacity-100 duration-150 max-h-160 overflow-scroll max-w-90">
+			<Node className="whitespace-pre-line opacity-30 hover:opacity-100 duration-150 max-h-100 overflow-y-scroll max-w-90 text-sm">
 				<p className="text-center">Code generated</p>
 				<p>{code}</p>
 			</Node>
