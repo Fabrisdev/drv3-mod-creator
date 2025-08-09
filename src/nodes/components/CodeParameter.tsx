@@ -22,7 +22,7 @@ export function CodeParameter({ id, code }: Props) {
 			<Editor
 				value={code}
 				highlight={highlight}
-				className="nodrag resize border-2 border-[#3c3c3c] rounded-sm min-w-50 min-h-30"
+				className="nodrag resize border-2 border-[#3c3c3c] rounded-sm min-w-50 min-h-30 font-mono"
 				onValueChange={(value) =>
 					updateNodeData(id, { text: value }, filename as string)
 				}
