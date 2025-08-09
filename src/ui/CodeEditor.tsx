@@ -30,7 +30,7 @@ export function CodeEditor({ code, disabled, id }: Props) {
 
 	return (
 		<div className="flex">
-			<pre className="text-[#6e7681]">{lines}</pre>
+			<pre className="text-[#6e7681] text-right pr-2">{lines}</pre>
 			<Editor
 				value={code}
 				highlight={highlight}
