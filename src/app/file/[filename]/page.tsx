@@ -13,6 +13,7 @@ import {
 	MiniMap,
 	type NodeChange,
 	ReactFlow,
+	ReactFlowProvider,
 } from "@xyflow/react";
 import { use } from "react";
 import { CodePanel } from "@/code/CodePanel";
@@ -84,32 +85,34 @@ export default function Home({ params }: Props) {
 	}
 
 	return (
-		<ContextMenu>
-			<div className="h-svh">
-				<ReactFlow
-					nodes={nodes}
-					edges={edges}
-					onNodesChange={onNodesChange}
-					onEdgesChange={onEdgesChange}
-					onConnect={onConnect}
-					nodeTypes={nodeTypes}
-					deleteKeyCode={["Backspace", "Delete"]}
-					colorMode="dark"
-					proOptions={{
-						hideAttribution: true,
-					}}
-					defaultEdgeOptions={{ type: defaultEdgeType }}
-					isValidConnection={isValidConnection}
-				>
-					<Background />
-					<Controls />
-					<MiniMap />
-					<NodesPanel />
-					<CodePanel />
-					<CurrentFilePanel />
-				</ReactFlow>
-				<OpenFilePicker />
-			</div>
-		</ContextMenu>
+		<ReactFlowProvider>
+			<ContextMenu>
+				<div className="h-svh">
+					<ReactFlow
+						nodes={nodes}
+						edges={edges}
+						onNodesChange={onNodesChange}
+						onEdgesChange={onEdgesChange}
+						onConnect={onConnect}
+						nodeTypes={nodeTypes}
+						deleteKeyCode={["Backspace", "Delete"]}
+						colorMode="dark"
+						proOptions={{
+							hideAttribution: true,
+						}}
+						defaultEdgeOptions={{ type: defaultEdgeType }}
+						isValidConnection={isValidConnection}
+					>
+						<Background />
+						<Controls />
+						<MiniMap />
+						<NodesPanel />
+						<CodePanel />
+						<CurrentFilePanel />
+					</ReactFlow>
+					<OpenFilePicker />
+				</div>
+			</ContextMenu>
+		</ReactFlowProvider>
 	);
 }

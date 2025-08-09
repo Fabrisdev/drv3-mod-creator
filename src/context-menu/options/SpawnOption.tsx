@@ -1,3 +1,4 @@
+import { useReactFlow } from "@xyflow/react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { nodeNames } from "@/nodes/node-names";
@@ -16,6 +17,7 @@ export function SpawnOption({ closeMenu }: Props) {
 	const { addNode } = useNodes((state) => state.actions);
 	const [nodeSelected, setNodeSelected] = useState<NodeNameTypes>("start");
 	const { filename } = useParams();
+	const { screenToFlowPosition } = useReactFlow();
 
 	const nodeOptions = Object.entries(nodeNames).map(([type, name]) => (
 		<option key={type} value={type}>
@@ -37,10 +39,10 @@ export function SpawnOption({ closeMenu }: Props) {
 					onClick={(e) => {
 						addNode(
 							nodeSelected,
-							{
+							screenToFlowPosition({
 								x: e.clientX,
 								y: e.clientY,
-							},
+							}),
 							filename as string,
 						);
 						closeMenu();
