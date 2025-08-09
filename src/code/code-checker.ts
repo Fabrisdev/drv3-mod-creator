@@ -8,9 +8,9 @@ export function hasErrors(code: string): HasError {
 		const lineWithoutComments = line.split("//")[0].trim();
 		if (lineWithoutComments === "") continue;
 		if (!lineWithoutComments.startsWith("<"))
-			return err(`Missing starting < in line ${i + 1}`);
+			return err(`Missing starting '<' in line ${i + 1}`);
 		if (!lineWithoutComments.endsWith(">"))
-			return err(`Missing ending > in line ${i + 1}`);
+			return err(`Missing ending '>' in line ${i + 1}`);
 	}
 	return ok();
 }
