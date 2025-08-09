@@ -22,7 +22,7 @@ function colorEquals(html: string) {
 
 function colorKeywords(html: string) {
 	const color = "#79AAD6";
-	const keywords = ["LAB", "WAK", "FDS", "FLG"];
+	const keywords = ["LAB", "WAK", "FDS", "FLG", "FIL", "BTN", "LOC"];
 	const regex = new RegExp(`\\b(${keywords.join("|")})\\b`, "g");
 	return html.replace(regex, `<span style="color: ${color}">$1</span>`);
 }
