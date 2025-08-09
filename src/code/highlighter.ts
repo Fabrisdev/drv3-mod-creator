@@ -22,7 +22,31 @@ function colorEquals(html: string) {
 
 function colorKeywords(html: string) {
 	const color = "#79AAD6";
-	const keywords = ["LAB", "WAK", "FDS", "FLG", "FIL", "BTN", "LOC", "END"];
+	const keywords = [
+		"LAB",
+		"WAK",
+		"FDS",
+		"FLG",
+		"FIL",
+		"BTN",
+		"LOC",
+		"END",
+		"SWI",
+		"JMN",
+		"CAS",
+		"LBN",
+		"MAP",
+		"OBJ",
+		"ARE",
+		"MOD",
+		"CHR",
+		"BGO",
+		"LIG",
+		"HUM",
+		"CHK",
+		"JMP",
+		"CHN",
+	];
 	const regex = new RegExp(`\\b(${keywords.join("|")})\\b`, "g");
 	return html.replace(regex, `<span style="color: ${color}">$1</span>`);
 }
