@@ -9,7 +9,7 @@ export function OpenFilePicker() {
 			const target = e.target as HTMLElement;
 			if (target.tagName === "INPUT" || target.tagName === "TEXTAREA") return;
 			if (key === "Escape") setShow(false);
-			if (key === "f") setShow(true);
+			if (key === "f") setShow(!show);
 		}
 
 		window.addEventListener("keydown", handleOpen);
@@ -17,7 +17,7 @@ export function OpenFilePicker() {
 		return () => {
 			window.removeEventListener("keydown", handleOpen);
 		};
-	}, []);
+	}, [show]);
 
 	return show ? (
 		<div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">

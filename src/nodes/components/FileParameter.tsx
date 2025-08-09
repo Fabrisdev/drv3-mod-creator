@@ -1,4 +1,5 @@
 import { useParams } from "next/navigation";
+import { useEffect } from "react";
 import { useShallow } from "zustand/shallow";
 import { useData } from "../hooks/useData";
 import { useNodes } from "../store/store";
@@ -15,12 +16,17 @@ export function FileParameter({ id, hideCurrentFile }: Props) {
 	const filteredFiles = hideCurrentFile
 		? files.filter((file) => file !== filename)
 		: files;
-	const text = useData<string>({ id, prop: "text" });
+	const text = useData({ id, prop: "text" });
 	const filesMapped = filteredFiles.map((file) => (
 		<option value={file} key={file}>
 			{file}
 		</option>
 	));
+
+	useEffect(() => {
+		if (text !== undefined) return;
+		updateNodeData(id, { text: filteredFiles[0] }, filename as string);
+	}, [text, filteredFiles]);
 
 	return (
 		<select

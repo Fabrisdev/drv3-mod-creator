@@ -1,7 +1,7 @@
 import type { Edge, Node } from "@xyflow/react";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { NodeNameTypes } from "../types";
+import type { NodeNameTypes, Position } from "../types";
 
 type Store = {
 	files: Record<
@@ -29,17 +29,12 @@ type Actions = {
 	deleteFile: (fileName: string) => void;
 };
 
-type Position = {
-	x: number;
-	y: number;
-};
-
 export const useNodes = create<Store>()(
 	persist(
 		(set, get) => ({
 			filename: "",
 			files: {},
-			defaultEdgeType: "bezier",
+			defaultEdgeType: "default",
 			actions: {
 				deleteFile: (fileName) => {
 					set((state) => {
@@ -116,7 +111,7 @@ export const useNodes = create<Store>()(
 								: { nodes: [], edges: [] },
 						]),
 					);
-					set({ files: newFiles });
+					set({ files: newFiles, defaultEdgeType: type });
 				},
 			},
 		}),
