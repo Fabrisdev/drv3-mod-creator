@@ -3,11 +3,17 @@ export function highlight(text: string) {
 		.split("\n")
 		.map((line) => {
 			const html = escapeHtml(line);
-			const coloredComments = colorComments(html);
-			const coloredBrackets = colorBrackets(coloredComments);
+			const [beforeComments, ...afterCommentsParts] = html.split("//");
+			const afterComments =
+				afterCommentsParts.length !== 0
+					? `//${afterCommentsParts.join("//")}`
+					: "";
+			const coloredComments = colorComments(afterComments);
+
+			const coloredBrackets = colorBrackets(beforeComments);
 			const coloredKeywords = colorKeywords(coloredBrackets);
 			const coloredEquals = colorEquals(coloredKeywords);
-			return coloredEquals;
+			return coloredEquals + coloredComments;
 		})
 		.join("<br>");
 	return code;
@@ -53,7 +59,7 @@ function colorKeywords(html: string) {
 
 function colorComments(html: string) {
 	const color = "green";
-	return html.replace(/(\/\/.*)/g, `<span style="color: ${color}">$1</span>`);
+	return `<span style="color: ${color}">${html}</span>`;
 }
 
 function colorBrackets(html: string) {
