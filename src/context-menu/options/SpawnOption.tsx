@@ -19,11 +19,13 @@ export function SpawnOption({ closeMenu }: Props) {
 	const { filename } = useParams();
 	const { screenToFlowPosition } = useReactFlow();
 
-	const nodeOptions = Object.entries(nodeNames).map(([type, name]) => (
-		<option key={type} value={type}>
-			{name}
-		</option>
-	));
+	const nodeOptions = Object.entries(nodeNames)
+		.filter(([type, _]) => type !== "start")
+		.map(([type, name]) => (
+			<option key={type} value={type}>
+				{name}
+			</option>
+		));
 
 	return (
 		<Container>
