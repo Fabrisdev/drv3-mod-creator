@@ -34,7 +34,7 @@ export const useNodes = create<Store>()(
 		(set, get) => ({
 			filename: "",
 			files: {},
-			defaultEdgeType: "bezier",
+			defaultEdgeType: "default",
 			actions: {
 				deleteFile: (fileName) => {
 					set((state) => {
@@ -111,7 +111,7 @@ export const useNodes = create<Store>()(
 								: { nodes: [], edges: [] },
 						]),
 					);
-					set({ files: newFiles });
+					set({ files: newFiles, defaultEdgeType: type });
 				},
 			},
 		}),

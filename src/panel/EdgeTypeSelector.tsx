@@ -7,6 +7,7 @@ export function EdgeTypeSelector() {
 	const defaultEdgeType = useNodes((state) => state.defaultEdgeType);
 	const selectId = useId();
 	const { filename } = useParams();
+	console.log(defaultEdgeType);
 
 	return (
 		<div className="flex items-center gap-2">
@@ -17,7 +18,7 @@ export function EdgeTypeSelector() {
 				className="bg-gray-600 p-2 rounded-sm cursor-pointer"
 				onChange={(e) => updateEdgeType(e.target.value, filename as string)}
 			>
-				<option value="bezier">Bezier (default)</option>
+				<option value="default">Bezier (default)</option>
 				<option value="step">Step</option>
 				<option value="smoothstep">Smooth step</option>
 				<option value="straight">Straight</option>
