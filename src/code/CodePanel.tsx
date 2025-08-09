@@ -1,8 +1,7 @@
 import { Panel } from "@xyflow/react";
 import { useEffect, useState } from "react";
-import Editor from "react-simple-code-editor";
+import { CodeEditor } from "@/ui/CodeEditor";
 import { Container } from "@/ui/Container";
-import { highlight } from "./highlighter";
 import { useCode } from "./hooks/useCode";
 
 export function CodePanel() {
@@ -18,12 +17,7 @@ export function CodePanel() {
 		<Panel position="top-right">
 			<Container className="whitespace-pre-line opacity-30 hover:opacity-100 duration-150 max-h-100 overflow-y-scroll max-w-90 text-sm">
 				<p className="text-center">Code generated</p>
-				<Editor
-					value={code}
-					highlight={highlight}
-					disabled
-					onValueChange={() => {}}
-				/>
+				<CodeEditor code={code} disabled />
 			</Container>
 		</Panel>
 	);
