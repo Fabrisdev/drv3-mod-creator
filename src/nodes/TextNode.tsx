@@ -13,8 +13,8 @@ import { useNodes } from "./store/store";
 
 export function TextNode({ id, data }: NodeProps) {
 	const { filename } = useParams();
-	const text = useData({ id, prop: "text" });
-	const character = useData({ id, prop: "character" });
+	const text = useData({ id, prop: "text" }) ?? "";
+	const character = useData({ id, prop: "character" }) ?? "";
 
 	const { updateNodeData } = useNodes((state) => state.actions);
 
