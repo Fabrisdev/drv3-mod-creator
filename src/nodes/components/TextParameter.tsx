@@ -5,17 +5,12 @@ import { useNodes } from "../store/store";
 
 type Props = {
 	id: string;
+	handleChange: (newText: string) => void;
 };
 
-export function TextParameter({ id }: PropsWithChildren<Props>) {
-	const { filename } = useParams();
+export function TextParameter({ id, handleChange }: PropsWithChildren<Props>) {
 	const inputId = useId();
-	const { updateNodeData } = useNodes((store) => store.actions);
 	const text = useData({ id, prop: "text" });
-
-	function handleChange(newText: string) {
-		updateNodeData(id, { text: newText }, filename as string);
-	}
 
 	return (
 		<div className="flex flex-col">
