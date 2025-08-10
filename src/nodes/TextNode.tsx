@@ -16,24 +16,25 @@ import { useNodes } from "./store/store";
 
 export function TextNode({ id, data }: NodeProps) {
 	const { filename } = useParams();
-	const [textMode, setTextMode] = useState<TextMode>("normal");
 	const [outputMode, setOutputMode] = useState<OutputMode>("colored");
 
 	const { updateNodeData } = useNodes((state) => state.actions);
 
-	function handleChange(newText: string) {
+	function handleTextChange(newText: string) {
 		updateNodeData(id, { text: newText }, filename as string);
 	}
+
+	function handleModeChange(mode: TextMode) {}
 
 	return (
 		<Node className=" flex flex-col gap-2">
 			<CharacterParameter id={id} data={data} />
-			<TextModeParameter mode={textMode} handleChange={(m) => setTextMode(m)} />
+			<TextModeParameter handleChange={handleModeChange} />
 			<TextOutputModeParameter
 				mode={outputMode}
 				handleChange={(m) => setOutputMode(m)}
 			/>
-			<TextParameter id={id} handleChange={handleChange} />
+			<TextParameter id={id} handleChange={handleTextChange} />
 
 			<Handle type="target" position={Position.Left} />
 			<Handle type="source" position={Position.Right} />
