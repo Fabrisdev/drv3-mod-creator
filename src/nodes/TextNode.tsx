@@ -1,7 +1,5 @@
 import { Handle, type NodeProps, Position } from "@xyflow/react";
 import { useParams } from "next/navigation";
-import { useState } from "react";
-import { Button } from "@/ui/Button";
 import { CharacterParameter } from "./components/CharacterParameter";
 import { Node } from "./components/Node";
 import {
