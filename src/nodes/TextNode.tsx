@@ -16,19 +16,15 @@ export function TextNode({ id, data }: NodeProps) {
 	const [textMode, setTextMode] = useState<TextMode>("normal");
 	const [outputMode, setOutputMode] = useState<OutputMode>("colored");
 	return (
-		<Node>
-			<div className="flex flex-col gap-2">
-				<CharacterParameter id={id} data={data} />
-				<TextModeParameter
-					mode={textMode}
-					handleChange={(m) => setTextMode(m)}
-				/>
-				<TextOutputModeParameter
-					mode={outputMode}
-					handleChange={(m) => setOutputMode(m)}
-				/>
-				<TextParameter id={id} />
-			</div>
+		<Node className=" flex flex-col gap-2">
+			<CharacterParameter id={id} data={data} />
+			<TextModeParameter mode={textMode} handleChange={(m) => setTextMode(m)} />
+			<TextOutputModeParameter
+				mode={outputMode}
+				handleChange={(m) => setOutputMode(m)}
+			/>
+			<TextParameter id={id} />
+
 			<Handle type="target" position={Position.Left} />
 			<Handle type="source" position={Position.Right} />
 		</Node>
