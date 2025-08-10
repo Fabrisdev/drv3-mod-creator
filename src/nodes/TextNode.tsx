@@ -15,7 +15,6 @@ import { useNodes } from "./store/store";
 
 export function TextNode({ id, data }: NodeProps) {
 	const { filename } = useParams();
-	const [preview, setPreview] = useState(false);
 	const text = useData({ id, prop: "text" });
 
 	const { updateNodeData } = useNodes((state) => state.actions);
@@ -38,14 +37,7 @@ export function TextNode({ id, data }: NodeProps) {
 		<Node className=" flex flex-col gap-2">
 			<CharacterParameter id={id} data={data} />
 			<TextModeParameter handleChange={handleModeChange} />
-			<Button onClick={() => setPreview(!preview)}>
-				{preview ? "Back to edit" : "Preview"}
-			</Button>
-			<TextParameter
-				text={text}
-				handleChange={handleTextChange}
-				preview={preview}
-			/>
+			<TextParameter text={text} handleChange={handleTextChange} />
 			<TextPreview text={text} />
 
 			<Handle type="target" position={Position.Left} />
