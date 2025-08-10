@@ -4,20 +4,13 @@ import { escapeHtml } from "@/code/highlighter";
 
 type Props = {
 	text: string;
-	preview: boolean;
-	handleChange: (newText: string) => void;
 };
 
-export function TextParameter({
-	text,
-	handleChange,
-	preview,
-}: PropsWithChildren<Props>) {
+export function TextPreview({ text }: PropsWithChildren<Props>) {
 	const inputId = useId();
 
 	function highlight(text: string) {
 		const html = escapeHtml(text);
-		if (!preview) return html;
 		return html
 			.replace(
 				/&lt;CLT=cltMIND&gt;([\s\S]*?)(?=&lt;CLT=|$)/g,
@@ -40,17 +33,17 @@ export function TextParameter({
 	return (
 		<div className="flex flex-col">
 			<label htmlFor={inputId} className="text-center w-full">
-				Text
+				Preview
 			</label>
 			<Editor
 				id={inputId}
 				name="text"
 				value={text}
-				className="nodrag resize border-2 border-[#3c3c3c] rounded-sm p-2 min-w-fit min-h-fit select-none"
+				className="nodrag resize border-2 border-[#3c3c3c] rounded-sm p-2 min-w-full min-h-fit select-none"
 				placeholder="Text to display"
-				onValueChange={(text) => handleChange(text)}
+				onValueChange={() => {}}
 				highlight={highlight}
-				disabled={preview}
+				disabled
 			/>
 		</div>
 	);
