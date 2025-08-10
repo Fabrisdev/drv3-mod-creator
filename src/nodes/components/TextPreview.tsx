@@ -15,7 +15,7 @@ export function TextPreview({ character, text }: PropsWithChildren<Props>) {
 	})();
 
 	return (
-		<div className="flex flex-col items-center">
+		<div className="flex flex-col items-center overflow-hidden">
 			<p>Preview</p>
 			<PreviewRenderer character={characterNameImage} text={text} />
 		</div>
