@@ -5,6 +5,7 @@ import Editor from "react-simple-code-editor";
 import { escapeHtml } from "@/code/highlighter";
 
 type Props = {
+	character: string;
 	text: string;
 };
 
@@ -12,7 +13,14 @@ const font = localFont({
 	src: "./Textbox.woff2",
 });
 
-export function TextPreview({ text }: PropsWithChildren<Props>) {
+export function TextPreview({ character, text }: PropsWithChildren<Props>) {
+	const characterNameImage = (() => {
+		console.log(character);
+		if (character.startsWith("C"))
+			return `chara_name_${character.slice(1, 4)}_US`;
+		return "chara_name_999_US";
+	})();
+
 	function highlight(text: string) {
 		const html = escapeHtml(text);
 		return html
@@ -54,11 +62,11 @@ export function TextPreview({ text }: PropsWithChildren<Props>) {
 						className="absolute top-0 left-[10px]"
 					/>
 					<Image
-						src="/text-box/characters/names/maki.png"
+						src={`/text-box/characters/names/${characterNameImage}.png`}
 						alt="Character name text"
 						width={228}
 						height={33}
-						className="absolute top-[-5px] left-[27px]"
+						className="absolute top-[-5px] left-[28px]"
 					/>
 					<Image
 						src="/text-box/effects/day_bar.png"
