@@ -1,7 +1,5 @@
-import { useParams } from "next/navigation";
 import { type PropsWithChildren, useId } from "react";
 import { useData } from "../hooks/useData";
-import { useNodes } from "../store/store";
 
 type Props = {
 	id: string;
