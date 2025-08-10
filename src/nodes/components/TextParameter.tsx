@@ -43,7 +43,7 @@ export function TextParameter({
 				id={inputId}
 				name="text"
 				value={text}
-				className="nodrag resize border-2 border-[#3c3c3c] rounded-sm p-2 min-w-fit min-h-fit font-mono"
+				className="nodrag border-2 border-[#3c3c3c] rounded-sm p-2 min-w-fit min-h-fit font-mono"
 				placeholder="Text to display"
 				onValueChange={(text) => handleChange(text)}
 				highlight={highlight}
