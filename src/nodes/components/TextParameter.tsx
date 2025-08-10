@@ -22,7 +22,7 @@ export function TextParameter({
 			)
 			.replace(
 				/&lt;CLT=cltSTRONG&gt;([\s\S]*?)(?=&lt;CLT=|$)/g,
-				`<span style="font-weight: bold; color: yellow;">&ltCLT=cltSTRONG&gt$1</span>`,
+				`<span style="color: yellow;">&ltCLT=cltSTRONG&gt$1</span>`,
 			)
 			.replace(
 				/&lt;CLT=cltSYSTEM&gt;([\s\S]*?)(?=&lt;CLT=|$)/g,
