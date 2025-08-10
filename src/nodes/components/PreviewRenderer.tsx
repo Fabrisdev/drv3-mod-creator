@@ -51,13 +51,16 @@ export function PreviewRenderer({ character, text }: Props) {
 					height={30}
 					className="absolute top-0 left-[10px]"
 				/>
-				<Image
-					src={`/text-box/characters/names/${character}.png`}
-					alt="Character name text"
-					width={228}
-					height={33}
-					className="absolute top-[-5px] left-[28px]"
-				/>
+				{character && (
+					<Image
+						src={`/text-box/characters/names/${character}.png`}
+						alt="Character name text"
+						width={228}
+						height={33}
+						className="absolute top-[-5px] left-[28px]"
+					/>
+				)}
+
 				<Image
 					src="/text-box/effects/day_bar.png"
 					alt="Right bar"

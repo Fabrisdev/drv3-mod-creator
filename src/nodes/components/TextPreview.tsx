@@ -8,7 +8,7 @@ type Props = {
 
 export function TextPreview({ character, text }: PropsWithChildren<Props>) {
 	const characterNameImage = (() => {
-		console.log(character);
+		if (character === "chara_Blank") return "";
 		if (character.startsWith("C"))
 			return `chara_name_${character.slice(1, 4)}_US`;
 		return "chara_name_999_US";
