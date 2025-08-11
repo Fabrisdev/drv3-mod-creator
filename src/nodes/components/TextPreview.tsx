@@ -14,6 +14,7 @@ export function TextPreview({
 }: PropsWithChildren<Props>) {
 	const characterNameImage = (() => {
 		if (character === "unset" || character === "") {
+			if (previousCharacter === "har") return "chara_name_999_US";
 			if (previousCharacter === undefined) return "";
 			return `chara_name_${previousCharacter}_US`;
 		}
