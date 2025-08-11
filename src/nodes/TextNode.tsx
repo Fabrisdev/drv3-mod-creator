@@ -61,19 +61,20 @@ export function TextNode({ id, data }: NodeProps) {
 	}
 
 	const previousCharacter = extractPreviousCharacter(code);
-	const shouldShowWarning =
-		previousCharacter === undefined && ["", "unset"].includes(character);
+	const warning = (() => {
+		if (previousCharacter === undefined && ["", "unset"].includes(character))
+			return "⚠️ No previous speaking character found. If you have set this in another file you can ignore this message";
+		const lines = text.split("\n");
+		if (lines.some((line) => line.length > 39))
+			return "⚠️ Lines are too long. Text may get squished when rendering in-game";
+		if (lines.length > 2)
+			return "⚠️ More than 2 new lines used. Text might render outside textbox. Consider adding another Text node instead";
+		return "";
+	})();
 
 	return (
-		<Node
-			className={`flex flex-col gap-2 ${shouldShowWarning && "border-yellow-500"}`}
-		>
-			{shouldShowWarning && (
-				<p>
-					⚠️ No previous speaking character found. If you have set this in
-					another file you can ignore this message
-				</p>
-			)}
+		<Node className={`flex flex-col gap-2 ${warning && "border-yellow-500"}`}>
+			{warning && <p>{warning}</p>}
 			<CharacterParameter id={id} data={data} />
 			<TextModeParameter handleChange={handleModeChange} />
 			<TextParameter
