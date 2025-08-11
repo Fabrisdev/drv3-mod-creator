@@ -5,14 +5,15 @@ import { escapeHtml } from "@/code/highlighter";
 type Props = {
 	text: string;
 	handleChange: (newText: string) => void;
+	onSelect: (e: React.SyntheticEvent<HTMLDivElement, Event>) => void;
 };
 
 export function TextParameter({
 	text,
 	handleChange,
+	onSelect,
 }: PropsWithChildren<Props>) {
 	const inputId = useId();
-
 	function highlight(text: string) {
 		const html = escapeHtml(text);
 		return html
@@ -47,6 +48,7 @@ export function TextParameter({
 				placeholder="Text to display"
 				onValueChange={(text) => handleChange(text)}
 				highlight={highlight}
+				onSelect={onSelect}
 			/>
 		</div>
 	);
