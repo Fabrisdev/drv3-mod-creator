@@ -1,16 +1,19 @@
-import type { Node } from "@xyflow/react";
+import type { Edge, Node } from "@xyflow/react";
+import type { TypedNode } from "@/nodes/store/store";
 import type { NodeNameTypes } from "@/nodes/types";
+import { findNextNode, generateCodeFromNode } from "./node-helper";
 
-export function convertNodeToCode(node: Node) {
-	const logic: Record<NodeNameTypes, () => string> = {
+type SimpleNodes = Exclude<NodeNameTypes, "switch">;
+
+export function convertSimpleNodeToCode(node: Node) {
+	const logic: Record<SimpleNodes, () => string> = {
 		start: startNodeToCode,
 		text: () => textNodeToCode(node),
 		code: () => extractTextFromCodeNode(node),
 		file: () => fileNodeToCode(node),
 		end: () => "<END>",
-		switch: () => switchNodeToCode(node),
 	};
-	return logic[node.type as NodeNameTypes]();
+	return logic[node.type as SimpleNodes]();
 }
 
 function fileNodeToCode(node: Node) {
@@ -51,8 +54,40 @@ function startNodeToCode() {
 	].join("\n");
 }
 
-function switchNodeToCode(node: Node) {
-	const value = typeof node.data.value === "string" ? node.data.value : "";
+export function generateSwitchCode(_node: Node, nodes: Node[], edges: Edge[]) {
+	const node = _node as TypedNode;
+	const output = [`<SWI ${node.data.variable}>`];
+	if (node.data.cases === undefined) {
+		output.push("<END>");
+		return output.join("\n");
+	}
+	for (let i = 0; i < node.data.cases.length; i++) {
+		const c = node.data.cases[i];
+		output.push(`<CAS ${c.value}>`);
+		const target = findNodeConnectedByHandle(c.id, nodes, edges);
+		if (target) generateCodeFromNode(target.id, nodes, edges);
+		output.push(`<END>`);
+	}
 
-	return [`<SWI ${value}>`, "<END>"].join("\n");
+	const defaultTarget = findNodeConnectedByHandle(
+		`${node.id}-default`,
+		nodes,
+		edges,
+	);
+	output.push(`<CAS 65535>`);
+	if (defaultTarget) {
+		output.push(generateCodeFromNode(defaultTarget.id, nodes, edges));
+	}
+	output.push("<END>");
+	return output.join("\n");
+}
+
+export function findNodeConnectedByHandle(
+	handleId: string,
+	nodes: Node[],
+	edges: Edge[],
+) {
+	const edge = edges.find((e) => e.sourceHandle === handleId);
+	if (edge === undefined) return;
+	return nodes.find((n) => n.id === edge.target);
 }

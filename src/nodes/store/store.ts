@@ -19,9 +19,10 @@ type Store = {
 
 export interface TypedNode extends Node {
 	data: {
-		cases: Case[] | undefined;
-		text: string | undefined;
-		character: string | undefined;
+		variable?: string;
+		cases?: Case[];
+		text?: string;
+		character?: string;
 	};
 }
 
