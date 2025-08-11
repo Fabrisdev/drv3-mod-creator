@@ -8,16 +8,24 @@ import { useData } from "./hooks/useData";
 import { useNodes } from "./store/store";
 
 export function SwitchNode({ id }: NodeProps) {
-	const { addCase, updateCase } = useNodes((state) => state.actions);
+	const { addCase, updateCase, updateSwitchVariable } = useNodes(
+		(state) => state.actions,
+	);
 	const { filename } = useParams();
 	const cases = useData({ id, prop: "cases" }) ?? [];
+	const variable = useData({ id, prop: "variable" });
 
 	return (
 		<Node className="flex flex-col gap-1 p-4">
 			<p className="text-center">Switch</p>
 			<div className="flex gap-2 items-center">
 				<p>Value</p>
-				<Select>
+				<Select
+					onChange={(newVariable) =>
+						updateSwitchVariable(id, filename as string, newVariable)
+					}
+					value={variable}
+				>
 					<option value="wak050_scene">wak050_scene</option>
 					<option value="wak051_detail">wak051_detail</option>
 				</Select>

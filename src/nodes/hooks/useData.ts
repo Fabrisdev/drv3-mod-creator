@@ -6,9 +6,10 @@ export type Case = {
 };
 
 type Properties = {
-	text: string;
-	character: string;
-	cases: Case[];
+	text?: string;
+	character?: string;
+	cases?: Case[];
+	variable?: string;
 };
 
 type Props<K extends keyof Properties> = {

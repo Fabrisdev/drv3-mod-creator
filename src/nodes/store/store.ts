@@ -44,6 +44,11 @@ type Actions = {
 		caseId: string,
 		newValue: string,
 	) => void;
+	updateSwitchVariable: (
+		switchId: string,
+		fileName: string,
+		variable: string,
+	) => void;
 };
 
 export const useNodes = create<Store>()(
@@ -177,6 +182,21 @@ export const useNodes = create<Store>()(
 						]),
 					);
 					set({ files: newFiles, defaultEdgeType: type });
+				},
+				updateSwitchVariable: (switchId, fileName, variable) => {
+					const files = get().files;
+					const file = files[fileName] ?? {
+						nodes: [],
+						edges: [],
+					};
+					const nodes = file.nodes;
+					const newNodes = nodes.map((node) => {
+						if (node.id !== switchId) return node;
+						const data = node.data;
+						return { ...node, data: { ...data, variable } };
+					});
+					const { setNodes } = get().actions;
+					setNodes(newNodes, fileName);
 				},
 			},
 		}),

@@ -65,7 +65,7 @@ export function generateSwitchCode(_node: Node, nodes: Node[], edges: Edge[]) {
 		const c = node.data.cases[i];
 		output.push(`<CAS ${c.value}>`);
 		const target = findNodeConnectedByHandle(c.id, nodes, edges);
-		if (target) generateCodeFromNode(target.id, nodes, edges);
+		if (target) output.push(generateCodeFromNode(target.id, nodes, edges));
 		output.push(`<END>`);
 	}
 
