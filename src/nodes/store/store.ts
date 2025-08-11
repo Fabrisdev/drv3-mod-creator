@@ -123,31 +123,16 @@ export const useNodes = create<Store>()(
 					const nodes = file.nodes;
 					const newNodes = nodes.map((node) => {
 						if (node.id !== nodeId) return node;
-						const cases = node.data.cases;
-						if (cases === undefined)
-							return {
-								...node,
-								data: {
-									...node.data,
-									cases: [
-										{
-											id: `${nodeId}-0`,
-											value: "",
-										},
-									],
-								},
-							};
+						const cases = node.data.cases ?? [];
+						const newCase = {
+							id: `${nodeId}-${cases.length}`,
+							value: "",
+						};
 						return {
 							...node,
 							data: {
 								...node.data,
-								cases: [
-									...cases,
-									{
-										id: `${nodeId}-${cases.length}`,
-										value: "",
-									},
-								],
+								cases: [...cases, newCase],
 							},
 						};
 					});
