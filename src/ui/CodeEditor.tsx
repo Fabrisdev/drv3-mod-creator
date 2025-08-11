@@ -35,7 +35,7 @@ export function CodeEditor({ code, disabled, id }: Props) {
 				value={code}
 				highlight={highlight}
 				disabled={disabled}
-				className="nodrag resize border-2 border-[#3c3c3c] rounded-sm min-w-max min-h-max font-mono"
+				className="nodrag resize border-2 border-[#3c3c3c] rounded-sm min-w-fit min-h-fit w-80 h-50 font-mono"
 				onValueChange={(value) => handleChange(value)}
 			/>
 		</div>
