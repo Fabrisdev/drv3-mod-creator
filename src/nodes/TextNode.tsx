@@ -65,7 +65,12 @@ export function TextNode({ id, data }: NodeProps) {
 		if (previousCharacter === undefined && ["", "unset"].includes(character))
 			return "⚠️ No previous speaking character found. If you have set this in another file you can ignore this message";
 		const lines = text.split("\n");
-		if (lines.some((line) => line.length > 39))
+		if (
+			lines.some((line) => {
+				const lineWithoutSpecialSymbols = line.replace(/<CLT=[^>]+>/g, "");
+				return lineWithoutSpecialSymbols.length > 36;
+			})
+		)
 			return "⚠️ Lines are too long. Text may get squished when rendering in-game";
 		if (lines.length > 2)
 			return "⚠️ More than 2 new lines used. Text might render outside textbox. Consider adding another Text node instead";
