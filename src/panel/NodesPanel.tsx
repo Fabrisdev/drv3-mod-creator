@@ -39,6 +39,7 @@ export function NodesPanel() {
 				<NodeOption type="text">Add Text node</NodeOption>
 				<NodeOption type="code">Add Code node</NodeOption>
 				<NodeOption type="file">Add File node</NodeOption>
+				<NodeOption type="switch">Add Switch node</NodeOption>
 				<NodeOption type="end">Add End node</NodeOption>
 				<hr />
 				<p>Options</p>

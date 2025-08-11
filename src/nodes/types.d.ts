@@ -1,5 +1,11 @@
 import type { JSX } from "react";
-export type NodeNameTypes = "text" | "start" | "end" | "code" | "file";
+export type NodeNameTypes =
+	| "text"
+	| "start"
+	| "end"
+	| "code"
+	| "file"
+	| "switch";
 export type NodeTypes = Record<NodeNameTypes, (unknown) => JSX.Element>;
 export type ParameterProps = {
 	id: string;

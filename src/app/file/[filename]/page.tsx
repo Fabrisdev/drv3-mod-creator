@@ -32,6 +32,7 @@ import type { Node } from "@xyflow/react";
 import { ContextMenu } from "@/context-menu/ContextMenu";
 import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
 import { FileNode } from "@/nodes/FileNode";
+import { SwitchNode } from "@/nodes/SwitchNode";
 
 type Props = {
 	params: Promise<{ filename: string }>;
@@ -52,6 +53,7 @@ export default function Home({ params }: Props) {
 		end: EndNode,
 		code: CodeNode,
 		file: FileNode,
+		switch: SwitchNode,
 	};
 
 	function onNodesChange(changes: NodeChange[]) {
