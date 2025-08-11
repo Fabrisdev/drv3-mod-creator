@@ -4,13 +4,20 @@ import { Input } from "@/ui/Input";
 
 type Props = {
 	id: string;
+	value: string;
+	onChange: (newValue: string) => void;
 };
 
-export function SwitchCase({ id, children }: PropsWithChildren<Props>) {
+export function SwitchCase({
+	id,
+	children,
+	value,
+	onChange,
+}: PropsWithChildren<Props>) {
 	return (
 		<div className="flex gap-2 items-center justify-between relative">
 			<p>{children ? children : "Case"}</p>
-			<Input placeholder="..." />
+			<Input placeholder="..." value={value} onChange={onChange} />
 			<Handle
 				type="source"
 				position={Position.Right}

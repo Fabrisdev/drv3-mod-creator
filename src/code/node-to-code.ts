@@ -8,6 +8,7 @@ export function convertNodeToCode(node: Node) {
 		code: () => extractTextFromCodeNode(node),
 		file: () => fileNodeToCode(node),
 		end: () => "<END>",
+		switch: () => switchNodeToCode(node),
 	};
 	return logic[node.type as NodeNameTypes]();
 }
@@ -48,4 +49,10 @@ function startNodeToCode() {
 		"<FDS fadeInStop fdColBlack Speed060>",
 		"<FLG on flgTexWindow>",
 	].join("\n");
+}
+
+function switchNodeToCode(node: Node) {
+	const value = typeof node.data.value === "string" ? node.data.value : "";
+
+	return [`<SWI ${value}>`, "<END>"].join("\n");
 }

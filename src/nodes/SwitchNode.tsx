@@ -1,12 +1,16 @@
-import { Handle, Position } from "@xyflow/react";
-import { useState } from "react";
+import { Handle, type NodeProps, Position } from "@xyflow/react";
 import { Button } from "@/ui/Button";
 import { Select } from "@/ui/Select";
 import { Node } from "./components/Node";
 import { SwitchCase } from "./components/SwitchCase";
+import { useData } from "./hooks/useData";
 
-export function SwitchNode() {
-	const [cases, setCases] = useState(["a", "b"]);
+export function SwitchNode({ id }: NodeProps) {
+	const cases = useData({ id, prop: "cases" }) ?? [
+		{ id: `${id}-0`, value: "" },
+		{ id: `${id}-1`, value: "" },
+	];
+
 	return (
 		<Node className="flex flex-col gap-1 p-4">
 			<p className="text-center">Switch</p>
@@ -19,12 +23,23 @@ export function SwitchNode() {
 			</div>
 			<p className="text-center">Cases</p>
 			{cases.map((c) => (
-				<SwitchCase id={c} key={c} />
+				<SwitchCase
+					id={c.id}
+					key={c.id}
+					value={c.value}
+					onChange={(newValue) => {}}
+				/>
 			))}
-			<SwitchCase id="c">Default</SwitchCase>
-			<Button onClick={() => setCases([...cases, crypto.randomUUID()])}>
-				Add case
-			</Button>
+			<div className="relative">
+				<p>Default</p>
+				<Handle
+					type="source"
+					position={Position.Right}
+					id={`${id}-default`}
+					style={{ right: "-8px " }}
+				/>
+			</div>
+			<Button onClick={() => {}}>Add case</Button>
 			<Handle type="target" position={Position.Left} />
 		</Node>
 	);

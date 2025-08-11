@@ -23,7 +23,7 @@ import { EndNode } from "@/nodes/EndNode";
 import { useQueryEdges } from "@/nodes/hooks/useQueryEdges";
 import { useQueryNodes } from "@/nodes/hooks/useQueryNodes";
 import { StartNode } from "@/nodes/StartNode";
-import { useNodes } from "@/nodes/store/store";
+import { type TypedNode, useNodes } from "@/nodes/store/store";
 import { TextNode } from "@/nodes/TextNode";
 import type { NodeTypes } from "@/nodes/types";
 import { NodesPanel } from "@/panel/NodesPanel";
@@ -57,7 +57,7 @@ export default function Home({ params }: Props) {
 	};
 
 	function onNodesChange(changes: NodeChange[]) {
-		setNodes(applyNodeChanges(changes, nodes), filename);
+		setNodes(applyNodeChanges(changes, nodes) as TypedNode[], filename);
 	}
 
 	function onEdgesChange(changes: EdgeChange[]) {

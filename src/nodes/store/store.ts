@@ -1,13 +1,14 @@
 import type { Edge, Node } from "@xyflow/react";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { Case } from "../hooks/useData";
 import type { NodeNameTypes, Position } from "../types";
 
 type Store = {
 	files: Record<
 		string,
 		| {
-				nodes: Node[];
+				nodes: TypedNode[];
 				edges: Edge[];
 		  }
 		| undefined
@@ -16,8 +17,16 @@ type Store = {
 	actions: Actions;
 };
 
+export interface TypedNode extends Node {
+	data: {
+		cases: Case[] | undefined;
+		text: string | undefined;
+		character: string | undefined;
+	};
+}
+
 type Actions = {
-	setNodes: (nodes: Node[], fileName: string) => void;
+	setNodes: (nodes: TypedNode[], fileName: string) => void;
 	setEdges: (edges: Edge[], fileName: string) => void;
 	addNode: (node: NodeNameTypes, position: Position, fileName: string) => void;
 	updateNodeData: (
@@ -27,6 +36,13 @@ type Actions = {
 	) => void;
 	updateEdgeType: (type: string, fileName: string) => void;
 	deleteFile: (fileName: string) => void;
+	addCase: (nodeId: string, fileName: string, newCase: Case) => void;
+	updateCase: (
+		nodeId: string,
+		fileName: string,
+		caseId: string,
+		newValue: string,
+	) => void;
 };
 
 export const useNodes = create<Store>()(
@@ -64,12 +80,12 @@ export const useNodes = create<Store>()(
 					set({ files: newFiles });
 				},
 				addNode: (node, position, fileName) => {
-					const newNode: Node = {
+					const newNode = {
 						id: crypto.randomUUID(),
 						position,
 						type: node,
 						data: {},
-					};
+					} as TypedNode;
 					if (node === "code" || node === "text") {
 						newNode.data.text = "";
 					}
@@ -98,6 +114,31 @@ export const useNodes = create<Store>()(
 					const { setNodes } = get().actions;
 					setNodes(newNodes, fileName);
 				},
+				addCase: (nodeId, fileName, newCase) => {
+					const files = get().files;
+					const file = files[fileName] ?? {
+						nodes: [],
+						edges: [],
+					};
+					const nodes = file.nodes;
+
+					const newNodes = nodes.map((node) => {
+						if (node.id !== nodeId) return node;
+						const cases = node.data.cases;
+						if (cases === undefined)
+							return {
+								...node,
+								data: { ...node.data, cases: [newCase] },
+							};
+						return {
+							...node,
+							data: { ...node.data, cases: [...cases, newCase] },
+						};
+					});
+					const { setNodes } = get().actions;
+					setNodes(newNodes, fileName);
+				},
+				updateCase: (nodeId, fileName, caseId, newValue) => {},
 				updateEdgeType: (type) => {
 					const files = get().files;
 					const newFiles = Object.fromEntries(
