@@ -33,6 +33,10 @@ export function TextNode({ id, data }: NodeProps) {
 			thinking: "<CLT=cltMIND>",
 			strong: "<CLT=cltSTRONG>",
 			system: "<CLT=cltSYSTEM>",
+			"circle-button": "<PAD=【○】>",
+			"cross-button": "<PAD=【×】>",
+			"triangle-button": "<PAD=【△】>",
+			"square-button": "<PAD=【□】>",
 		};
 		const textToAdd = modes[mode];
 		const selectionStart = textareaRef.current?.selectionStart ?? 0;

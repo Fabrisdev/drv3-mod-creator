@@ -31,6 +31,22 @@ export function PreviewRenderer({ character, text }: Props) {
 			.replace(
 				/&lt;CLT=cltNORMAL&gt;([\s\S]*?)(?=&lt;CLT=|$)/g,
 				`<span style="color: white;">$1</span>`,
+			)
+			.replace(
+				/&lt;PAD=【×】&gt;/g,
+				`<img src="/special-symbols/005_sys_cross.png" alt="X" style="display:inline; width:32px; height:32px;" />`,
+			)
+			.replace(
+				/&lt;PAD=【○】&gt;/g,
+				`<img src="/special-symbols/002_sys_circle.png" alt="X" style="display:inline; width:32px; height:32px;" />`,
+			)
+			.replace(
+				/&lt;PAD=【□】&gt;/g,
+				`<img src="/special-symbols/003_sys_square.png" alt="X" style="display:inline; width:32px; height:32px;" />`,
+			)
+			.replace(
+				/&lt;PAD=【△】&gt;/g,
+				`<img src="/special-symbols/004_sys_triangle.png" alt="X" style="display:inline; width:32px; height:32px;" />`,
 			);
 	}
 
