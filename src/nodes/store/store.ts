@@ -36,7 +36,7 @@ type Actions = {
 	) => void;
 	updateEdgeType: (type: string, fileName: string) => void;
 	deleteFile: (fileName: string) => void;
-	addCase: (nodeId: string, fileName: string, newCase: Case) => void;
+	addCase: (nodeId: string, fileName: string) => void;
 	updateCase: (
 		nodeId: string,
 		fileName: string,
@@ -114,31 +114,69 @@ export const useNodes = create<Store>()(
 					const { setNodes } = get().actions;
 					setNodes(newNodes, fileName);
 				},
-				addCase: (nodeId, fileName, newCase) => {
+				addCase: (nodeId, fileName) => {
 					const files = get().files;
 					const file = files[fileName] ?? {
 						nodes: [],
 						edges: [],
 					};
 					const nodes = file.nodes;
-
 					const newNodes = nodes.map((node) => {
 						if (node.id !== nodeId) return node;
 						const cases = node.data.cases;
 						if (cases === undefined)
 							return {
 								...node,
-								data: { ...node.data, cases: [newCase] },
+								data: {
+									...node.data,
+									cases: [
+										{
+											id: `${nodeId}-0`,
+											value: "",
+										},
+									],
+								},
 							};
 						return {
 							...node,
-							data: { ...node.data, cases: [...cases, newCase] },
+							data: {
+								...node.data,
+								cases: [
+									...cases,
+									{
+										id: `${nodeId}-${cases.length}`,
+										value: "",
+									},
+								],
+							},
 						};
 					});
 					const { setNodes } = get().actions;
 					setNodes(newNodes, fileName);
 				},
-				updateCase: (nodeId, fileName, caseId, newValue) => {},
+				updateCase: (nodeId, fileName, caseId, newValue) => {
+					const files = get().files;
+					const file = files[fileName] ?? {
+						nodes: [],
+						edges: [],
+					};
+					const nodes = file.nodes;
+					const newNodes = nodes.map((node) => {
+						if (node.id !== nodeId) return node;
+						const cases = node.data.cases;
+						if (cases === undefined) return node;
+						const newCases = cases.map((c) => {
+							if (c.id !== caseId) return c;
+							return { ...c, value: newValue };
+						});
+						return {
+							...node,
+							data: { ...node.data, cases: newCases },
+						};
+					});
+					const { setNodes } = get().actions;
+					setNodes(newNodes, fileName);
+				},
 				updateEdgeType: (type) => {
 					const files = get().files;
 					const newFiles = Object.fromEntries(

@@ -17,7 +17,7 @@ export function SwitchCase({
 	return (
 		<div className="flex gap-2 items-center justify-between relative">
 			<p>{children ? children : "Case"}</p>
-			<Input placeholder="..." value={value} onChange={onChange} />
+			<Input placeholder={id.slice(30)} value={value} onChange={onChange} />
 			<Handle
 				type="source"
 				position={Position.Right}

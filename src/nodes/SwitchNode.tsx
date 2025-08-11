@@ -1,15 +1,16 @@
 import { Handle, type NodeProps, Position } from "@xyflow/react";
+import { useParams } from "next/navigation";
 import { Button } from "@/ui/Button";
 import { Select } from "@/ui/Select";
 import { Node } from "./components/Node";
 import { SwitchCase } from "./components/SwitchCase";
 import { useData } from "./hooks/useData";
+import { useNodes } from "./store/store";
 
 export function SwitchNode({ id }: NodeProps) {
-	const cases = useData({ id, prop: "cases" }) ?? [
-		{ id: `${id}-0`, value: "" },
-		{ id: `${id}-1`, value: "" },
-	];
+	const { addCase, updateCase } = useNodes((state) => state.actions);
+	const { filename } = useParams();
+	const cases = useData({ id, prop: "cases" }) ?? [];
 
 	return (
 		<Node className="flex flex-col gap-1 p-4">
@@ -27,7 +28,9 @@ export function SwitchNode({ id }: NodeProps) {
 					id={c.id}
 					key={c.id}
 					value={c.value}
-					onChange={(newValue) => {}}
+					onChange={(newValue) =>
+						updateCase(id, filename as string, c.id, newValue)
+					}
 				/>
 			))}
 			<div className="relative">
@@ -39,7 +42,13 @@ export function SwitchNode({ id }: NodeProps) {
 					style={{ right: "-8px " }}
 				/>
 			</div>
-			<Button onClick={() => {}}>Add case</Button>
+			<Button
+				onClick={() => {
+					addCase(id, filename as string);
+				}}
+			>
+				Add case
+			</Button>
 			<Handle type="target" position={Position.Left} />
 		</Node>
 	);
