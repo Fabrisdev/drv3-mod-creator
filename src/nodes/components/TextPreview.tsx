@@ -1,32 +1,19 @@
 import type { PropsWithChildren } from "react";
-import { useCode } from "@/code/hooks/useCode";
 import { PreviewRenderer } from "./PreviewRenderer";
 
 type Props = {
 	character: string;
 	text: string;
+	previousCharacter: string | undefined;
 };
 
-export function TextPreview({ character, text }: PropsWithChildren<Props>) {
-	const { code } = useCode();
-
-	function extractPreviousCharacter() {
-		const regex = /<CHN\s+([^>]+)>/g;
-
-		const matches = [...code.matchAll(regex)];
-		if (matches.length === 0) {
-			return;
-		} else {
-			const lastChn = matches[matches.length - 1][1];
-			return lastChn.slice(1, 4);
-		}
-	}
-
+export function TextPreview({
+	character,
+	text,
+	previousCharacter,
+}: PropsWithChildren<Props>) {
 	const characterNameImage = (() => {
-		console.log(character);
-
 		if (character === "unset" || character === "") {
-			const previousCharacter = extractPreviousCharacter();
 			if (previousCharacter === undefined) return "";
 			return `chara_name_${previousCharacter}_US`;
 		}

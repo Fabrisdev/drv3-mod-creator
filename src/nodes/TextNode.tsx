@@ -1,6 +1,8 @@
 import { Handle, type NodeProps, Position } from "@xyflow/react";
 import { useParams } from "next/navigation";
 import { useRef } from "react";
+import { extractPreviousCharacter } from "@/code/chara-helper";
+import { useCode } from "@/code/hooks/useCode";
 import { CharacterParameter } from "./components/CharacterParameter";
 import { Node } from "./components/Node";
 import {
@@ -17,6 +19,7 @@ export function TextNode({ id, data }: NodeProps) {
 	const text = useData({ id, prop: "text" }) ?? "";
 	const character = useData({ id, prop: "character" }) ?? "";
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
+	const { code } = useCode();
 
 	const { updateNodeData } = useNodes((state) => state.actions);
 
@@ -53,8 +56,20 @@ export function TextNode({ id, data }: NodeProps) {
 		textareaRef.current = target;
 	}
 
+	const previousCharacter = extractPreviousCharacter(code);
+	const shouldShowWarning =
+		previousCharacter === undefined && ["", "unset"].includes(character);
+
 	return (
-		<Node className=" flex flex-col gap-2">
+		<Node
+			className={`flex flex-col gap-2 ${shouldShowWarning && "border-yellow-500"}`}
+		>
+			{shouldShowWarning && (
+				<p>
+					⚠️ No previous speaking character found. If you have set this in
+					another file you can ignore this message
+				</p>
+			)}
 			<CharacterParameter id={id} data={data} />
 			<TextModeParameter handleChange={handleModeChange} />
 			<TextParameter
@@ -62,7 +77,11 @@ export function TextNode({ id, data }: NodeProps) {
 				handleChange={handleTextChange}
 				onSelect={onSelect}
 			/>
-			<TextPreview character={character} text={text} />
+			<TextPreview
+				character={character}
+				text={text}
+				previousCharacter={previousCharacter}
+			/>
 
 			<Handle type="target" position={Position.Left} />
 			<Handle type="source" position={Position.Right} />
