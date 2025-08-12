@@ -13,7 +13,7 @@ export function SwitchNode({ id }: NodeProps) {
 	);
 	const { filename } = useParams();
 	const cases = useData({ id, prop: "cases" }) ?? [];
-	const variable = useData({ id, prop: "variable" });
+	const variable = useData({ id, prop: "variable" }) ?? "wak050_scene";
 
 	return (
 		<Node className="flex flex-col gap-1 p-4">
