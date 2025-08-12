@@ -1,7 +1,7 @@
 import type { Edge, Node } from "@xyflow/react";
 import type { TypedNode } from "@/nodes/store/store";
 import type { NodeNameTypes } from "@/nodes/types";
-import { findNextNode, generateCodeFromNode } from "./node-helper";
+import { generateCodeFromNode } from "./node-helper";
 
 type SimpleNodes = Exclude<NodeNameTypes, "switch">;
 
