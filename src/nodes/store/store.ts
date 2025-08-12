@@ -86,14 +86,28 @@ export const useNodes = create<Store>()(
 					set({ files: newFiles });
 				},
 				addNode: (node, position, fileName) => {
+					const generatedId = crypto.randomUUID();
 					const newNode = {
-						id: crypto.randomUUID(),
+						id: generatedId,
 						position,
 						type: node,
 						data: {},
 					} as TypedNode;
 					if (node === "code" || node === "text") {
 						newNode.data.text = "";
+					}
+					if (node === "switch") {
+						newNode.data.cases = [
+							{
+								id: `${generatedId}-0`,
+								value: "",
+							},
+							{
+								id: `${generatedId}-1`,
+								value: "",
+							},
+						];
+						newNode.data.variable = "wak050_scene";
 					}
 					const files = get().files;
 					const file = files[fileName] ?? {
