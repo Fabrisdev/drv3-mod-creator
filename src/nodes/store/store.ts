@@ -49,6 +49,7 @@ type Actions = {
 		fileName: string,
 		variable: string,
 	) => void;
+	removeCase: (switchId: string, fileName: string, caseId: string) => void;
 };
 
 export const useNodes = create<Store>()(
@@ -145,7 +146,7 @@ export const useNodes = create<Store>()(
 						if (node.id !== nodeId) return node;
 						const cases = node.data.cases ?? [];
 						const newCase = {
-							id: `${nodeId}-${cases.length}`,
+							id: crypto.randomUUID(),
 							value: "",
 						};
 						return {
@@ -211,6 +212,28 @@ export const useNodes = create<Store>()(
 					});
 					const { setNodes } = get().actions;
 					setNodes(newNodes, fileName);
+				},
+				removeCase: (switchId, fileName, caseId) => {
+					const files = get().files;
+					const file = files[fileName] ?? {
+						nodes: [],
+						edges: [],
+					};
+					const nodes = file.nodes;
+					const newNodes = nodes.map((node) => {
+						if (node.id !== switchId) return node;
+						const data = node.data;
+						if (data.cases === undefined) return node;
+						const newCases = data.cases.filter((c) => c.id !== caseId);
+						const newData = { ...data, cases: newCases };
+						return { ...node, data: newData };
+					});
+					const filteredEdges = file.edges.filter(
+						(edge) => edge.sourceHandle !== caseId,
+					);
+					const { setNodes, setEdges } = get().actions;
+					setNodes(newNodes, fileName);
+					setEdges(filteredEdges, fileName);
 				},
 			},
 		}),
