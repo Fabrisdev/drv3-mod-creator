@@ -1,8 +1,15 @@
 import { useQueryNodes } from "./useQueryNodes";
 
+export type Case = {
+	id: string;
+	value: string;
+};
+
 type Properties = {
-	text: string;
-	character: string;
+	text?: string;
+	character?: string;
+	cases?: Case[];
+	variable?: string;
 };
 
 type Props<K extends keyof Properties> = {

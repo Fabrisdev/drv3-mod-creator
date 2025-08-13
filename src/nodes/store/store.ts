@@ -1,13 +1,14 @@
 import type { Edge, Node } from "@xyflow/react";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { Case } from "../hooks/useData";
 import type { NodeNameTypes, Position } from "../types";
 
 type Store = {
 	files: Record<
 		string,
 		| {
-				nodes: Node[];
+				nodes: TypedNode[];
 				edges: Edge[];
 		  }
 		| undefined
@@ -16,8 +17,17 @@ type Store = {
 	actions: Actions;
 };
 
+export interface TypedNode extends Node {
+	data: {
+		variable?: string;
+		cases?: Case[];
+		text?: string;
+		character?: string;
+	};
+}
+
 type Actions = {
-	setNodes: (nodes: Node[], fileName: string) => void;
+	setNodes: (nodes: TypedNode[], fileName: string) => void;
 	setEdges: (edges: Edge[], fileName: string) => void;
 	addNode: (node: NodeNameTypes, position: Position, fileName: string) => void;
 	updateNodeData: (
@@ -27,6 +37,18 @@ type Actions = {
 	) => void;
 	updateEdgeType: (type: string, fileName: string) => void;
 	deleteFile: (fileName: string) => void;
+	addCase: (nodeId: string, fileName: string) => void;
+	updateCase: (
+		nodeId: string,
+		fileName: string,
+		caseId: string,
+		newValue: string,
+	) => void;
+	updateSwitchVariable: (
+		switchId: string,
+		fileName: string,
+		variable: string,
+	) => void;
 };
 
 export const useNodes = create<Store>()(
@@ -64,14 +86,28 @@ export const useNodes = create<Store>()(
 					set({ files: newFiles });
 				},
 				addNode: (node, position, fileName) => {
-					const newNode: Node = {
-						id: crypto.randomUUID(),
+					const generatedId = crypto.randomUUID();
+					const newNode = {
+						id: generatedId,
 						position,
 						type: node,
 						data: {},
-					};
+					} as TypedNode;
 					if (node === "code" || node === "text") {
 						newNode.data.text = "";
+					}
+					if (node === "switch") {
+						newNode.data.cases = [
+							{
+								id: `${generatedId}-0`,
+								value: "",
+							},
+							{
+								id: `${generatedId}-1`,
+								value: "",
+							},
+						];
+						newNode.data.variable = "wak050_scene";
 					}
 					const files = get().files;
 					const file = files[fileName] ?? {
@@ -98,6 +134,54 @@ export const useNodes = create<Store>()(
 					const { setNodes } = get().actions;
 					setNodes(newNodes, fileName);
 				},
+				addCase: (nodeId, fileName) => {
+					const files = get().files;
+					const file = files[fileName] ?? {
+						nodes: [],
+						edges: [],
+					};
+					const nodes = file.nodes;
+					const newNodes = nodes.map((node) => {
+						if (node.id !== nodeId) return node;
+						const cases = node.data.cases ?? [];
+						const newCase = {
+							id: `${nodeId}-${cases.length}`,
+							value: "",
+						};
+						return {
+							...node,
+							data: {
+								...node.data,
+								cases: [...cases, newCase],
+							},
+						};
+					});
+					const { setNodes } = get().actions;
+					setNodes(newNodes, fileName);
+				},
+				updateCase: (nodeId, fileName, caseId, newValue) => {
+					const files = get().files;
+					const file = files[fileName] ?? {
+						nodes: [],
+						edges: [],
+					};
+					const nodes = file.nodes;
+					const newNodes = nodes.map((node) => {
+						if (node.id !== nodeId) return node;
+						const cases = node.data.cases;
+						if (cases === undefined) return node;
+						const newCases = cases.map((c) => {
+							if (c.id !== caseId) return c;
+							return { ...c, value: newValue };
+						});
+						return {
+							...node,
+							data: { ...node.data, cases: newCases },
+						};
+					});
+					const { setNodes } = get().actions;
+					setNodes(newNodes, fileName);
+				},
 				updateEdgeType: (type) => {
 					const files = get().files;
 					const newFiles = Object.fromEntries(
@@ -112,6 +196,21 @@ export const useNodes = create<Store>()(
 						]),
 					);
 					set({ files: newFiles, defaultEdgeType: type });
+				},
+				updateSwitchVariable: (switchId, fileName, variable) => {
+					const files = get().files;
+					const file = files[fileName] ?? {
+						nodes: [],
+						edges: [],
+					};
+					const nodes = file.nodes;
+					const newNodes = nodes.map((node) => {
+						if (node.id !== switchId) return node;
+						const data = node.data;
+						return { ...node, data: { ...data, variable } };
+					});
+					const { setNodes } = get().actions;
+					setNodes(newNodes, fileName);
 				},
 			},
 		}),

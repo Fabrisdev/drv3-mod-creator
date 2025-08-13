@@ -6,4 +6,5 @@ export const nodeNames: Record<NodeNameTypes, string> = {
 	code: "Code node",
 	file: "File node",
 	end: "End node",
+	switch: "Switch node",
 };

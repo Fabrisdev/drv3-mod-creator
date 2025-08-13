@@ -23,7 +23,7 @@ import { EndNode } from "@/nodes/EndNode";
 import { useQueryEdges } from "@/nodes/hooks/useQueryEdges";
 import { useQueryNodes } from "@/nodes/hooks/useQueryNodes";
 import { StartNode } from "@/nodes/StartNode";
-import { useNodes } from "@/nodes/store/store";
+import { type TypedNode, useNodes } from "@/nodes/store/store";
 import { TextNode } from "@/nodes/TextNode";
 import type { NodeTypes } from "@/nodes/types";
 import { NodesPanel } from "@/panel/NodesPanel";
@@ -32,6 +32,7 @@ import type { Node } from "@xyflow/react";
 import { ContextMenu } from "@/context-menu/ContextMenu";
 import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
 import { FileNode } from "@/nodes/FileNode";
+import { SwitchNode } from "@/nodes/SwitchNode";
 
 type Props = {
 	params: Promise<{ filename: string }>;
@@ -52,10 +53,11 @@ export default function Home({ params }: Props) {
 		end: EndNode,
 		code: CodeNode,
 		file: FileNode,
+		switch: SwitchNode,
 	};
 
 	function onNodesChange(changes: NodeChange[]) {
-		setNodes(applyNodeChanges(changes, nodes), filename);
+		setNodes(applyNodeChanges(changes, nodes) as TypedNode[], filename);
 	}
 
 	function onEdgesChange(changes: EdgeChange[]) {
