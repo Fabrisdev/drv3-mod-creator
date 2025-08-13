@@ -9,7 +9,7 @@ type Props = {
 
 export function SwitchCases({ id }: Props) {
 	const cases = useData({ id, prop: "cases" }) ?? [];
-	const { updateCase } = useNodes((state) => state.actions);
+	const { updateCase, removeCase } = useNodes((state) => state.actions);
 	const { filename } = useParams();
 	return cases.map((c) => (
 		<SwitchCase
@@ -19,6 +19,7 @@ export function SwitchCases({ id }: Props) {
 			onChange={(newValue) =>
 				updateCase(id, filename as string, c.id, newValue)
 			}
+			onDelete={() => removeCase(id, filename as string, c.id)}
 		/>
 	));
 }
