@@ -42,16 +42,7 @@ function textNodeToCode(node: Node) {
 }
 
 function startNodeToCode() {
-	return [
-		"<LAB lab_Top>",
-		"<WAK wkChapter = Prologue>",
-		"<WAK wkDayTimes = TimeNon>",
-		"<WAK wkEveryday = Everyday>",
-		"<WAK wakTrialWindow = WindowAkamatu>",
-		"<WAK wkMode = wkModeTansaku>",
-		"<FDS fadeInStop fdColBlack Speed060>",
-		"<FLG on flgTexWindow>",
-	].join("\n");
+	return "<LAB lab_Top>";
 }
 
 export function generateSwitchCode(_node: Node, nodes: Node[], edges: Edge[]) {
