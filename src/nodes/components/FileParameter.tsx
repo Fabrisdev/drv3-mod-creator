@@ -10,7 +10,7 @@ type Props = {
 } & ParameterProps;
 
 export function FileParameter({ id, hideCurrentFile }: Props) {
-	const filename = useFilename();
+	const { filename } = useFilename();
 	const { updateNodeData } = useNodes((store) => store.actions);
 	const files = useNodes(useShallow((state) => Object.keys(state.files)));
 	const filteredFiles = hideCurrentFile

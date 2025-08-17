@@ -16,7 +16,7 @@ export function NodeOption({
 	disabled,
 	children,
 }: PropsWithChildren<Props>) {
-	const filename = useFilename();
+	const { filename } = useFilename();
 	const { addNode } = useNodes((state) => state.actions);
 	const { screenToFlowPosition } = useReactFlow();
 

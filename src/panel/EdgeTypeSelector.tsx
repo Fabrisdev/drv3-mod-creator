@@ -6,7 +6,7 @@ export function EdgeTypeSelector() {
 	const { updateEdgeType } = useNodes((state) => state.actions);
 	const defaultEdgeType = useNodes((state) => state.defaultEdgeType);
 	const selectId = useId();
-	const filename = useFilename();
+	const { filename } = useFilename();
 
 	return (
 		<div className="flex items-center gap-2">

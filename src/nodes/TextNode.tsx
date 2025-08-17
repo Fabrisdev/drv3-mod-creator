@@ -15,7 +15,7 @@ import { useData } from "./hooks/useData";
 import { useNodes } from "./store/store";
 
 export function TextNode({ id, data }: NodeProps) {
-	const filename = useFilename();
+	const { filename } = useFilename();
 	const text = useData({ id, prop: "text" }) ?? "";
 	const character = useData({ id, prop: "character" }) ?? "";
 	const textareaRef = useRef<HTMLTextAreaElement>(null);

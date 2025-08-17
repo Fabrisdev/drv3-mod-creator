@@ -16,7 +16,7 @@ type Props =
 	  };
 
 export function CodeEditor({ code, disabled, id }: Props) {
-	const filename = useFilename();
+	const { filename } = useFilename();
 	const { updateNodeData } = useNodes((state) => state.actions);
 	const lines = code
 		.split("\n")

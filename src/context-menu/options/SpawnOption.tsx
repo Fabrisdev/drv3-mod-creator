@@ -16,7 +16,7 @@ type Props = {
 export function SpawnOption({ closeMenu }: Props) {
 	const { addNode } = useNodes((state) => state.actions);
 	const [nodeSelected, setNodeSelected] = useState<NodeNameTypes>("text");
-	const filename = useFilename();
+	const { filename } = useFilename();
 	const { screenToFlowPosition } = useReactFlow();
 
 	const nodeOptions = Object.entries(nodeNames)

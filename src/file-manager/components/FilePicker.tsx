@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function FilePicker({ className, onAskToClose }: Props) {
-	const filename = useFilename();
+	const { filename } = useFilename();
 	const filenames = useNodes(
 		useShallow((state) => Object.keys(state.files)),
 	).filter((file) => file !== filename);

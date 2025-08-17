@@ -7,7 +7,7 @@ type Props = {
 };
 
 export function AddCaseButton({ id }: Props) {
-	const filename = useFilename();
+	const { filename } = useFilename();
 	const { addCase } = useNodes((state) => state.actions);
 	return (
 		<Button

@@ -4,7 +4,7 @@ import { useFilename } from "@/file-manager/hooks/useFilename";
 import { useNodes } from "../store/store";
 
 export function useQueryEdges() {
-	const filename = useFilename();
+	const { filename } = useFilename();
 
 	return useNodes((state) => state.files[filename as string]?.edges) ?? [];
 }

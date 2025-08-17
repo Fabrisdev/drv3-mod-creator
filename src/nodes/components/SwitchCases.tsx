@@ -10,7 +10,7 @@ type Props = {
 export function SwitchCases({ id }: Props) {
 	const cases = useData({ id, prop: "cases" }) ?? [];
 	const { updateCase, removeCase } = useNodes((state) => state.actions);
-	const filename = useFilename();
+	const { filename } = useFilename();
 	return cases.map((c) => (
 		<SwitchCase
 			id={c.id}

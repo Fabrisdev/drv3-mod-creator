@@ -8,7 +8,7 @@ type Props = {
 };
 
 export function SwitchValueParameter({ id }: Props) {
-	const filename = useFilename();
+	const { filename } = useFilename();
 	const { updateSwitchVariable } = useNodes((state) => state.actions);
 	const variable = useData({ id, prop: "variable" }) ?? "wak050_scene";
 	return (

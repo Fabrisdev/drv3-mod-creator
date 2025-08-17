@@ -35,7 +35,7 @@ import { FileNode } from "@/nodes/FileNode";
 import { SwitchNode } from "@/nodes/SwitchNode";
 
 export default function Home() {
-	const filename = useFilename();
+	const { filename } = useFilename();
 	const { setEdges, setNodes } = useNodes((state) => state.actions);
 
 	const defaultEdgeType = useNodes((state) => state.defaultEdgeType);

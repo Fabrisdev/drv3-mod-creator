@@ -6,7 +6,7 @@ import type { ParameterProps } from "../types";
 
 export function CharacterParameter({ id }: ParameterProps) {
 	const { updateNodeData } = useNodes((state) => state.actions);
-	const filename = useFilename();
+	const { filename } = useFilename();
 	const characterSelectId = useId();
 	const character = useData({ id, prop: "character" });
 
