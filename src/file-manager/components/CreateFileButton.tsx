@@ -24,7 +24,7 @@ export function CreateFileButton() {
 		if (trimmedChapter === "" || trimmedScene === "" || trimmedLocation === "")
 			return;
 
-		const filename = `c${trimmedChapter}/${trimmedScene}/${trimmedLocation}`;
+		const filename = `${trimmedChapter}/${trimmedScene}/${trimmedLocation}`;
 		router.push(`/file/${filename}`);
 	}
 
