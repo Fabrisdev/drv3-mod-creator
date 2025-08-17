@@ -1,12 +1,12 @@
-import { useParams } from "next/navigation";
 import { useId } from "react";
+import { useFilename } from "@/file-manager/hooks/useFilename";
 import { useData } from "../hooks/useData";
 import { useNodes } from "../store/store";
 import type { ParameterProps } from "../types";
 
 export function CharacterParameter({ id }: ParameterProps) {
 	const { updateNodeData } = useNodes((state) => state.actions);
-	const { filename } = useParams();
+	const filename = useFilename();
 	const characterSelectId = useId();
 	const character = useData({ id, prop: "character" });
 

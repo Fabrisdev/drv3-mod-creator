@@ -15,7 +15,6 @@ import {
 	ReactFlow,
 	ReactFlowProvider,
 } from "@xyflow/react";
-import { use } from "react";
 import { CodePanel } from "@/code/CodePanel";
 import { CurrentFilePanel } from "@/file-manager/panels/CurrentFilePanel";
 import { CodeNode } from "@/nodes/CodeNode";
@@ -31,15 +30,12 @@ import "@xyflow/react/dist/style.css";
 import type { Node } from "@xyflow/react";
 import { ContextMenu } from "@/context-menu/ContextMenu";
 import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
+import { useFilename } from "@/file-manager/hooks/useFilename";
 import { FileNode } from "@/nodes/FileNode";
 import { SwitchNode } from "@/nodes/SwitchNode";
 
-type Props = {
-	params: Promise<{ filename: string }>;
-};
-
-export default function Home({ params }: Props) {
-	const { filename } = use(params);
+export default function Home() {
+	const filename = useFilename();
 	const { setEdges, setNodes } = useNodes((state) => state.actions);
 
 	const defaultEdgeType = useNodes((state) => state.defaultEdgeType);

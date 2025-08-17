@@ -1,6 +1,6 @@
 import { useReactFlow } from "@xyflow/react";
-import { useParams } from "next/navigation";
 import { useState } from "react";
+import { useFilename } from "@/file-manager/hooks/useFilename";
 import { nodeNames } from "@/nodes/node-names";
 import { useNodes } from "@/nodes/store/store";
 import type { NodeNameTypes } from "@/nodes/types";
@@ -16,7 +16,7 @@ type Props = {
 export function SpawnOption({ closeMenu }: Props) {
 	const { addNode } = useNodes((state) => state.actions);
 	const [nodeSelected, setNodeSelected] = useState<NodeNameTypes>("text");
-	const { filename } = useParams();
+	const filename = useFilename();
 	const { screenToFlowPosition } = useReactFlow();
 
 	const nodeOptions = Object.entries(nodeNames)

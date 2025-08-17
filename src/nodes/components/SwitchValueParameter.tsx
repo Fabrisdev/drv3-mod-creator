@@ -1,4 +1,4 @@
-import { useParams } from "next/navigation";
+import { useFilename } from "@/file-manager/hooks/useFilename";
 import { Select } from "@/ui/Select";
 import { useData } from "../hooks/useData";
 import { useNodes } from "../store/store";
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export function SwitchValueParameter({ id }: Props) {
-	const { filename } = useParams();
+	const filename = useFilename();
 	const { updateSwitchVariable } = useNodes((state) => state.actions);
 	const variable = useData({ id, prop: "variable" }) ?? "wak050_scene";
 	return (

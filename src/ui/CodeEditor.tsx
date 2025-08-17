@@ -1,6 +1,6 @@
-import { useParams } from "next/navigation";
 import Editor from "react-simple-code-editor";
 import { highlight } from "@/code/highlighter";
+import { useFilename } from "@/file-manager/hooks/useFilename";
 import { useNodes } from "@/nodes/store/store";
 
 type Props =
@@ -16,7 +16,7 @@ type Props =
 	  };
 
 export function CodeEditor({ code, disabled, id }: Props) {
-	const { filename } = useParams();
+	const filename = useFilename();
 	const { updateNodeData } = useNodes((state) => state.actions);
 	const lines = code
 		.split("\n")

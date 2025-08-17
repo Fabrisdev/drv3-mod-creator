@@ -1,8 +1,8 @@
 import { Handle, type NodeProps, Position } from "@xyflow/react";
-import { useParams } from "next/navigation";
 import { useRef } from "react";
 import { extractPreviousCharacter } from "@/code/chara-helper";
 import { useCode } from "@/code/hooks/useCode";
+import { useFilename } from "@/file-manager/hooks/useFilename";
 import { CharacterParameter } from "./components/CharacterParameter";
 import { Node } from "./components/Node";
 import {
@@ -15,7 +15,7 @@ import { useData } from "./hooks/useData";
 import { useNodes } from "./store/store";
 
 export function TextNode({ id, data }: NodeProps) {
-	const { filename } = useParams();
+	const filename = useFilename();
 	const text = useData({ id, prop: "text" }) ?? "";
 	const character = useData({ id, prop: "character" }) ?? "";
 	const textareaRef = useRef<HTMLTextAreaElement>(null);

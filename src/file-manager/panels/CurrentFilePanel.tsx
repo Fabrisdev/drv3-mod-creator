@@ -1,8 +1,8 @@
 import { Panel } from "@xyflow/react";
-import { useParams } from "next/navigation";
+import { useFilename } from "@/file-manager/hooks/useFilename";
 
 export function CurrentFilePanel() {
-	const { filename } = useParams();
+	const filename = useFilename();
 	return (
 		<Panel
 			position="top-center"

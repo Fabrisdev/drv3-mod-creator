@@ -1,7 +1,7 @@
 "use client";
 
-import { useParams } from "next/navigation";
 import { useShallow } from "zustand/shallow";
+import { useFilename } from "@/file-manager/hooks/useFilename";
 import { Node } from "@/nodes/components/Node";
 import { useNodes } from "@/nodes/store/store";
 import { CloseIcon } from "../icons/CloseIcon";
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function FilePicker({ className, onAskToClose }: Props) {
-	const { filename } = useParams();
+	const filename = useFilename();
 	const filenames = useNodes(
 		useShallow((state) => Object.keys(state.files)),
 	).filter((file) => file !== filename);
