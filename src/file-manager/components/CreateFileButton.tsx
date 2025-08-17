@@ -1,35 +1,39 @@
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
 
 export function CreateFileButton() {
-	const [filename, setFilename] = useState("");
 	const router = useRouter();
 
-	function handleClick() {
-		if (filename === "") return;
+	function handleSubmit(e: React.FormEvent) {
+		e.preventDefault();
+		const formData = new FormData(e.target as HTMLFormElement);
+		const chapter = formData.get("chapter");
+		const scene = formData.get("scene");
+		const location = formData.get("location");
+		if (
+			typeof chapter !== "string" ||
+			typeof scene !== "string" ||
+			typeof location !== "string"
+		)
+			return;
+
+		const trimmedChapter = chapter.trim();
+		const trimmedScene = scene.trim();
+		const trimmedLocation = location.trim();
+		if (trimmedChapter === "" || trimmedScene === "" || trimmedLocation === "")
+			return;
+
+		const filename = `c${trimmedChapter}/${trimmedScene}/${trimmedLocation}`;
 		router.push(`/file/${filename}`);
 	}
 
 	return (
-		<form
-			className="flex gap-2"
-			onSubmit={(e) => {
-				e.preventDefault();
-				handleClick();
-			}}
-		>
-			<input
-				placeholder="File name"
-				className="border-2 border-[#3c3c3c] rounded-sm p-2 w-full"
-				onChange={(e) => setFilename(e.target.value)}
-			/>
-			<button
-				type="button"
-				className={`p-2 rounded-sm bg-[#1e1e1e] border-2 border-[#3c3c3c] hover:bg-[#3c3c3c] ${filename !== "" && "cursor-pointer"}`}
-				onClick={handleClick}
-			>
-				Create
-			</button>
+		<form className="flex gap-2" onSubmit={handleSubmit}>
+			<Input name="chapter" placeholder="Chapter" />
+			<Input name="scene" placeholder="Scene" />
+			<Input name="location" placeholder="Location ID" />
+			<Button type="submit">Create</Button>
 		</form>
 	);
 }
