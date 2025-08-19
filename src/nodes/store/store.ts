@@ -34,7 +34,7 @@ type Actions = {
 		position: Position,
 		fileName: string,
 		data?: Record<string, unknown>,
-	) => void;
+	) => string;
 	updateNodeData: (
 		nodeId: string,
 		data: Record<string, unknown>,
@@ -109,11 +109,11 @@ export const useNodes = create<Store>()(
 						if (node === "switch") {
 							newNode.data.cases = [
 								{
-									id: `${generatedId}-0`,
+									id: crypto.randomUUID(),
 									value: "",
 								},
 								{
-									id: `${generatedId}-1`,
+									id: crypto.randomUUID(),
 									value: "",
 								},
 							];
@@ -130,6 +130,7 @@ export const useNodes = create<Store>()(
 					const newFiles = { ...files };
 					newFiles[fileName] = newFile;
 					set({ files: newFiles });
+					return generatedId;
 				},
 				updateNodeData: (nodeId, data, fileName) => {
 					const files = get().files;
