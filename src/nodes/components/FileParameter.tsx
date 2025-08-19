@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useShallow } from "zustand/shallow";
 import { useFilename } from "@/file-manager/hooks/useFilename";
 import { useData } from "../hooks/useData";
@@ -22,11 +21,6 @@ export function FileParameter({ id, hideCurrentFile }: Props) {
 			{file}
 		</option>
 	));
-
-	useEffect(() => {
-		if (text !== undefined) return;
-		updateNodeData(id, { text: filteredFiles[0] }, filename as string);
-	}, [text, filteredFiles]);
 
 	return (
 		<select

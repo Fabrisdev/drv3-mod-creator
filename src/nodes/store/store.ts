@@ -104,6 +104,10 @@ export const useNodes = create<Store>()(
 						newNode.data = data;
 					}
 					if (data === undefined) {
+						if (node === "file") {
+							const files = Object.keys(get().files);
+							newNode.data.text = files[0];
+						}
 						if (node === "code" || node === "text") {
 							newNode.data.text = "";
 						}
