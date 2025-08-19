@@ -6,6 +6,7 @@ import { Node } from "@/nodes/components/Node";
 import { useNodes } from "@/nodes/store/store";
 import { CloseIcon } from "../icons/CloseIcon";
 import { CreateFile } from "./CreateFile";
+import { CreateScene } from "./CreateScene";
 import { File } from "./File";
 
 type Props = {
@@ -44,6 +45,7 @@ export function FilePicker({ className, onAskToClose }: Props) {
 			{filenamesMapped}
 			{filenames.length !== 0 && "Or..."}
 			<CreateFile />
+			<CreateScene />
 		</Node>
 	);
 }

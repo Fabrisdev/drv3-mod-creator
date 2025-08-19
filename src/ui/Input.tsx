@@ -10,7 +10,7 @@ export function Input({ placeholder, value, name, onChange }: Props) {
 		<input
 			name={name}
 			type="text"
-			className="border-2 border-[#3c3c3c] rounded-sm font-mono p-2"
+			className="border-2 border-[#3c3c3c] rounded-sm font-mono p-2 w-full"
 			placeholder={placeholder}
 			value={value}
 			onChange={(e) => (onChange ? onChange(e.target.value) : "")}
