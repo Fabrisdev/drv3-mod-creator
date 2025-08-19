@@ -18,8 +18,14 @@ export function CreateSceneButton() {
 		const trimmedScene = scene.trim();
 		if (trimmedChapter === "" || trimmedScene === "") return;
 
-		const filename = `${trimmedChapter}/${trimmedScene}/000`;
-		sceneHelper.create({ chapter: trimmedChapter, scene: trimmedScene });
+		const chapterTransformed = trimmedChapter.padStart(3, "0");
+		const sceneTransformed = trimmedScene.padStart(3, "0");
+		const filename = `${chapterTransformed}/${sceneTransformed}/000`;
+
+		sceneHelper.create({
+			chapter: chapterTransformed,
+			scene: sceneTransformed,
+		});
 		router.push(`/file/${filename}`);
 	}
 
