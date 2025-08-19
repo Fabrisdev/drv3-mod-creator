@@ -28,9 +28,9 @@ export function FilePicker({ className, onAskToClose }: Props) {
 		);
 	}
 
-	const filenamesMapped = filenames.map((filename) => (
-		<File key={filename}>{filename}</File>
-	));
+	const filenamesMapped = filenames
+		.map((filename) => filename.slice(1))
+		.map((filename) => <File key={filename}>{filename}</File>);
 
 	return (
 		<Node className={`min-w-100 flex flex-col gap-2 ${className}`}>
