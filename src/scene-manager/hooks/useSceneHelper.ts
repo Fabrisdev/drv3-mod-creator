@@ -7,7 +7,7 @@ type Create = {
 };
 
 export function useSceneHelper() {
-	const { addNode } = useNodes((state) => state.actions);
+	const { addNode, joinNodes } = useNodes((state) => state.actions);
 	function create({ chapter, scene }: Create) {
 		const filename = `c${chapter}/${scene}/000`;
 		const startId = addNode(
@@ -29,6 +29,7 @@ export function useSceneHelper() {
 				text: sceneCode,
 			},
 		);
+		joinNodes(startId, codeId, filename);
 	}
 	return { create };
 }

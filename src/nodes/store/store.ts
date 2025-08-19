@@ -55,6 +55,7 @@ type Actions = {
 		variable: string,
 	) => void;
 	removeCase: (switchId: string, fileName: string, caseId: string) => void;
+	joinNodes: (nodeId1: string, nodeId2: string, filename: string) => void;
 };
 
 export const useNodes = create<Store>()(
@@ -245,6 +246,24 @@ export const useNodes = create<Store>()(
 					const { setNodes, setEdges } = get().actions;
 					setNodes(newNodes, fileName);
 					setEdges(filteredEdges, fileName);
+				},
+				joinNodes: (nodeId1, nodeId2, filename) => {
+					const files = get().files;
+					const file = files[filename];
+					if (file === undefined) return;
+					const edges = file.edges;
+					const { setEdges } = get().actions;
+					setEdges(
+						[
+							...edges,
+							{
+								id: crypto.randomUUID(),
+								source: nodeId1,
+								target: nodeId2,
+							},
+						],
+						filename,
+					);
 				},
 			},
 		}),
