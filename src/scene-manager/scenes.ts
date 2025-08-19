@@ -73,5 +73,4 @@ export const sceneCode = [
 	'<MOD modReactionVoice pos015 "Voiceline name" message015>',
 	'<MAP "Location name" "map start position" mapModePreload>',
 	'<FIL "next file" lab_Top>',
-	"<END>",
 ].join("\n");
