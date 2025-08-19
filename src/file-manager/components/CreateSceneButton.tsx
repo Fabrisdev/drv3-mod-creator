@@ -1,8 +1,10 @@
 import { useRouter } from "next/navigation";
+import { useSceneHelper } from "@/scene-manager/hooks/useSceneHelper";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 
 export function CreateSceneButton() {
+	const sceneHelper = useSceneHelper();
 	const router = useRouter();
 
 	function handleSubmit(e: React.FormEvent) {
@@ -17,6 +19,7 @@ export function CreateSceneButton() {
 		if (trimmedChapter === "" || trimmedScene === "") return;
 
 		const filename = `${trimmedChapter}/${trimmedScene}/000`;
+		sceneHelper.create({ chapter: trimmedChapter, scene: trimmedScene });
 		router.push(`/file/${filename}`);
 	}
 

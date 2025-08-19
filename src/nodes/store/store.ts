@@ -29,7 +29,12 @@ export interface TypedNode extends Node {
 type Actions = {
 	setNodes: (nodes: TypedNode[], fileName: string) => void;
 	setEdges: (edges: Edge[], fileName: string) => void;
-	addNode: (node: NodeNameTypes, position: Position, fileName: string) => void;
+	addNode: (
+		node: NodeNameTypes,
+		position: Position,
+		fileName: string,
+		data?: Record<string, unknown>,
+	) => void;
 	updateNodeData: (
 		nodeId: string,
 		data: Record<string, unknown>,
@@ -86,7 +91,7 @@ export const useNodes = create<Store>()(
 					const newFiles = { ...files, [fileName]: newFile };
 					set({ files: newFiles });
 				},
-				addNode: (node, position, fileName) => {
+				addNode: (node, position, fileName, data) => {
 					const generatedId = crypto.randomUUID();
 					const newNode = {
 						id: generatedId,
@@ -94,21 +99,26 @@ export const useNodes = create<Store>()(
 						type: node,
 						data: {},
 					} as TypedNode;
-					if (node === "code" || node === "text") {
-						newNode.data.text = "";
+					if (data !== undefined) {
+						newNode.data = data;
 					}
-					if (node === "switch") {
-						newNode.data.cases = [
-							{
-								id: `${generatedId}-0`,
-								value: "",
-							},
-							{
-								id: `${generatedId}-1`,
-								value: "",
-							},
-						];
-						newNode.data.variable = "wak050_scene";
+					if (data === undefined) {
+						if (node === "code" || node === "text") {
+							newNode.data.text = "";
+						}
+						if (node === "switch") {
+							newNode.data.cases = [
+								{
+									id: `${generatedId}-0`,
+									value: "",
+								},
+								{
+									id: `${generatedId}-1`,
+									value: "",
+								},
+							];
+							newNode.data.variable = "wak050_scene";
+						}
 					}
 					const files = get().files;
 					const file = files[fileName] ?? {
