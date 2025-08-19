@@ -11,7 +11,7 @@ export function useSceneHelper() {
 
 	function create({ chapter, scene }: Create) {
 		const filename = `c${chapter}/${scene}/000`;
-		connect(filename).start().code(sceneCode);
+		connect(filename).start().code(sceneCode).end();
 	}
 
 	return { create };
