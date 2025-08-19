@@ -15,7 +15,7 @@ export function File({ children }: { children: React.ReactNode }) {
 					onClick={(e) => {
 						e.stopPropagation();
 						e.preventDefault();
-						deleteFile(children as string);
+						deleteFile(`c${children}` as string);
 					}}
 				>
 					<CloseIcon alt={`Delete ${children} file`} size={20} />
