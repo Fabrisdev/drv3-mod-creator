@@ -16,8 +16,13 @@ export function convertSimpleNodeToCode(node: Node) {
 		set_time: () => setTimeNodeToCode(node),
 		set_chapter: () => setChapterNodeToCode(node),
 		set_dead: () => setDeadNodeToCode(node),
+		life_in_file: () => setLifeInFileNodeToCode(node),
 	};
 	return logic[node.type as SimpleNodes]();
+}
+
+function setLifeInFileNodeToCode(node: Node) {
+	return `<MOD modSetScene ${node.data.text} non non>`;
 }
 
 function setDeadNodeToCode(node: Node) {
