@@ -109,6 +109,9 @@ export const useNodes = create<Store>()(
 						newNode.data = data;
 					}
 					if (data === undefined) {
+						if (node === "life_in_ui") {
+							newNode.data.text = "Everyday";
+						}
 						if (node === "life_in_file") {
 							newNode.data.text = "tansaku_daily";
 						}
