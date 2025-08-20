@@ -21,7 +21,8 @@ export function useConnect() {
 				spawnNode("code", { text: code });
 				return this as WithoutStart;
 			},
-			file(to: string) {
+			file(to?: string) {
+				if (to === undefined) return this as WithoutStart;
 				spawnNode("file", { text: to });
 				return this as WithoutStart;
 			},
