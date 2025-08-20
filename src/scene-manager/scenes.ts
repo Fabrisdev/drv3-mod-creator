@@ -25,6 +25,11 @@ type SceneLine =
 	| {
 			type: "set_life_in_ui";
 			text: string;
+	  }
+	| {
+			type: "flg";
+			text: string;
+			bool: string;
 	  };
 
 export const sceneCode: SceneLine[] = [
@@ -38,8 +43,16 @@ export const sceneCode: SceneLine[] = [
 		type: "set_life_in_ui",
 		text: "Everyday",
 	},
-	'<FLG "on, off" flg064>',
-	'<FLG "on, off" flg067>',
+	{
+		type: "flg",
+		text: "flg064",
+		bool: "off",
+	},
+	{
+		type: "flg",
+		text: "flg067",
+		bool: "off",
+	},
 	{
 		type: "wak",
 		key: "sin000",
@@ -131,7 +144,11 @@ export const sceneCode: SceneLine[] = [
 	{ type: "dead", character: "flgDeath_C013_Yonag", bool: "off" },
 	{ type: "dead", character: "flgDeath_C014_Iruma", bool: "off" },
 	{ type: "dead", character: "flgDeath_C015_Akama", bool: "off" },
-	'<FLG "on, off" flg068>',
+	{
+		type: "flg",
+		text: "flg068",
+		bool: "off",
+	},
 	{
 		type: "wak",
 		key: "kousoku00",

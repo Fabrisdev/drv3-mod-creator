@@ -56,6 +56,9 @@ export function useConnect() {
 				spawnNode("life_in_ui", { text: life });
 				return this as WithoutStart;
 			},
+			flg({ flg, bool }: { flg: string; bool: string }) {
+				spawnNode("flg", { text: flg, bool });
+			},
 		};
 		return builder as OnlyStart;
 

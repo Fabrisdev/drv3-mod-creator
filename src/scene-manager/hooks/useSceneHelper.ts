@@ -50,6 +50,10 @@ export function useSceneHelper() {
 				const { text } = line;
 				nodes.lifeInUI(text);
 			}
+			if (line.type === "flg") {
+				const { text, bool } = line;
+				nodes.flg({ flg: text, bool });
+			}
 		}
 		if (plainCode.length > 0) nodes.code(plainCode.join("\n"));
 		nodes.file(nextFile).end();
