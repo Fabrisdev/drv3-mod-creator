@@ -10,4 +10,5 @@ export const nodeNames: Record<NodeNameTypes, string> = {
 	set_chapter: "Set chapter node",
 	set_time: "Set time node",
 	wak: "WAK node",
+	set_dead: "Set dead node",
 };

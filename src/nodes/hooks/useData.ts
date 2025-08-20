@@ -14,6 +14,7 @@ type Properties = {
 	value: string;
 	time: string;
 	chapter: string;
+	bool: "off" | "on";
 };
 
 type Props<K extends keyof Properties> = {

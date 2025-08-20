@@ -33,6 +33,7 @@ import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
 import { useFilename } from "@/file-manager/hooks/useFilename";
 import { FileNode } from "@/nodes/FileNode";
 import { SetChapterNode } from "@/nodes/SetChapterNode";
+import { SetDeadNode } from "@/nodes/SetDeadNode";
 import { SetTimeNode } from "@/nodes/SetTimeNode";
 import { SwitchNode } from "@/nodes/SwitchNode";
 import { WakNode } from "@/nodes/WakNode";
@@ -56,6 +57,7 @@ export default function Home() {
 		wak: WakNode,
 		set_time: SetTimeNode,
 		set_chapter: SetChapterNode,
+		set_dead: SetDeadNode,
 	};
 
 	function onNodesChange(changes: NodeChange[]) {

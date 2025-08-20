@@ -15,8 +15,14 @@ export function convertSimpleNodeToCode(node: Node) {
 		wak: () => wakNodeToCode(node),
 		set_time: () => setTimeNodeToCode(node),
 		set_chapter: () => setChapterNodeToCode(node),
+		set_dead: () => setDeadNodeToCode(node),
 	};
 	return logic[node.type as SimpleNodes]();
+}
+
+function setDeadNodeToCode(node: Node) {
+	const { character, bool } = node.data;
+	return `<FLG ${bool} ${character}>`;
 }
 
 function setChapterNodeToCode(node: Node) {

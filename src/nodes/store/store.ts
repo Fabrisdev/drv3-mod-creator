@@ -27,6 +27,7 @@ export interface TypedNode extends Node {
 		value?: string;
 		time?: string;
 		chapter?: string;
+		bool?: "off" | "on";
 	};
 }
 
@@ -108,6 +109,10 @@ export const useNodes = create<Store>()(
 						newNode.data = data;
 					}
 					if (data === undefined) {
+						if (node === "set_dead") {
+							newNode.data.character = "flgDeath_C013_Yonag";
+							newNode.data.bool = "off";
+						}
 						if (node === "set_chapter") {
 							newNode.data.chapter = "Prologue";
 						}

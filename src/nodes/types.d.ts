@@ -8,7 +8,8 @@ export type NodeNameTypes =
 	| "switch"
 	| "wak"
 	| "set_time"
-	| "set_chapter";
+	| "set_chapter"
+	| "set_dead";
 export type NodeTypes = Record<NodeNameTypes, (unknown) => JSX.Element>;
 export type ParameterProps = {
 	id: string;
