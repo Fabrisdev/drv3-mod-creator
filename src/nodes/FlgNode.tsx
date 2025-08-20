@@ -8,7 +8,7 @@ export function FlgNode({ id }: NodeProps) {
 		<Node>
 			<p>Turn flag on/off</p>
 			<div className="flex gap-2">
-				<FlgParameter />
+				<FlgParameter id={id} />
 				<BoolParameter id={id} />
 			</div>
 
