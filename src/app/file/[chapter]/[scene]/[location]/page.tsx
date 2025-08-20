@@ -32,6 +32,7 @@ import { ContextMenu } from "@/context-menu/ContextMenu";
 import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
 import { useFilename } from "@/file-manager/hooks/useFilename";
 import { FileNode } from "@/nodes/FileNode";
+import { FlgNode } from "@/nodes/FlgNode";
 import { SetChapterNode } from "@/nodes/SetChapterNode";
 import { SetDeadNode } from "@/nodes/SetDeadNode";
 import { SetLifeInFile } from "@/nodes/SetLifeInFile";
@@ -62,6 +63,7 @@ export default function Home() {
 		set_dead: SetDeadNode,
 		life_in_file: SetLifeInFile,
 		life_in_ui: SetLifeInUI,
+		flg: FlgNode,
 	};
 
 	function onNodesChange(changes: NodeChange[]) {
