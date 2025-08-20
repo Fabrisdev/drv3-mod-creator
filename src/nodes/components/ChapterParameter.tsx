@@ -24,6 +24,7 @@ export function ChapterParameter({ id }: Props) {
 			<option value="Epilogue">Epilogue</option>
 			<option value="Ainori">Ainori</option>
 			<option value="Trial">Trial</option>
+			<option value="Chapter">Chapter</option>
 			<option value="Chapter10">Chapter 10</option>
 			<option value="verification">Verification</option>
 		</Select>
