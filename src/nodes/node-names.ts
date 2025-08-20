@@ -7,4 +7,7 @@ export const nodeNames: Record<NodeNameTypes, string> = {
 	file: "File node",
 	end: "End node",
 	switch: "Switch node",
+	set_chapter: "Set chapter node",
+	set_time: "Set time node",
+	wak: "WAK node",
 };
