@@ -34,6 +34,10 @@ export function useConnect() {
 				spawnNode("wak", { key, value });
 				return this as WithoutStart;
 			},
+			time(time: string) {
+				spawnNode("set_time", { time });
+				return this as WithoutStart;
+			},
 		};
 		return builder as OnlyStart;
 

@@ -26,7 +26,14 @@ export function useSceneHelper() {
 				nodes.code(plainCode.join("\n"));
 				plainCode = [];
 			}
-			nodes[line.type](line);
+			if (line.type === "wak") {
+				const { key, value } = line;
+				nodes.wak({ key, value });
+			}
+			if (line.type === "time") {
+				const { time } = line;
+				nodes.time(time);
+			}
 		}
 		if (plainCode.length > 0) nodes.code(plainCode.join("\n"));
 		nodes.file(nextFile).end();
