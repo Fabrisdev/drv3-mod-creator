@@ -117,7 +117,7 @@ export default function Home() {
 					>
 						<Background />
 						<Controls />
-						<MiniMap />
+						<MiniMap pannable zoomable />
 						<NodesPanel />
 						<CodePanel />
 						<CurrentFilePanel />
