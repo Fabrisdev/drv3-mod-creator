@@ -10,7 +10,7 @@ export function useConnect() {
 			const id = addNode(type, { x: lastXPosition, y: 0 }, filename, data);
 			if (lastNodeId !== "") joinNodes(lastNodeId, id, filename);
 			lastNodeId = id;
-			lastXPosition += 800;
+			lastXPosition += 300;
 		}
 		const builder = {
 			start() {
@@ -32,6 +32,7 @@ export function useConnect() {
 			},
 			wak({ key, value }: { key: string; value: string }) {
 				spawnNode("wak", { key, value });
+				lastXPosition += 300;
 				return this as WithoutStart;
 			},
 			time(time: string) {
@@ -44,6 +45,7 @@ export function useConnect() {
 			},
 			dead({ character, bool }: { character: string; bool: string }) {
 				spawnNode("set_dead", { character, bool });
+				lastXPosition += 150;
 				return this as WithoutStart;
 			},
 			lifeInFile(life: string) {
