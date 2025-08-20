@@ -11,8 +11,9 @@ export function WakNode({ id }: NodeProps) {
 				<small className="opacity-50">(Configure game engine parameters)</small>
 			</div>
 
-			<div className="flex gap-2">
+			<div className="flex gap-2 items-center font-mono">
 				<WakKeyParameter id={id} />
+				=
 				<WakValueParameter id={id} />
 			</div>
 			<Handle type="target" position={Position.Left} />
