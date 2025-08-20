@@ -12,8 +12,46 @@ export function convertSimpleNodeToCode(node: Node) {
 		code: () => extractTextFromCodeNode(node),
 		file: () => fileNodeToCode(node),
 		end: () => "<END>",
+		wak: () => wakNodeToCode(node),
+		set_time: () => setTimeNodeToCode(node),
+		set_chapter: () => setChapterNodeToCode(node),
+		set_dead: () => setDeadNodeToCode(node),
+		life_in_file: () => setLifeInFileNodeToCode(node),
+		life_in_ui: () => setLifeInUI(node),
+		flg: () => flgNodeToCode(node),
 	};
 	return logic[node.type as SimpleNodes]();
+}
+
+function flgNodeToCode(node: Node) {
+	const { text, bool } = node.data;
+	return `<FLG ${bool} ${text}>`;
+}
+
+function setLifeInUI(node: Node) {
+	return `<WAK wkEveryday = ${node.data.text}>`;
+}
+
+function setLifeInFileNodeToCode(node: Node) {
+	return `<MOD modSetScene ${node.data.text} non non>`;
+}
+
+function setDeadNodeToCode(node: Node) {
+	const { character, bool } = node.data;
+	return `<FLG ${bool} ${character}>`;
+}
+
+function setChapterNodeToCode(node: Node) {
+	return `<WAK wkChapter = ${node.data.chapter}>`;
+}
+
+function setTimeNodeToCode(node: Node) {
+	return `<WAK wkDayTimes = ${node.data.time}>`;
+}
+
+function wakNodeToCode(node: Node) {
+	const { key, value } = node.data;
+	return `<WAK ${key} = ${value}>`;
 }
 
 function fileNodeToCode(node: Node) {
@@ -42,16 +80,7 @@ function textNodeToCode(node: Node) {
 }
 
 function startNodeToCode() {
-	return [
-		"<LAB lab_Top>",
-		"<WAK wkChapter = Prologue>",
-		"<WAK wkDayTimes = TimeNon>",
-		"<WAK wkEveryday = Everyday>",
-		"<WAK wakTrialWindow = WindowAkamatu>",
-		"<WAK wkMode = wkModeTansaku>",
-		"<FDS fadeInStop fdColBlack Speed060>",
-		"<FLG on flgTexWindow>",
-	].join("\n");
+	return "<LAB lab_Top>";
 }
 
 export function generateSwitchCode(_node: Node, nodes: Node[], edges: Edge[]) {

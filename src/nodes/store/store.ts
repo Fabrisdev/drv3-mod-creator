@@ -23,13 +23,23 @@ export interface TypedNode extends Node {
 		cases?: Case[];
 		text?: string;
 		character?: string;
+		key?: string;
+		value?: string;
+		time?: string;
+		chapter?: string;
+		bool?: "off" | "on";
 	};
 }
 
 type Actions = {
 	setNodes: (nodes: TypedNode[], fileName: string) => void;
 	setEdges: (edges: Edge[], fileName: string) => void;
-	addNode: (node: NodeNameTypes, position: Position, fileName: string) => void;
+	addNode: (
+		node: NodeNameTypes,
+		position: Position,
+		fileName: string,
+		data?: Record<string, unknown>,
+	) => string;
 	updateNodeData: (
 		nodeId: string,
 		data: Record<string, unknown>,
@@ -50,6 +60,7 @@ type Actions = {
 		variable: string,
 	) => void;
 	removeCase: (switchId: string, fileName: string, caseId: string) => void;
+	joinNodes: (nodeId1: string, nodeId2: string, filename: string) => void;
 };
 
 export const useNodes = create<Store>()(
@@ -86,7 +97,7 @@ export const useNodes = create<Store>()(
 					const newFiles = { ...files, [fileName]: newFile };
 					set({ files: newFiles });
 				},
-				addNode: (node, position, fileName) => {
+				addNode: (node, position, fileName, data) => {
 					const generatedId = crypto.randomUUID();
 					const newNode = {
 						id: generatedId,
@@ -94,21 +105,54 @@ export const useNodes = create<Store>()(
 						type: node,
 						data: {},
 					} as TypedNode;
-					if (node === "code" || node === "text") {
-						newNode.data.text = "";
+					if (data !== undefined) {
+						newNode.data = data;
 					}
-					if (node === "switch") {
-						newNode.data.cases = [
-							{
-								id: `${generatedId}-0`,
-								value: "",
-							},
-							{
-								id: `${generatedId}-1`,
-								value: "",
-							},
-						];
-						newNode.data.variable = "wak050_scene";
+					if (data === undefined) {
+						if (node === "flg") {
+							newNode.data.text = "";
+							newNode.data.bool = "off";
+						}
+						if (node === "life_in_ui") {
+							newNode.data.text = "Everyday";
+						}
+						if (node === "life_in_file") {
+							newNode.data.text = "tansaku_daily";
+						}
+						if (node === "set_dead") {
+							newNode.data.character = "flgDeath_C013_Yonag";
+							newNode.data.bool = "off";
+						}
+						if (node === "set_chapter") {
+							newNode.data.chapter = "Prologue";
+						}
+						if (node === "set_time") {
+							newNode.data.time = "DayTime";
+						}
+						if (node === "wak") {
+							newNode.data.key = "";
+							newNode.data.value = "";
+						}
+						if (node === "file") {
+							const files = Object.keys(get().files);
+							newNode.data.text = files[0];
+						}
+						if (node === "code" || node === "text") {
+							newNode.data.text = "";
+						}
+						if (node === "switch") {
+							newNode.data.cases = [
+								{
+									id: crypto.randomUUID(),
+									value: "",
+								},
+								{
+									id: crypto.randomUUID(),
+									value: "",
+								},
+							];
+							newNode.data.variable = "wak050_scene";
+						}
 					}
 					const files = get().files;
 					const file = files[fileName] ?? {
@@ -120,6 +164,7 @@ export const useNodes = create<Store>()(
 					const newFiles = { ...files };
 					newFiles[fileName] = newFile;
 					set({ files: newFiles });
+					return generatedId;
 				},
 				updateNodeData: (nodeId, data, fileName) => {
 					const files = get().files;
@@ -234,6 +279,24 @@ export const useNodes = create<Store>()(
 					const { setNodes, setEdges } = get().actions;
 					setNodes(newNodes, fileName);
 					setEdges(filteredEdges, fileName);
+				},
+				joinNodes: (nodeId1, nodeId2, filename) => {
+					const files = get().files;
+					const file = files[filename];
+					if (file === undefined) return;
+					const edges = file.edges;
+					const { setEdges } = get().actions;
+					setEdges(
+						[
+							...edges,
+							{
+								id: crypto.randomUUID(),
+								source: nodeId1,
+								target: nodeId2,
+							},
+						],
+						filename,
+					);
 				},
 			},
 		}),

@@ -7,4 +7,11 @@ export const nodeNames: Record<NodeNameTypes, string> = {
 	file: "File node",
 	end: "End node",
 	switch: "Switch node",
+	set_chapter: "Set chapter node",
+	set_time: "Set time node",
+	wak: "WAK node",
+	set_dead: "Set dead node",
+	life_in_file: "Set type of life in file node",
+	life_in_ui: "Set type of life in UI node",
+	flg: "FLG node",
 };

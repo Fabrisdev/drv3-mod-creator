@@ -1,6 +1,5 @@
-import { useParams } from "next/navigation";
-import { useEffect } from "react";
 import { useShallow } from "zustand/shallow";
+import { useFilename } from "@/file-manager/hooks/useFilename";
 import { useData } from "../hooks/useData";
 import { useNodes } from "../store/store";
 import type { ParameterProps } from "../types";
@@ -10,7 +9,7 @@ type Props = {
 } & ParameterProps;
 
 export function FileParameter({ id, hideCurrentFile }: Props) {
-	const { filename } = useParams();
+	const { filename } = useFilename();
 	const { updateNodeData } = useNodes((store) => store.actions);
 	const files = useNodes(useShallow((state) => Object.keys(state.files)));
 	const filteredFiles = hideCurrentFile
@@ -22,11 +21,6 @@ export function FileParameter({ id, hideCurrentFile }: Props) {
 			{file}
 		</option>
 	));
-
-	useEffect(() => {
-		if (text !== undefined) return;
-		updateNodeData(id, { text: filteredFiles[0] }, filename as string);
-	}, [text, filteredFiles]);
 
 	return (
 		<select

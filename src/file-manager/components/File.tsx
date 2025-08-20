@@ -8,14 +8,14 @@ export function File({ children }: { children: React.ReactNode }) {
 	return (
 		<Link href={`/file/${children}`}>
 			<Node className="hover:bg-[#3c3c3c] cursor-pointer flex justify-between items-center">
-				<p>{children}</p>
+				<p>c{children}</p>
 				<button
 					type="button"
 					className="border-2 border-[#3c3c3c] p-2 rounded-sm hover:bg-red-400 cursor-pointer"
 					onClick={(e) => {
 						e.stopPropagation();
 						e.preventDefault();
-						deleteFile(children as string);
+						deleteFile(`c${children}` as string);
 					}}
 				>
 					<CloseIcon alt={`Delete ${children} file`} size={20} />

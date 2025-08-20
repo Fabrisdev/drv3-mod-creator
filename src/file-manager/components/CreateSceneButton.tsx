@@ -1,8 +1,10 @@
 import { useRouter } from "next/navigation";
+import { useSceneHelper } from "@/scene-manager/hooks/useSceneHelper";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 
-export function CreateFileButton() {
+export function CreateSceneButton() {
+	const sceneHelper = useSceneHelper();
 	const router = useRouter();
 
 	function handleSubmit(e: React.FormEvent) {
@@ -10,21 +12,20 @@ export function CreateFileButton() {
 		const formData = new FormData(e.target as HTMLFormElement);
 		const chapter = formData.get("chapter");
 		const scene = formData.get("scene");
-		const location = formData.get("location");
-		if (
-			typeof chapter !== "string" ||
-			typeof scene !== "string" ||
-			typeof location !== "string"
-		)
-			return;
+		if (typeof chapter !== "string" || typeof scene !== "string") return;
 
 		const trimmedChapter = chapter.trim();
 		const trimmedScene = scene.trim();
-		const trimmedLocation = location.trim();
-		if (trimmedChapter === "" || trimmedScene === "" || trimmedLocation === "")
-			return;
+		if (trimmedChapter === "" || trimmedScene === "") return;
 
-		const filename = `${trimmedChapter}/${trimmedScene}/${trimmedLocation}`;
+		const chapterTransformed = trimmedChapter.padStart(3, "0");
+		const sceneTransformed = trimmedScene.padStart(3, "0");
+		const filename = `${chapterTransformed}/${sceneTransformed}/000`;
+
+		sceneHelper.create({
+			chapter: chapterTransformed,
+			scene: sceneTransformed,
+		});
 		router.push(`/file/${filename}`);
 	}
 
@@ -32,7 +33,6 @@ export function CreateFileButton() {
 		<form className="flex gap-2" onSubmit={handleSubmit}>
 			<Input name="chapter" placeholder="Chapter" />
 			<Input name="scene" placeholder="Scene" />
-			<Input name="location" placeholder="Location ID" />
 			<Button type="submit">Create</Button>
 		</form>
 	);

@@ -1,12 +1,12 @@
-import { useParams } from "next/navigation";
 import { useId } from "react";
+import { useFilename } from "@/file-manager/hooks/useFilename";
 import { useNodes } from "@/nodes/store/store";
 
 export function EdgeTypeSelector() {
 	const { updateEdgeType } = useNodes((state) => state.actions);
 	const defaultEdgeType = useNodes((state) => state.defaultEdgeType);
 	const selectId = useId();
-	const { filename } = useParams();
+	const { filename } = useFilename();
 
 	return (
 		<div className="flex items-center gap-2">

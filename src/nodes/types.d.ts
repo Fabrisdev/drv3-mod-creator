@@ -5,7 +5,14 @@ export type NodeNameTypes =
 	| "end"
 	| "code"
 	| "file"
-	| "switch";
+	| "switch"
+	| "wak"
+	| "set_time"
+	| "set_chapter"
+	| "set_dead"
+	| "life_in_file"
+	| "life_in_ui"
+	| "flg";
 export type NodeTypes = Record<NodeNameTypes, (unknown) => JSX.Element>;
 export type ParameterProps = {
 	id: string;

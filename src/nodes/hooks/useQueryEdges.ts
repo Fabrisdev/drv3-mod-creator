@@ -1,10 +1,10 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useFilename } from "@/file-manager/hooks/useFilename";
 import { useNodes } from "../store/store";
 
 export function useQueryEdges() {
-	const { filename } = useParams();
+	const { filename } = useFilename();
 
 	return useNodes((state) => state.files[filename as string]?.edges) ?? [];
 }
