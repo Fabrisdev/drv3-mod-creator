@@ -12,6 +12,7 @@ export function convertSimpleNodeToCode(node: Node) {
 		code: () => extractTextFromCodeNode(node),
 		file: () => fileNodeToCode(node),
 		end: () => "<END>",
+		wak: () => "<WAK key = value>",
 	};
 	return logic[node.type as SimpleNodes]();
 }

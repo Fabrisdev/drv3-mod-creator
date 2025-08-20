@@ -33,6 +33,7 @@ import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
 import { useFilename } from "@/file-manager/hooks/useFilename";
 import { FileNode } from "@/nodes/FileNode";
 import { SwitchNode } from "@/nodes/SwitchNode";
+import { WakNode } from "@/nodes/WakNode";
 
 export default function Home() {
 	const { filename } = useFilename();
@@ -50,6 +51,7 @@ export default function Home() {
 		code: CodeNode,
 		file: FileNode,
 		switch: SwitchNode,
+		wak: WakNode,
 	};
 
 	function onNodesChange(changes: NodeChange[]) {

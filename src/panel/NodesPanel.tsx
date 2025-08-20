@@ -46,7 +46,7 @@ export function NodesPanel() {
 				</Container>
 				<Container className="flex flex-col gap-2">
 					<p>Raw nodes</p>
-					<NodeOption type="code">Add WAK node</NodeOption>
+					<NodeOption type="wak">Add WAK node</NodeOption>
 					<NodeOption type="code">Add FLG node</NodeOption>
 					<NodeOption type="code">Add OBJ node</NodeOption>
 					<NodeOption type="code">Add Code node</NodeOption>

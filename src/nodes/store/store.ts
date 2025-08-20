@@ -23,6 +23,8 @@ export interface TypedNode extends Node {
 		cases?: Case[];
 		text?: string;
 		character?: string;
+		key?: string;
+		value?: string;
 	};
 }
 
@@ -104,6 +106,10 @@ export const useNodes = create<Store>()(
 						newNode.data = data;
 					}
 					if (data === undefined) {
+						if (node === "wak") {
+							newNode.data.key = "";
+							newNode.data.value = "";
+						}
 						if (node === "file") {
 							const files = Object.keys(get().files);
 							newNode.data.text = files[0];

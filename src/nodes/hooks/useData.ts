@@ -10,6 +10,8 @@ type Properties = {
 	character?: string;
 	cases?: Case[];
 	variable?: string;
+	key: string;
+	value: string;
 };
 
 type Props<K extends keyof Properties> = {
