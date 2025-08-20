@@ -37,7 +37,7 @@ export function NodesPanel() {
 					</button>
 				</div>
 				<Container className="flex flex-col gap-2">
-					<p>Easy nodes</p>
+					<p>Normal nodes</p>
 					<StartNodeOption />
 					<NodeOption type="text">Add Text node</NodeOption>
 					<NodeOption type="file">Add File node</NodeOption>
