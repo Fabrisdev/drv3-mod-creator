@@ -9,7 +9,7 @@ export function SetDeadNode({ id }: NodeProps) {
 			<p>Set dead</p>
 			<div className="flex gap-2">
 				<DeadCharacterParameter id={id} />
-				<BoolParameter id={id} />
+				<BoolParameter id={id} translation={{ off: "Alive", on: "Dead" }} />
 			</div>
 
 			<Handle type="target" position={Position.Left} />
