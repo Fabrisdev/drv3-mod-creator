@@ -10,7 +10,7 @@ export function useConnect() {
 			const id = addNode(type, { x: lastXPosition, y: 0 }, filename, data);
 			if (lastNodeId !== "") joinNodes(lastNodeId, id, filename);
 			lastNodeId = id;
-			lastXPosition += 150;
+			lastXPosition += 800;
 		}
 		const builder = {
 			start() {

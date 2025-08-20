@@ -6,7 +6,8 @@ export type NodeNameTypes =
 	| "code"
 	| "file"
 	| "switch"
-	| "wak";
+	| "wak"
+	| "set_time";
 export type NodeTypes = Record<NodeNameTypes, (unknown) => JSX.Element>;
 export type ParameterProps = {
 	id: string;

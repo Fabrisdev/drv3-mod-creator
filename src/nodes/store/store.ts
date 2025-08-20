@@ -25,6 +25,7 @@ export interface TypedNode extends Node {
 		character?: string;
 		key?: string;
 		value?: string;
+		time?: string;
 	};
 }
 
@@ -106,6 +107,9 @@ export const useNodes = create<Store>()(
 						newNode.data = data;
 					}
 					if (data === undefined) {
+						if (node === "set_time") {
+							newNode.data.time = "DayTime";
+						}
 						if (node === "wak") {
 							newNode.data.key = "";
 							newNode.data.value = "";

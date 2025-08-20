@@ -12,6 +12,7 @@ type Properties = {
 	variable?: string;
 	key: string;
 	value: string;
+	time: string;
 };
 
 type Props<K extends keyof Properties> = {

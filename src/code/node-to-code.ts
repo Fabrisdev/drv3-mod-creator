@@ -13,8 +13,13 @@ export function convertSimpleNodeToCode(node: Node) {
 		file: () => fileNodeToCode(node),
 		end: () => "<END>",
 		wak: () => wakNodeToCode(node),
+		set_time: () => setTimeNodeToCode(node),
 	};
 	return logic[node.type as SimpleNodes]();
+}
+
+function setTimeNodeToCode(node: Node) {
+	return `<WAK wkDayTimes = ${node.data.time}>`;
 }
 
 function wakNodeToCode(node: Node) {
