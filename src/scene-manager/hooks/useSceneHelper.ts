@@ -28,7 +28,7 @@ export function useSceneHelper() {
 			}
 			if (line.type === "wak") {
 				const { key, value } = line;
-				nodes.wak({ key, value });
+				nodes.wak({ key, value: key === "wak050_scene" ? scene : value });
 			}
 			if (line.type === "time") {
 				const { time } = line;
