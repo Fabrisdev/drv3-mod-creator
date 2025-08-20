@@ -52,6 +52,10 @@ export function useConnect() {
 				spawnNode("life_in_file", { text: life });
 				return this as WithoutStart;
 			},
+			lifeInUI(life: string) {
+				spawnNode("life_in_ui", { text: life });
+				return this as WithoutStart;
+			},
 		};
 		return builder as OnlyStart;
 
