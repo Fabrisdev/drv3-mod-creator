@@ -42,6 +42,9 @@ export function useConnect() {
 				spawnNode("set_chapter", { chapter });
 				return this as WithoutStart;
 			},
+			dead({ character, bool }: { character: string; bool: string }) {
+				spawnNode("set_dead", { character, bool });
+			},
 		};
 		return builder as OnlyStart;
 

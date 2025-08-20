@@ -38,6 +38,10 @@ export function useSceneHelper() {
 				const { chapter } = line;
 				nodes.chapter(chapter);
 			}
+			if (line.type === "dead") {
+				const { character, bool } = line;
+				nodes.dead({ character, bool });
+			}
 		}
 		if (plainCode.length > 0) nodes.code(plainCode.join("\n"));
 		nodes.file(nextFile).end();

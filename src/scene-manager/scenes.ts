@@ -12,6 +12,11 @@ type SceneLine =
 	| {
 			type: "chapter";
 			chapter: string;
+	  }
+	| {
+			type: "dead";
+			character: string;
+			bool: string;
 	  };
 
 export const sceneCode: SceneLine[] = [
@@ -96,22 +101,22 @@ export const sceneCode: SceneLine[] = [
 		key: "sin014",
 		value: "0",
 	},
-	'<FLG "on, off" flgDeath_C000_Saiha>',
-	'<FLG "on, off" flgDeath_C001_Momot>',
-	'<FLG "on, off" flgDeath_C002_Hoshi>',
-	'<FLG "on, off" flgDeath_C003_Amami>',
-	'<FLG "on, off" flgDeath_C004_Gokuh>',
-	'<FLG "on, off" flgDeath_C005_Oma__>',
-	'<FLG "on, off" flgDeath_C006_Shing>',
-	'<FLG "on, off" flgDeath_C007_Ki-Bo>',
-	'<FLG "on, off" flgDeath_C008_Tojo_>',
-	'<FLG "on, off" flgDeath_C009_Yumen>',
-	'<FLG "on, off" flgDeath_C010_Haruk>',
-	'<FLG "on, off" flgDeath_C011_Chaba>',
-	'<FLG "on, off" flgDeath_C012_Shiro>',
-	'<FLG "on, off" flgDeath_C013_Yonag>',
-	'<FLG "on, off" flgDeath_C014_Iruma>',
-	'<FLG "on, off" flgDeath_C015_Akama>',
+	{ type: "dead", character: "flgDeath_C000_Saiha", bool: "off" },
+	{ type: "dead", character: "flgDeath_C001_Momot", bool: "off" },
+	{ type: "dead", character: "flgDeath_C002_Hoshi", bool: "off" },
+	{ type: "dead", character: "flgDeath_C003_Amami", bool: "off" },
+	{ type: "dead", character: "flgDeath_C004_Gokuh", bool: "off" },
+	{ type: "dead", character: "flgDeath_C005_Oma__", bool: "off" },
+	{ type: "dead", character: "flgDeath_C006_Shing", bool: "off" },
+	{ type: "dead", character: "flgDeath_C007_Ki-Bo", bool: "off" },
+	{ type: "dead", character: "flgDeath_C008_Tojo_", bool: "off" },
+	{ type: "dead", character: "flgDeath_C009_Yumen", bool: "off" },
+	{ type: "dead", character: "flgDeath_C010_Haruk", bool: "off" },
+	{ type: "dead", character: "flgDeath_C011_Chaba", bool: "off" },
+	{ type: "dead", character: "flgDeath_C012_Shiro", bool: "off" },
+	{ type: "dead", character: "flgDeath_C013_Yonag", bool: "off" },
+	{ type: "dead", character: "flgDeath_C014_Iruma", bool: "off" },
+	{ type: "dead", character: "flgDeath_C015_Akama", bool: "off" },
 	'<FLG "on, off" flg068>',
 	'<WAK kousoku00 = "0, 1">',
 	'<WAK kousoku01 = "0, 1">',
