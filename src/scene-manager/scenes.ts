@@ -17,13 +17,27 @@ type SceneLine =
 			type: "dead";
 			character: string;
 			bool: string;
+	  }
+	| {
+			type: "set_life_in_file";
+			text: string;
+	  }
+	| {
+			type: "set_life_in_ui";
+			text: string;
 	  };
 
 export const sceneCode: SceneLine[] = [
-	'<MOD modSetScene "tansaku, tansaku_daily, tansaku_free, tansaku_undaily, tansaku_investigte, tansaku_saiban, tansaku_savepoint, saiban, saiban_setup, saiban_pause" non non>',
+	{
+		type: "set_life_in_file",
+		text: "tansaku_daily",
+	},
 	{ type: "chapter", chapter: "Prologue" },
 	{ type: "time", time: "DayTime" },
-	'<WAK wkEveryday = "Everyday, Extraordinary">',
+	{
+		type: "set_life_in_ui",
+		text: "Everyday",
+	},
 	'<FLG "on, off" flg064>',
 	'<FLG "on, off" flg067>',
 	{
