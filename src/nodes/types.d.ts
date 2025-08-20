@@ -9,7 +9,8 @@ export type NodeNameTypes =
 	| "wak"
 	| "set_time"
 	| "set_chapter"
-	| "set_dead";
+	| "set_dead"
+	| "life_in_file";
 export type NodeTypes = Record<NodeNameTypes, (unknown) => JSX.Element>;
 export type ParameterProps = {
 	id: string;

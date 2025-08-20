@@ -34,6 +34,7 @@ import { useFilename } from "@/file-manager/hooks/useFilename";
 import { FileNode } from "@/nodes/FileNode";
 import { SetChapterNode } from "@/nodes/SetChapterNode";
 import { SetDeadNode } from "@/nodes/SetDeadNode";
+import { SetLifeInFile } from "@/nodes/SetLifeInFile";
 import { SetTimeNode } from "@/nodes/SetTimeNode";
 import { SwitchNode } from "@/nodes/SwitchNode";
 import { WakNode } from "@/nodes/WakNode";
@@ -58,6 +59,7 @@ export default function Home() {
 		set_time: SetTimeNode,
 		set_chapter: SetChapterNode,
 		set_dead: SetDeadNode,
+		life_in_file: SetLifeInFile,
 	};
 
 	function onNodesChange(changes: NodeChange[]) {
