@@ -7,7 +7,7 @@ type Props = {
 	id: string;
 };
 
-export function DeadParameter({ id }: Props) {
+export function BoolParameter({ id }: Props) {
 	const bool = useData({ id, prop: "bool" });
 	const { update } = useUpdateData();
 	return (
