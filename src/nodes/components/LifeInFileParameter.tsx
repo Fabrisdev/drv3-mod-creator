@@ -1,8 +1,15 @@
 import { Select } from "@/ui/Select";
+import { useData } from "../hooks/useData";
+import { useUpdateData } from "../hooks/useUpdateDada";
 
-export function LifeInFileParameter() {
+type Props = {
+	id: string;
+};
+export function LifeInFileParameter({ id }: Props) {
+	const text = useData({ id, prop: "text" });
+	const { update } = useUpdateData();
 	return (
-		<Select>
+		<Select value={text} onChange={(text) => update({ id, data: { text } })}>
 			<option value="tansaku_daily">Daily Life</option>
 			<option value="tansaku_undaily">Deadly Life</option>
 			<option value="tansaku_investigte">Investigation Start</option>

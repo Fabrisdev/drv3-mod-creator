@@ -109,6 +109,9 @@ export const useNodes = create<Store>()(
 						newNode.data = data;
 					}
 					if (data === undefined) {
+						if (node === "life_in_file") {
+							newNode.data.text = "tansaku_daily";
+						}
 						if (node === "set_dead") {
 							newNode.data.character = "flgDeath_C013_Yonag";
 							newNode.data.bool = "off";
