@@ -15,7 +15,7 @@ export function useSceneHelper() {
 	function create({ chapter, scene }: Create) {
 		const filename = `c${chapter}/${scene}/000`;
 		const nextFile = findNextFile(filename, filenames);
-		const nodes = connect(filename).start();
+		const nodes = connect(filename).start({});
 		let plainCode = [];
 		for (const line of sceneCode) {
 			if (typeof line === "string") {
@@ -23,40 +23,19 @@ export function useSceneHelper() {
 				continue;
 			}
 			if (plainCode.length > 0) {
-				nodes.code(plainCode.join("\n"));
+				nodes.code({ code: plainCode.join("\n") });
 				plainCode = [];
 			}
 			if (line.type === "wak") {
 				const { key, value } = line;
 				nodes.wak({ key, value: key === "wak050_scene" ? scene : value });
+				continue;
 			}
-			if (line.type === "time") {
-				const { time } = line;
-				nodes.time(time);
-			}
-			if (line.type === "chapter") {
-				const { chapter } = line;
-				nodes.chapter(chapter);
-			}
-			if (line.type === "dead") {
-				const { character, bool } = line;
-				nodes.dead({ character, bool });
-			}
-			if (line.type === "set_life_in_file") {
-				const { text } = line;
-				nodes.lifeInFile(text);
-			}
-			if (line.type === "set_life_in_ui") {
-				const { text } = line;
-				nodes.lifeInUI(text);
-			}
-			if (line.type === "flg") {
-				const { text, bool } = line;
-				nodes.flg({ flg: text, bool });
-			}
+			// @ts-ignore
+			nodes[line.type](line);
 		}
-		if (plainCode.length > 0) nodes.code(plainCode.join("\n"));
-		nodes.file(nextFile).end();
+		if (plainCode.length > 0) nodes.code({ code: plainCode.join("\n") });
+		nodes.file({ to: nextFile }).end();
 	}
 
 	return { create };

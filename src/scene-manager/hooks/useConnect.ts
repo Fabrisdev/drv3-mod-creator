@@ -13,15 +13,15 @@ export function useConnect() {
 			lastXPosition += 300;
 		}
 		const builder = {
-			start() {
+			start(_: Record<string, never>) {
 				spawnNode("start");
 				return this as WithoutStart;
 			},
-			code(code: string) {
+			code({ code }: { code: string }) {
 				spawnNode("code", { text: code });
 				return this as WithoutStart;
 			},
-			file(to?: string) {
+			file({ to }: { to?: string }) {
 				if (to === undefined) return this as WithoutStart;
 				spawnNode("file", { text: to });
 				return this as WithoutStart;
@@ -35,11 +35,11 @@ export function useConnect() {
 				lastXPosition += 300;
 				return this as WithoutStart;
 			},
-			time(time: string) {
+			time({ time }: { time: string }) {
 				spawnNode("set_time", { time });
 				return this as WithoutStart;
 			},
-			chapter(chapter: string) {
+			chapter({ chapter }: { chapter: string }) {
 				spawnNode("set_chapter", { chapter });
 				return this as WithoutStart;
 			},
@@ -48,16 +48,16 @@ export function useConnect() {
 				lastXPosition += 150;
 				return this as WithoutStart;
 			},
-			lifeInFile(life: string) {
-				spawnNode("life_in_file", { text: life });
+			set_life_in_file({ text }: { text: string }) {
+				spawnNode("life_in_file", { text });
 				return this as WithoutStart;
 			},
-			lifeInUI(life: string) {
-				spawnNode("life_in_ui", { text: life });
+			set_life_in_ui({ text }: { text: string }) {
+				spawnNode("life_in_ui", { text });
 				return this as WithoutStart;
 			},
-			flg({ flg, bool }: { flg: string; bool: string }) {
-				spawnNode("flg", { text: flg, bool });
+			flg({ text, bool }: { text: string; bool: string }) {
+				spawnNode("flg", { text, bool });
 			},
 		};
 		return builder as OnlyStart;
