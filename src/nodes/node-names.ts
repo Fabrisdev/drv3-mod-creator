@@ -12,4 +12,5 @@ export const nodeNames: Record<NodeNameTypes, string> = {
 	wak: "WAK node",
 	set_dead: "Set dead node",
 	life_in_file: "Set type of life in file",
+	life_in_ui: "Set type of life in UI",
 };

@@ -10,7 +10,8 @@ export type NodeNameTypes =
 	| "set_time"
 	| "set_chapter"
 	| "set_dead"
-	| "life_in_file";
+	| "life_in_file"
+	| "life_in_ui";
 export type NodeTypes = Record<NodeNameTypes, (unknown) => JSX.Element>;
 export type ParameterProps = {
 	id: string;

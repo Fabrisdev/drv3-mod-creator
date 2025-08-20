@@ -35,6 +35,7 @@ import { FileNode } from "@/nodes/FileNode";
 import { SetChapterNode } from "@/nodes/SetChapterNode";
 import { SetDeadNode } from "@/nodes/SetDeadNode";
 import { SetLifeInFile } from "@/nodes/SetLifeInFile";
+import { SetLifeInUI } from "@/nodes/SetLifeInUI";
 import { SetTimeNode } from "@/nodes/SetTimeNode";
 import { SwitchNode } from "@/nodes/SwitchNode";
 import { WakNode } from "@/nodes/WakNode";
@@ -60,6 +61,7 @@ export default function Home() {
 		set_chapter: SetChapterNode,
 		set_dead: SetDeadNode,
 		life_in_file: SetLifeInFile,
+		life_in_ui: SetLifeInUI,
 	};
 
 	function onNodesChange(changes: NodeChange[]) {
