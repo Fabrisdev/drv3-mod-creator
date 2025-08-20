@@ -150,7 +150,22 @@ export const sceneCode: SceneLine[] = [
 	'<MAP "Location name" "map start position" mapModePreload>',
 ];
 
+function parseFileName(file: string) {
+	return file
+		.slice(1)
+		.split("/")
+		.map((part) => parseInt(part));
+}
+
 export function findNextFile(currentFile: string, files: string[]) {
-	const sortedFiles = files.sort();
+	const sortedFiles = files.toSorted((a, b) => {
+		const pa = parseFileName(a);
+		const pb = parseFileName(b);
+
+		for (let i = 0; i < pa.length; i++) {
+			if (pa[i] !== pb[i]) return pa[i] - pb[i];
+		}
+		return 0;
+	});
 	return sortedFiles.find((f) => f > currentFile);
 }
