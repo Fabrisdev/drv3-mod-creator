@@ -19,6 +19,7 @@ export function useConnect() {
 			},
 			code({ code }: { code: string }) {
 				spawnNode("code", { text: code });
+				lastXPosition += 350;
 				return this as WithoutStart;
 			},
 			file({ to }: { to?: string }) {
@@ -58,6 +59,7 @@ export function useConnect() {
 			},
 			flg({ text, bool }: { text: string; bool: string }) {
 				spawnNode("flg", { text, bool });
+				lastXPosition += 250;
 			},
 		};
 		return builder as OnlyStart;
