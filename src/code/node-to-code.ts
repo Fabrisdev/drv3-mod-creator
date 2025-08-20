@@ -18,8 +18,14 @@ export function convertSimpleNodeToCode(node: Node) {
 		set_dead: () => setDeadNodeToCode(node),
 		life_in_file: () => setLifeInFileNodeToCode(node),
 		life_in_ui: () => setLifeInUI(node),
+		flg: () => flgNodeToCode(node),
 	};
 	return logic[node.type as SimpleNodes]();
+}
+
+function flgNodeToCode(node: Node) {
+	const { text, bool } = node.data;
+	return `<FLG ${bool} ${text}>`;
 }
 
 function setLifeInUI(node: Node) {
