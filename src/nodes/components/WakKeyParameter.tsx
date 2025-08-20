@@ -7,7 +7,7 @@ type Props = {
 };
 
 export function WakKeyParameter({ id }: Props) {
-	const key = useData({ id, prop: "key" });
+	const key = useData({ id, prop: "key" }) ?? "";
 	const { update } = useUpdateData();
 
 	return (
