@@ -109,6 +109,10 @@ export const useNodes = create<Store>()(
 						newNode.data = data;
 					}
 					if (data === undefined) {
+						if (node === "flg") {
+							newNode.data.text = "";
+							newNode.data.bool = "off";
+						}
 						if (node === "life_in_ui") {
 							newNode.data.text = "Everyday";
 						}
