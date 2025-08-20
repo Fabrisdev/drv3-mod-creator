@@ -15,7 +15,21 @@ export function useSceneHelper() {
 	function create({ chapter, scene }: Create) {
 		const filename = `c${chapter}/${scene}/000`;
 		const nextFile = findNextFile(filename, filenames);
-		connect(filename).start().code(sceneCode).file(nextFile).end();
+		const nodes = connect(filename).start();
+		let plainCode = [];
+		for (const line of sceneCode) {
+			if (typeof line === "string") {
+				plainCode.push(line);
+				continue;
+			}
+			if (plainCode.length > 0) {
+				nodes.code(plainCode.join("\n"));
+				plainCode = [];
+			}
+			nodes[line.type](line);
+		}
+		if (plainCode.length > 0) nodes.code(plainCode.join("\n"));
+		nodes.file(nextFile).end();
 	}
 
 	return { create };

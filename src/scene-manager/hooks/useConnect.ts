@@ -30,6 +30,10 @@ export function useConnect() {
 				spawnNode("end");
 				return this as never;
 			},
+			wak({ key, value }: { key: string; value: string }) {
+				spawnNode("wak", { key, value });
+				return this as WithoutStart;
+			},
 		};
 		return builder as OnlyStart;
 

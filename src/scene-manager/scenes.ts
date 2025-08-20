@@ -1,25 +1,93 @@
-export const sceneCode = [
+type SceneLine =
+	| string
+	| {
+			type: "wak";
+			key: string;
+			value: string;
+	  };
+
+export const sceneCode: SceneLine[] = [
 	'<MOD modSetScene "tansaku, tansaku_daily, tansaku_free, tansaku_undaily, tansaku_investigte, tansaku_saiban, tansaku_savepoint, saiban, saiban_setup, saiban_pause" non non>',
 	'<WAK wkChapter = "Prologue, Chapter1, Chapter2, Chapter, Chapter4, Chapter5, Chapter6, Epilogue, Ainori, Trial, Chapter10, verification">',
 	'<WAK wkDayTimes = "DayTime, Night, TimeNon">',
 	'<WAK wkEveryday = "Everyday, Extraordinary">',
 	'<FLG "on, off" flg064>',
 	'<FLG "on, off" flg067>',
-	'<WAK sin000 = "0, 1">',
-	'<WAK sin001 = "0, 1">',
-	'<WAK sin002 = "0, 1">',
-	'<WAK sin003 = "0, 1">',
-	'<WAK sin004 = "0, 1">',
-	'<WAK sin005 = "0, 1">',
-	'<WAK sin006 = "0, 1">',
-	'<WAK sin007 = "0, 1">',
-	'<WAK sin008 = "0, 1">',
-	'<WAK sin009 = "0, 1">',
-	'<WAK sin010 = "0, 1">',
-	'<WAK sin011 = "0, 1">',
-	'<WAK sin012 = "0, 1">',
-	'<WAK sin013 = "0, 1">',
-	'<WAK sin014 = "0, 1">',
+	{
+		type: "wak",
+		key: "sin000",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin001",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin002",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin003",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin004",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin005",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin006",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin007",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin008",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin009",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin010",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin011",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin012",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin013",
+		value: "0",
+	},
+	{
+		type: "wak",
+		key: "sin014",
+		value: "0",
+	},
 	'<FLG "on, off" flgDeath_C000_Saiha>',
 	'<FLG "on, off" flgDeath_C001_Momot>',
 	'<FLG "on, off" flgDeath_C002_Hoshi>',
@@ -72,7 +140,7 @@ export const sceneCode = [
 	'<MOD modReactionVoice pos014 "Voiceline name" message014>',
 	'<MOD modReactionVoice pos015 "Voiceline name" message015>',
 	'<MAP "Location name" "map start position" mapModePreload>',
-].join("\n");
+];
 
 export function findNextFile(currentFile: string, files: string[]) {
 	const sortedFiles = files.sort();
