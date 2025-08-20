@@ -12,9 +12,14 @@ export function convertSimpleNodeToCode(node: Node) {
 		code: () => extractTextFromCodeNode(node),
 		file: () => fileNodeToCode(node),
 		end: () => "<END>",
-		wak: () => "<WAK key = value>",
+		wak: () => wakNodeToCode(node),
 	};
 	return logic[node.type as SimpleNodes]();
+}
+
+function wakNodeToCode(node: Node) {
+	const { key, value } = node.data;
+	return `<WAK ${key} = ${value}>`;
 }
 
 function fileNodeToCode(node: Node) {
