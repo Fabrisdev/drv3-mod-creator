@@ -10,7 +10,7 @@ export function LifeInFileParameter() {
 			<option value="tansaku_savepoint">Save Point</option>
 			<option value="tansaku">tansaku</option>
 			<option value="tansaku_saiban">tansaku_saiban</option>
-			<option value="saiban">taiban</option>
+			<option value="saiban">saiban</option>
 			<option value="saiban_setup">saiban_setup</option>
 			<option value="saiban_pause">saiban_pause</option>
 		</Select>
