@@ -38,6 +38,10 @@ export function useConnect() {
 				spawnNode("set_time", { time });
 				return this as WithoutStart;
 			},
+			chapter(chapter: string) {
+				spawnNode("set_chapter", { chapter });
+				return this as WithoutStart;
+			},
 		};
 		return builder as OnlyStart;
 

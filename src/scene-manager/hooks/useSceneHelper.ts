@@ -34,6 +34,10 @@ export function useSceneHelper() {
 				const { time } = line;
 				nodes.time(time);
 			}
+			if (line.type === "chapter") {
+				const { chapter } = line;
+				nodes.chapter(chapter);
+			}
 		}
 		if (plainCode.length > 0) nodes.code(plainCode.join("\n"));
 		nodes.file(nextFile).end();

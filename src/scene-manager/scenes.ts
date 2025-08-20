@@ -7,12 +7,16 @@ type SceneLine =
 	  }
 	| {
 			type: "time";
-			time: "DayTime" | "Night" | "TimeNon";
+			time: string;
+	  }
+	| {
+			type: "chapter";
+			chapter: string;
 	  };
 
 export const sceneCode: SceneLine[] = [
 	'<MOD modSetScene "tansaku, tansaku_daily, tansaku_free, tansaku_undaily, tansaku_investigte, tansaku_saiban, tansaku_savepoint, saiban, saiban_setup, saiban_pause" non non>',
-	'<WAK wkChapter = "Prologue, Chapter1, Chapter2, Chapter, Chapter4, Chapter5, Chapter6, Epilogue, Ainori, Trial, Chapter10, verification">',
+	{ type: "chapter", chapter: "Prologue" },
 	{ type: "time", time: "DayTime" },
 	'<WAK wkEveryday = "Everyday, Extraordinary">',
 	'<FLG "on, off" flg064>',
