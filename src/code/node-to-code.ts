@@ -17,8 +17,13 @@ export function convertSimpleNodeToCode(node: Node) {
 		set_chapter: () => setChapterNodeToCode(node),
 		set_dead: () => setDeadNodeToCode(node),
 		life_in_file: () => setLifeInFileNodeToCode(node),
+		life_in_ui: () => setLifeInUI(node),
 	};
 	return logic[node.type as SimpleNodes]();
+}
+
+function setLifeInUI(node: Node) {
+	return `<WAK wkEveryday = ${node.data.text}>`;
 }
 
 function setLifeInFileNodeToCode(node: Node) {
