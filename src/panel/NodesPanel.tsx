@@ -43,6 +43,7 @@ export function NodesPanel() {
 					<NodeOption type="file">Add File node</NodeOption>
 					<NodeOption type="switch">Add Switch node</NodeOption>
 					<NodeOption type="set_time">Add Set time node</NodeOption>
+					<NodeOption type="set_chapter">Add Set chapter node</NodeOption>
 					<NodeOption type="end">Add End node</NodeOption>
 				</Container>
 				<Container className="flex flex-col gap-2">

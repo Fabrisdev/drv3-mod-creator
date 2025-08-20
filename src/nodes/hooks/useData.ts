@@ -13,6 +13,7 @@ type Properties = {
 	key: string;
 	value: string;
 	time: string;
+	chapter: string;
 };
 
 type Props<K extends keyof Properties> = {

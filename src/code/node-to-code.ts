@@ -14,8 +14,13 @@ export function convertSimpleNodeToCode(node: Node) {
 		end: () => "<END>",
 		wak: () => wakNodeToCode(node),
 		set_time: () => setTimeNodeToCode(node),
+		set_chapter: () => setChapterNodeToCode(node),
 	};
 	return logic[node.type as SimpleNodes]();
+}
+
+function setChapterNodeToCode(node: Node) {
+	return `<WAK wkChapter = ${node.data.chapter}>`;
 }
 
 function setTimeNodeToCode(node: Node) {

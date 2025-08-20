@@ -32,6 +32,7 @@ import { ContextMenu } from "@/context-menu/ContextMenu";
 import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
 import { useFilename } from "@/file-manager/hooks/useFilename";
 import { FileNode } from "@/nodes/FileNode";
+import { SetChapterNode } from "@/nodes/SetChapterNode";
 import { SetTimeNode } from "@/nodes/SetTimeNode";
 import { SwitchNode } from "@/nodes/SwitchNode";
 import { WakNode } from "@/nodes/WakNode";
@@ -54,6 +55,7 @@ export default function Home() {
 		switch: SwitchNode,
 		wak: WakNode,
 		set_time: SetTimeNode,
+		set_chapter: SetChapterNode,
 	};
 
 	function onNodesChange(changes: NodeChange[]) {

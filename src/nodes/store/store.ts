@@ -26,6 +26,7 @@ export interface TypedNode extends Node {
 		key?: string;
 		value?: string;
 		time?: string;
+		chapter?: string;
 	};
 }
 
@@ -107,6 +108,9 @@ export const useNodes = create<Store>()(
 						newNode.data = data;
 					}
 					if (data === undefined) {
+						if (node === "set_chapter") {
+							newNode.data.chapter = "Prologue";
+						}
 						if (node === "set_time") {
 							newNode.data.time = "DayTime";
 						}
