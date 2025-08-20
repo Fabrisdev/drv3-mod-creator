@@ -244,15 +244,21 @@ function parseFileName(file: string) {
 		.map((part) => parseInt(part));
 }
 
-export function findNextFile(currentFile: string, files: string[]) {
-	const sortedFiles = files.toSorted((a, b) => {
-		const pa = parseFileName(a);
-		const pb = parseFileName(b);
+function cmp(a: string, b: string) {
+	const pa = parseFileName(a);
+	const pb = parseFileName(b);
+	for (let i = 0; i < 3; i++) {
+		if (pa[i] !== pb[i]) return pa[i] - pb[i];
+	}
+	return 0;
+}
 
-		for (let i = 0; i < pa.length; i++) {
-			if (pa[i] !== pb[i]) return pa[i] - pb[i];
+export function findNextFile(currentFile: string, files: string[]) {
+	let candidate: string | undefined;
+	for (const f of files) {
+		if (cmp(f, currentFile) > 0 && (!candidate || cmp(f, candidate) < 0)) {
+			candidate = f;
 		}
-		return 0;
-	});
-	return sortedFiles.find((f) => f > currentFile);
+	}
+	return candidate;
 }
