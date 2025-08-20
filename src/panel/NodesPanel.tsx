@@ -53,7 +53,6 @@ export function NodesPanel() {
 					<p>Raw nodes</p>
 					<NodeOption type="wak">Add WAK node</NodeOption>
 					<NodeOption type="flg">Add FLG node</NodeOption>
-					<NodeOption type="code">Add OBJ node</NodeOption>
 					<NodeOption type="code">Add Code node</NodeOption>
 				</Container>
 
