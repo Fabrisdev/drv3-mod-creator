@@ -44,6 +44,11 @@ export function useConnect() {
 			},
 			dead({ character, bool }: { character: string; bool: string }) {
 				spawnNode("set_dead", { character, bool });
+				return this as WithoutStart;
+			},
+			lifeInFile(life: string) {
+				spawnNode("life_in_file", { text: life });
+				return this as WithoutStart;
 			},
 		};
 		return builder as OnlyStart;

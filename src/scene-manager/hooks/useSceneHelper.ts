@@ -42,6 +42,10 @@ export function useSceneHelper() {
 				const { character, bool } = line;
 				nodes.dead({ character, bool });
 			}
+			if (line.type === "set_life_in_file") {
+				const { text } = line;
+				nodes.lifeInFile(text);
+			}
 		}
 		if (plainCode.length > 0) nodes.code(plainCode.join("\n"));
 		nodes.file(nextFile).end();
