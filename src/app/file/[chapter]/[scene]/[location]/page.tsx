@@ -40,14 +40,14 @@ import { SetLifeInFile } from "@/nodes/SetLifeInFile";
 import { SetLifeInUI } from "@/nodes/SetLifeInUI";
 import { SetTimeNode } from "@/nodes/SetTimeNode";
 import { SwitchNode } from "@/nodes/SwitchNode";
+import { useFilesStore } from "@/nodes/store/files";
 import { WakNode } from "@/nodes/WakNode";
 
 export default function Home() {
 	const { filename } = useFilename();
 	const useFileStore = createFileStore(filename);
 	const { setEdges, setNodes } = useFileStore((state) => state.actions);
-
-	const defaultEdgeType = "default"; //TODO: Make it something you can change
+	const edgeType = useFilesStore((state) => state.edgeType);
 
 	const nodes = useQueryNodes();
 	const edges = useQueryEdges();
@@ -114,7 +114,7 @@ export default function Home() {
 						proOptions={{
 							hideAttribution: true,
 						}}
-						defaultEdgeOptions={{ type: defaultEdgeType }}
+						defaultEdgeOptions={{ type: edgeType }}
 						isValidConnection={isValidConnection}
 					>
 						<Background />

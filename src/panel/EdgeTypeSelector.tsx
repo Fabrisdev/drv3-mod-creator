@@ -1,8 +1,8 @@
 import { useId } from "react";
-import { useFilename } from "@/file-manager/hooks/useFilename";
+import { useFilesStore } from "@/nodes/store/files";
 
 export function EdgeTypeSelector() {
-	//const { updateEdgeType } = useNodes((state) => state.actions);
+	const { setEdgeType } = useFilesStore((state) => state.actions);
 	const defaultEdgeType = "default";
 	const selectId = useId();
 
@@ -14,7 +14,7 @@ export function EdgeTypeSelector() {
 				id={selectId}
 				className="bg-gray-600 p-2 rounded-sm cursor-pointer"
 				onChange={(e) => {
-					/*updateEdgeType(e.target.value, filename as string)*/
+					setEdgeType(e.target.value);
 				}}
 			>
 				<option value="default">Bezier (default)</option>
