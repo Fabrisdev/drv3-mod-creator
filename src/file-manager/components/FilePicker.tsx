@@ -1,8 +1,7 @@
 "use client";
 
-import { useShallow } from "zustand/shallow";
 import { useFilename } from "@/file-manager/hooks/useFilename";
-import { useNodes } from "@/nodes/store/file";
+import { useFilesStore } from "@/nodes/store/files";
 import { Container } from "@/ui/Container";
 import { CloseButton } from "./CloseButton";
 import { CreateFile } from "./CreateFile";
@@ -16,7 +15,7 @@ type Props = {
 
 export function FilePicker({ className, onAskToClose }: Props) {
 	const { filename } = useFilename();
-	const filenames = useNodes(useShallow((state) => Object.keys(state.files)));
+	const filenames = useFilesStore((state) => state.filenames);
 	const filenamesWithoutCurrentOne = filenames.filter(
 		(file) => file !== filename,
 	);
