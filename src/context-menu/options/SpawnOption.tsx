@@ -2,7 +2,7 @@ import { useReactFlow } from "@xyflow/react";
 import { useState } from "react";
 import { useFilename } from "@/file-manager/hooks/useFilename";
 import { nodeNames } from "@/nodes/node-names";
-import { useNodes } from "@/nodes/store/store";
+import { useNodes } from "@/nodes/store/file";
 import type { NodeNameTypes } from "@/nodes/types";
 import { Button } from "@/ui/Button";
 import { Container } from "@/ui/Container";

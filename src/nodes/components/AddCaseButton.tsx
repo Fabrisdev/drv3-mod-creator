@@ -1,6 +1,6 @@
 import { useFilename } from "@/file-manager/hooks/useFilename";
 import { Button } from "@/ui/Button";
-import { useNodes } from "../store/store";
+import { useNodes } from "../store/file";
 
 type Props = {
 	id: string;

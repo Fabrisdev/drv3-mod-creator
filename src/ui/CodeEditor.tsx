@@ -1,7 +1,7 @@
 import Editor from "react-simple-code-editor";
 import { highlight } from "@/code/highlighter";
 import { useFilename } from "@/file-manager/hooks/useFilename";
-import { useNodes } from "@/nodes/store/store";
+import { useNodes } from "@/nodes/store/file";
 
 type Props =
 	| {

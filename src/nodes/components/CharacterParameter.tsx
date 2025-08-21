@@ -1,7 +1,7 @@
 import { useId } from "react";
 import { useFilename } from "@/file-manager/hooks/useFilename";
 import { useData } from "../hooks/useData";
-import { useNodes } from "../store/store";
+import { useNodes } from "../store/file";
 import type { ParameterProps } from "../types";
 
 export function CharacterParameter({ id }: ParameterProps) {

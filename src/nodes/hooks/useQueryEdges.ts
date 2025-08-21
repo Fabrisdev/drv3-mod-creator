@@ -1,7 +1,7 @@
 "use client";
 
 import { useFilename } from "@/file-manager/hooks/useFilename";
-import { useNodes } from "../store/store";
+import { useNodes } from "../store/file";
 
 export function useQueryEdges() {
 	const { filename } = useFilename();

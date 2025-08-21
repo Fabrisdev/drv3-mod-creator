@@ -2,7 +2,7 @@
 
 import { useShallow } from "zustand/shallow";
 import { useFilename } from "@/file-manager/hooks/useFilename";
-import { useNodes } from "@/nodes/store/store";
+import { useNodes } from "@/nodes/store/file";
 import { Container } from "@/ui/Container";
 import { CloseButton } from "./CloseButton";
 import { CreateFile } from "./CreateFile";

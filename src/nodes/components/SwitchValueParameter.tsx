@@ -1,7 +1,7 @@
 import { useFilename } from "@/file-manager/hooks/useFilename";
 import { Select } from "@/ui/Select";
 import { useData } from "../hooks/useData";
-import { useNodes } from "../store/store";
+import { useNodes } from "../store/file";
 
 type Props = {
 	id: string;

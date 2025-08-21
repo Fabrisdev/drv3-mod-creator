@@ -1,5 +1,5 @@
 import { useShallow } from "zustand/shallow";
-import { useNodes } from "@/nodes/store/store";
+import { useNodes } from "@/nodes/store/file";
 import { findNextFile, sceneCode } from "../scenes";
 import { useConnect } from "./useConnect";
 

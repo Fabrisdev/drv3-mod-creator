@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Node } from "@/nodes/components/Node";
-import { useNodes } from "@/nodes/store/store";
+import { useNodes } from "@/nodes/store/file";
 import { CloseIcon } from "../icons/CloseIcon";
 
 export function File({ children }: { children: React.ReactNode }) {

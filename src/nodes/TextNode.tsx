@@ -12,7 +12,7 @@ import {
 import { TextParameter } from "./components/TextParameter";
 import { TextPreview } from "./components/TextPreview";
 import { useData } from "./hooks/useData";
-import { useNodes } from "./store/store";
+import { useNodes } from "./store/file";
 
 export function TextNode({ id, data }: NodeProps) {
 	const { filename } = useFilename();

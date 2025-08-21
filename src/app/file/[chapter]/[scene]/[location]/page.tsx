@@ -22,7 +22,7 @@ import { EndNode } from "@/nodes/EndNode";
 import { useQueryEdges } from "@/nodes/hooks/useQueryEdges";
 import { useQueryNodes } from "@/nodes/hooks/useQueryNodes";
 import { StartNode } from "@/nodes/StartNode";
-import { useNodes } from "@/nodes/store/store";
+import { useNodes } from "@/nodes/store/file";
 import type { TypedNode } from "@/nodes/store/types";
 import { TextNode } from "@/nodes/TextNode";
 import type { NodeTypes } from "@/nodes/types";

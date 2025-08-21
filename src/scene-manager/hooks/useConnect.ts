@@ -1,4 +1,4 @@
-import { useNodes } from "@/nodes/store/store";
+import { useNodes } from "@/nodes/store/file";
 import type { NodeNameTypes } from "@/nodes/types";
 
 export function useConnect() {

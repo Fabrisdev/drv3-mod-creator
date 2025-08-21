@@ -3,7 +3,7 @@
 import { useReactFlow } from "@xyflow/react";
 import type { PropsWithChildren } from "react";
 import { useFilename } from "@/file-manager/hooks/useFilename";
-import { useNodes } from "@/nodes/store/store";
+import { useNodes } from "@/nodes/store/file";
 import type { NodeNameTypes } from "@/nodes/types";
 
 type Props = {

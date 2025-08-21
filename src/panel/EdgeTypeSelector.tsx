@@ -1,6 +1,6 @@
 import { useId } from "react";
 import { useFilename } from "@/file-manager/hooks/useFilename";
-import { useNodes } from "@/nodes/store/store";
+import { useNodes } from "@/nodes/store/file";
 
 export function EdgeTypeSelector() {
 	const { updateEdgeType } = useNodes((state) => state.actions);
