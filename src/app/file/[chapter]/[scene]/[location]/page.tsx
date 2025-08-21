@@ -22,7 +22,7 @@ import { EndNode } from "@/nodes/EndNode";
 import { useQueryEdges } from "@/nodes/hooks/useQueryEdges";
 import { useQueryNodes } from "@/nodes/hooks/useQueryNodes";
 import { StartNode } from "@/nodes/StartNode";
-import { useNodes } from "@/nodes/store/file";
+import { createFileStore } from "@/nodes/store/file";
 import type { TypedNode } from "@/nodes/store/types";
 import { TextNode } from "@/nodes/TextNode";
 import type { NodeTypes } from "@/nodes/types";
@@ -44,9 +44,10 @@ import { WakNode } from "@/nodes/WakNode";
 
 export default function Home() {
 	const { filename } = useFilename();
-	const { setEdges, setNodes } = useNodes((state) => state.actions);
+	const useFileStore = createFileStore(filename);
+	const { setEdges, setNodes } = useFileStore((state) => state.actions);
 
-	const defaultEdgeType = useNodes((state) => state.defaultEdgeType);
+	const defaultEdgeType = "default"; //TODO: Make it something you can change
 
 	const nodes = useQueryNodes();
 	const edges = useQueryEdges();
@@ -68,15 +69,15 @@ export default function Home() {
 	};
 
 	function onNodesChange(changes: NodeChange[]) {
-		setNodes(applyNodeChanges(changes, nodes) as TypedNode[], filename);
+		setNodes(applyNodeChanges(changes, nodes) as TypedNode[]);
 	}
 
 	function onEdgesChange(changes: EdgeChange[]) {
-		setEdges(applyEdgeChanges(changes, edges), filename);
+		setEdges(applyEdgeChanges(changes, edges));
 	}
 
 	function onConnect(params: Connection) {
-		setEdges(addEdge(params, edges), filename);
+		setEdges(addEdge(params, edges));
 	}
 
 	function isValidConnection(connection: Edge | Connection) {
