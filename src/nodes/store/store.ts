@@ -1,8 +1,8 @@
-import type { Edge, Node } from "@xyflow/react";
+import type { Edge } from "@xyflow/react";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { Case } from "../hooks/useData";
 import type { NodeNameTypes, Position } from "../types";
+import type { TypedNode } from "./types";
 
 type Store = {
 	files: Record<
@@ -16,20 +16,6 @@ type Store = {
 	defaultEdgeType: string;
 	actions: Actions;
 };
-
-export interface TypedNode extends Node {
-	data: {
-		variable?: string;
-		cases?: Case[];
-		text?: string;
-		character?: string;
-		key?: string;
-		value?: string;
-		time?: string;
-		chapter?: string;
-		bool?: "off" | "on";
-	};
-}
 
 type Actions = {
 	setNodes: (nodes: TypedNode[], fileName: string) => void;
