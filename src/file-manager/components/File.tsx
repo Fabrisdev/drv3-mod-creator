@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Node } from "@/nodes/components/Node";
-import { useNodes } from "@/nodes/store/file";
+import { useFilesStore } from "@/nodes/store/files";
 import { CloseIcon } from "../icons/CloseIcon";
 
 export function File({ children }: { children: React.ReactNode }) {
-	const { deleteFile } = useNodes((state) => state.actions);
+	const { removeFile } = useFilesStore((state) => state.actions);
 	return (
 		<Link href={`/file/${children}`}>
 			<Node className="hover:bg-[#3c3c3c] cursor-pointer flex justify-between items-center">
@@ -15,7 +15,7 @@ export function File({ children }: { children: React.ReactNode }) {
 					onClick={(e) => {
 						e.stopPropagation();
 						e.preventDefault();
-						deleteFile(`c${children}` as string);
+						removeFile(`c${children}` as string);
 					}}
 				>
 					<CloseIcon alt={`Delete ${children} file`} size={20} />
