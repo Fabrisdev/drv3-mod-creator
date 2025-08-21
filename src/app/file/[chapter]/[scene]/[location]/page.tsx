@@ -19,8 +19,6 @@ import { CodePanel } from "@/code/CodePanel";
 import { CurrentFilePanel } from "@/file-manager/panels/CurrentFilePanel";
 import { CodeNode } from "@/nodes/CodeNode";
 import { EndNode } from "@/nodes/EndNode";
-import { useQueryEdges } from "@/nodes/hooks/useQueryEdges";
-import { useQueryNodes } from "@/nodes/hooks/useQueryNodes";
 import { StartNode } from "@/nodes/StartNode";
 import { createFileStore } from "@/nodes/store/file";
 import type { TypedNode } from "@/nodes/store/types";
@@ -47,10 +45,9 @@ export default function Home() {
 	const { filename } = useFilename();
 	const useFileStore = createFileStore(filename);
 	const { setEdges, setNodes } = useFileStore((state) => state.actions);
+	const nodes = useFileStore((state) => state.nodes);
+	const edges = useFileStore((state) => state.edges);
 	const edgeType = useFilesStore((state) => state.edgeType);
-
-	const nodes = useQueryNodes();
-	const edges = useQueryEdges();
 
 	const nodeTypes: NodeTypes = {
 		text: TextNode,
