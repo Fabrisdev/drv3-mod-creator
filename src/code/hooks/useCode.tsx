@@ -1,10 +1,12 @@
-import { useQueryEdges } from "@/nodes/hooks/useQueryEdges";
-import { useQueryNodes } from "@/nodes/hooks/useQueryNodes";
+import { useFilename } from "@/file-manager/hooks/useFilename";
+import { createFileStore } from "@/nodes/store/file";
 import { generateCode } from "../node-helper";
 
 export function useCode() {
-	const nodes = useQueryNodes();
-	const edges = useQueryEdges();
+	const { filename } = useFilename();
+	const useFileStore = createFileStore(filename);
+	const nodes = useFileStore((state) => state.nodes);
+	const edges = useFileStore((state) => state.edges);
 	const code = generateCode({ nodes, edges });
 
 	return { code };

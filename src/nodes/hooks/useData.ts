@@ -1,4 +1,5 @@
-import { useQueryNodes } from "./useQueryNodes";
+import { useFilename } from "@/file-manager/hooks/useFilename";
+import { createFileStore } from "../store/file";
 
 export type Case = {
 	id: string;
@@ -23,7 +24,9 @@ type Props<K extends keyof Properties> = {
 };
 
 export function useData<K extends keyof Properties>({ id, prop }: Props<K>) {
-	const nodes = useQueryNodes();
+	const { filename } = useFilename();
+	const useFileStore = createFileStore(filename);
+	const nodes = useFileStore((state) => state.nodes);
 	const node = nodes.find((node) => node.id === id);
 	return node?.data[prop] as Properties[K];
 }
