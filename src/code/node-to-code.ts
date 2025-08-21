@@ -1,5 +1,5 @@
 import type { Edge, Node } from "@xyflow/react";
-import type { TypedNode } from "@/nodes/store/store";
+import type { TypedNode } from "@/nodes/store/types";
 import type { NodeNameTypes } from "@/nodes/types";
 import { generateCodeFromNode } from "./node-helper";
 

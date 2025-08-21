@@ -1,8 +1,8 @@
 import type { Edge } from "@xyflow/react";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { TypedNode } from "@/nodes/store/types";
 import type { NodeNameTypes, Position } from "../types";
-import type { TypedNode } from "./types";
 
 type Store = {
 	files: Record<
