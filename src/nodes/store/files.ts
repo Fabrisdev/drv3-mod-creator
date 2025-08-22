@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { createFileStore } from "./file";
 
 type Store = {
 	filenames: string[];
@@ -25,6 +26,10 @@ export const useFilesStore = create<Store>()(
 					set({ filenames: [...filenames, filename] });
 				},
 				removeFile: (filename) => {
+					const fileStore = createFileStore(filename);
+					const { setNodes, setEdges } = fileStore.getState().actions;
+					setNodes([]);
+					setEdges([]);
 					set({ filenames: get().filenames.filter((f) => f !== filename) });
 				},
 				setEdgeType: (type) => {
