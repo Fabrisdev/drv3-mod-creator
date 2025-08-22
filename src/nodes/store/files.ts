@@ -22,11 +22,7 @@ export const useFilesStore = create<Store>()(
 			actions: {
 				addFile: (filename) => {
 					const filenames = get().filenames;
-					if (filenames.includes(filename)) {
-						const { removeFile } = get().actions;
-						removeFile(filename);
-						return;
-					}
+					if (filenames.includes(filename)) return;
 					set({ filenames: [...filenames, filename] });
 				},
 				removeFile: (filename) => {
