@@ -20,7 +20,9 @@ export const useFilesStore = create<Store>()(
 			edgeType: "default",
 			actions: {
 				addFile: (filename) => {
-					set({ filenames: [...get().filenames, filename] });
+					const filenames = get().filenames;
+					if (filenames.includes(filename)) return;
+					set({ filenames: [...filenames, filename] });
 				},
 				removeFile: (filename) => {
 					set({ filenames: get().filenames.filter((f) => f !== filename) });
