@@ -3,7 +3,6 @@ import { create, type StoreApi, type UseBoundStore } from "zustand";
 import { persist } from "zustand/middleware";
 import type { TypedNode } from "@/nodes/store/types";
 import type { NodeNameTypes, Position } from "../types";
-import { useFilesStore } from "./files";
 
 type Store = {
 	nodes: TypedNode[];
