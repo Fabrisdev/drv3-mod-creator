@@ -4,7 +4,8 @@ import type { NodeNameTypes } from "@/nodes/types";
 export function useConnect() {
 	function connect(filename: string) {
 		const fileStore = createFileStore(filename);
-		const { addNode, joinNodes } = fileStore.getState().actions;
+		const { addNode, joinNodes, setNodes, setEdges } =
+			fileStore.getState().actions;
 		let lastNodeId = "";
 		let lastXPosition = 0;
 		function spawnNode(type: NodeNameTypes, data?: Record<string, unknown>) {
@@ -15,6 +16,8 @@ export function useConnect() {
 		}
 		const builder = {
 			start(_: Record<string, never>) {
+				setNodes([]);
+				setEdges([]);
 				spawnNode("start");
 				return this as WithoutStart;
 			},
