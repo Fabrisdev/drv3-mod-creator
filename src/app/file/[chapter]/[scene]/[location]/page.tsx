@@ -27,6 +27,7 @@ import type { NodeTypes } from "@/nodes/types";
 import { NodesPanel } from "@/panel/NodesPanel";
 import "@xyflow/react/dist/style.css";
 import type { Node } from "@xyflow/react";
+import { useEffect } from "react";
 import { ContextMenu } from "@/context-menu/ContextMenu";
 import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
 import { useFilename } from "@/file-manager/hooks/useFilename";
@@ -48,6 +49,11 @@ export default function Home() {
 	const nodes = useFileStore((state) => state.nodes);
 	const edges = useFileStore((state) => state.edges);
 	const edgeType = useFilesStore((state) => state.edgeType);
+	const { addFile } = useFilesStore((state) => state.actions);
+
+	useEffect(() => {
+		addFile(filename);
+	});
 
 	const nodeTypes: NodeTypes = {
 		text: TextNode,

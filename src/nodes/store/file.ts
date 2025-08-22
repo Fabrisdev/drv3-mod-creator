@@ -31,8 +31,6 @@ const stores: Record<string, UseBoundStore<StoreApi<Store>>> = {};
 
 export function createFileStore(filename: string) {
 	if (stores[filename] === undefined) {
-		const { addFile } = useFilesStore.getState().actions;
-		addFile(filename);
 		stores[filename] = create<Store>()(
 			persist(
 				(set, get) => ({
