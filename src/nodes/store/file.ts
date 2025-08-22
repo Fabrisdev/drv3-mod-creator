@@ -43,64 +43,16 @@ export function createFileStore(filename: string) {
 							set({ edges });
 						},
 						addNode: (node, position, data) => {
-							const generatedId = crypto.randomUUID();
-							const newNode = {
-								id: generatedId,
-								position,
+							const id = crypto.randomUUID();
+							const newNode = createNode({
 								type: node,
-								data: {},
-							} as TypedNode;
-							if (data !== undefined) {
-								newNode.data = data;
-							}
-							if (data === undefined) {
-								if (node === "flg") {
-									newNode.data.text = "";
-									newNode.data.bool = "off";
-								}
-								if (node === "life_in_ui") {
-									newNode.data.text = "Everyday";
-								}
-								if (node === "life_in_file") {
-									newNode.data.text = "tansaku_daily";
-								}
-								if (node === "set_dead") {
-									newNode.data.character = "flgDeath_C013_Yonag";
-									newNode.data.bool = "off";
-								}
-								if (node === "set_chapter") {
-									newNode.data.chapter = "Prologue";
-								}
-								if (node === "set_time") {
-									newNode.data.time = "DayTime";
-								}
-								if (node === "wak") {
-									newNode.data.key = "";
-									newNode.data.value = "";
-								}
-								if (node === "file") {
-									newNode.data.text = "TODO: Get first file";
-								}
-								if (node === "code" || node === "text") {
-									newNode.data.text = "";
-								}
-								if (node === "switch") {
-									newNode.data.cases = [
-										{
-											id: crypto.randomUUID(),
-											value: "",
-										},
-										{
-											id: crypto.randomUUID(),
-											value: "",
-										},
-									];
-									newNode.data.variable = "wak050_scene";
-								}
-							}
+								position,
+								data,
+								id,
+							});
 							const newNodes = [...get().nodes, newNode];
 							set({ nodes: newNodes });
-							return generatedId;
+							return id;
 						},
 						updateNodeData: (nodeId, data) => {
 							const newNodes = get().nodes.map((node) => {
@@ -192,4 +144,68 @@ export function createFileStore(filename: string) {
 	}
 
 	return stores[filename];
+}
+
+type CreateNode = {
+	type: NodeNameTypes;
+	position: Position;
+	data?: Record<string, unknown>;
+	id: string;
+};
+
+function createNode({ type, position, data, id }: CreateNode) {
+	const newNode: TypedNode = {
+		id,
+		position,
+		type,
+		data: {},
+	};
+	if (data !== undefined) {
+		newNode.data = data;
+		return newNode;
+	}
+	if (type === "flg") {
+		newNode.data.text = "";
+		newNode.data.bool = "off";
+	}
+	if (type === "life_in_ui") {
+		newNode.data.text = "Everyday";
+	}
+	if (type === "life_in_file") {
+		newNode.data.text = "tansaku_daily";
+	}
+	if (type === "set_dead") {
+		newNode.data.character = "flgDeath_C013_Yonag";
+		newNode.data.bool = "off";
+	}
+	if (type === "set_chapter") {
+		newNode.data.chapter = "Prologue";
+	}
+	if (type === "set_time") {
+		newNode.data.time = "DayTime";
+	}
+	if (type === "wak") {
+		newNode.data.key = "";
+		newNode.data.value = "";
+	}
+	if (type === "file") {
+		newNode.data.text = "TODO: Get first file";
+	}
+	if (type === "code" || type === "text") {
+		newNode.data.text = "";
+	}
+	if (type === "switch") {
+		newNode.data.cases = [
+			{
+				id: crypto.randomUUID(),
+				value: "",
+			},
+			{
+				id: crypto.randomUUID(),
+				value: "",
+			},
+		];
+		newNode.data.variable = "wak050_scene";
+	}
+	return newNode;
 }
