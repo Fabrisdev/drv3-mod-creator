@@ -3,6 +3,7 @@ import { create, type StoreApi, type UseBoundStore } from "zustand";
 import { persist } from "zustand/middleware";
 import type { TypedNode } from "@/nodes/store/types";
 import type { NodeNameTypes, Position } from "../types";
+import { useFilesStore } from "./files";
 
 type Store = {
 	nodes: TypedNode[];
@@ -30,6 +31,8 @@ const stores: Record<string, UseBoundStore<StoreApi<Store>>> = {};
 
 export function createFileStore(filename: string) {
 	if (stores[filename] === undefined) {
+		const { addFile } = useFilesStore.getState().actions;
+		addFile(filename);
 		stores[filename] = create<Store>()(
 			persist(
 				(set, get) => ({
