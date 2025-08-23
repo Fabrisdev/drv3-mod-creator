@@ -1,8 +1,7 @@
 import { useReactFlow } from "@xyflow/react";
 import { useState } from "react";
-import { useFilename } from "@/file-manager/hooks/useFilename";
 import { nodeNames } from "@/nodes/node-names";
-import { useNodes } from "@/nodes/store/store";
+import { useCurrentFileStore } from "@/nodes/store/hooks/useCurrentFileStore";
 import type { NodeNameTypes } from "@/nodes/types";
 import { Button } from "@/ui/Button";
 import { Container } from "@/ui/Container";
@@ -14,9 +13,9 @@ type Props = {
 };
 
 export function SpawnOption({ closeMenu }: Props) {
-	const { addNode } = useNodes((state) => state.actions);
 	const [nodeSelected, setNodeSelected] = useState<NodeNameTypes>("text");
-	const { filename } = useFilename();
+	const useFileStore = useCurrentFileStore();
+	const { addNode } = useFileStore((state) => state.actions);
 	const { screenToFlowPosition } = useReactFlow();
 
 	const nodeOptions = Object.entries(nodeNames)
@@ -45,7 +44,6 @@ export function SpawnOption({ closeMenu }: Props) {
 								x: e.clientX,
 								y: e.clientY,
 							}),
-							filename as string,
 						);
 						closeMenu();
 					}}

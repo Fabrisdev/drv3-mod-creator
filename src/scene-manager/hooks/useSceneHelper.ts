@@ -1,5 +1,4 @@
-import { useShallow } from "zustand/shallow";
-import { useNodes } from "@/nodes/store/store";
+import { useFilesStore } from "@/nodes/store/files";
 import { findNextFile, sceneCode } from "../scenes";
 import { useConnect } from "./useConnect";
 
@@ -9,8 +8,8 @@ type Create = {
 };
 
 export function useSceneHelper() {
+	const filenames = useFilesStore((state) => state.filenames);
 	const connect = useConnect();
-	const filenames = useNodes(useShallow((state) => Object.keys(state.files)));
 
 	function create({ chapter, scene }: Create) {
 		const filename = `c${chapter}/${scene}/000`;

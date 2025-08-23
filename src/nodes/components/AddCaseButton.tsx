@@ -1,18 +1,17 @@
-import { useFilename } from "@/file-manager/hooks/useFilename";
 import { Button } from "@/ui/Button";
-import { useNodes } from "../store/store";
+import { useCurrentFileStore } from "../store/hooks/useCurrentFileStore";
 
 type Props = {
 	id: string;
 };
 
 export function AddCaseButton({ id }: Props) {
-	const { filename } = useFilename();
-	const { addCase } = useNodes((state) => state.actions);
+	const useFileStore = useCurrentFileStore();
+	const { addCase } = useFileStore((state) => state.actions);
 	return (
 		<Button
 			onClick={() => {
-				addCase(id, filename as string);
+				addCase(id);
 			}}
 		>
 			Add case

@@ -1,7 +1,7 @@
 import Editor from "react-simple-code-editor";
 import { highlight } from "@/code/highlighter";
 import { useFilename } from "@/file-manager/hooks/useFilename";
-import { useNodes } from "@/nodes/store/store";
+import { createFileStore } from "@/nodes/store/file";
 
 type Props =
 	| {
@@ -17,7 +17,8 @@ type Props =
 
 export function CodeEditor({ code, disabled, id }: Props) {
 	const { filename } = useFilename();
-	const { updateNodeData } = useNodes((state) => state.actions);
+	const useFileStore = createFileStore(filename);
+	const { updateNodeData } = useFileStore((state) => state.actions);
 	const lines = code
 		.split("\n")
 		.map((_, index) => index + 1)
@@ -25,7 +26,7 @@ export function CodeEditor({ code, disabled, id }: Props) {
 
 	function handleChange(value: string) {
 		if (disabled) return;
-		updateNodeData(id ?? "", { text: value }, filename as string);
+		updateNodeData(id ?? "", { text: value });
 	}
 
 	return (

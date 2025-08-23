@@ -12,7 +12,7 @@ import {
 import { TextParameter } from "./components/TextParameter";
 import { TextPreview } from "./components/TextPreview";
 import { useData } from "./hooks/useData";
-import { useNodes } from "./store/store";
+import { createFileStore } from "./store/file";
 
 export function TextNode({ id, data }: NodeProps) {
 	const { filename } = useFilename();
@@ -21,10 +21,12 @@ export function TextNode({ id, data }: NodeProps) {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	const { code } = useCode();
 
-	const { updateNodeData } = useNodes((state) => state.actions);
+	const useFileStore = createFileStore(filename);
+
+	const { updateNodeData } = useFileStore((state) => state.actions);
 
 	function handleTextChange(newText: string) {
-		updateNodeData(id, { text: newText }, filename as string);
+		updateNodeData(id, { text: newText });
 	}
 
 	function handleModeChange(mode: TextMode) {
@@ -51,7 +53,7 @@ export function TextNode({ id, data }: NodeProps) {
 			"end",
 		);
 		textareaRef.current?.focus();
-		updateNodeData(id, { text: newText }, filename as string);
+		updateNodeData(id, { text: newText });
 	}
 
 	function onSelect(event: React.SyntheticEvent<HTMLDivElement, Event>) {

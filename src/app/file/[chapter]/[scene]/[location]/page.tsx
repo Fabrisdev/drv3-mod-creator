@@ -19,15 +19,15 @@ import { CodePanel } from "@/code/CodePanel";
 import { CurrentFilePanel } from "@/file-manager/panels/CurrentFilePanel";
 import { CodeNode } from "@/nodes/CodeNode";
 import { EndNode } from "@/nodes/EndNode";
-import { useQueryEdges } from "@/nodes/hooks/useQueryEdges";
-import { useQueryNodes } from "@/nodes/hooks/useQueryNodes";
 import { StartNode } from "@/nodes/StartNode";
-import { type TypedNode, useNodes } from "@/nodes/store/store";
+import { createFileStore } from "@/nodes/store/file";
+import type { TypedNode } from "@/nodes/store/types";
 import { TextNode } from "@/nodes/TextNode";
 import type { NodeTypes } from "@/nodes/types";
 import { NodesPanel } from "@/panel/NodesPanel";
 import "@xyflow/react/dist/style.css";
 import type { Node } from "@xyflow/react";
+import { useEffect } from "react";
 import { ContextMenu } from "@/context-menu/ContextMenu";
 import { OpenFilePicker } from "@/file-manager/components/OpenFilePicker";
 import { useFilename } from "@/file-manager/hooks/useFilename";
@@ -39,16 +39,21 @@ import { SetLifeInFile } from "@/nodes/SetLifeInFile";
 import { SetLifeInUI } from "@/nodes/SetLifeInUI";
 import { SetTimeNode } from "@/nodes/SetTimeNode";
 import { SwitchNode } from "@/nodes/SwitchNode";
+import { useFilesStore } from "@/nodes/store/files";
 import { WakNode } from "@/nodes/WakNode";
 
 export default function Home() {
 	const { filename } = useFilename();
-	const { setEdges, setNodes } = useNodes((state) => state.actions);
+	const useFileStore = createFileStore(filename);
+	const { setEdges, setNodes } = useFileStore((state) => state.actions);
+	const nodes = useFileStore((state) => state.nodes);
+	const edges = useFileStore((state) => state.edges);
+	const edgeType = useFilesStore((state) => state.edgeType);
+	const { addFile } = useFilesStore((state) => state.actions);
 
-	const defaultEdgeType = useNodes((state) => state.defaultEdgeType);
-
-	const nodes = useQueryNodes();
-	const edges = useQueryEdges();
+	useEffect(() => {
+		addFile(filename);
+	});
 
 	const nodeTypes: NodeTypes = {
 		text: TextNode,
@@ -67,15 +72,15 @@ export default function Home() {
 	};
 
 	function onNodesChange(changes: NodeChange[]) {
-		setNodes(applyNodeChanges(changes, nodes) as TypedNode[], filename);
+		setNodes(applyNodeChanges(changes, nodes) as TypedNode[]);
 	}
 
 	function onEdgesChange(changes: EdgeChange[]) {
-		setEdges(applyEdgeChanges(changes, edges), filename);
+		setEdges(applyEdgeChanges(changes, edges));
 	}
 
 	function onConnect(params: Connection) {
-		setEdges(addEdge(params, edges), filename);
+		setEdges(addEdge(params, edges));
 	}
 
 	function isValidConnection(connection: Edge | Connection) {
@@ -112,7 +117,7 @@ export default function Home() {
 						proOptions={{
 							hideAttribution: true,
 						}}
-						defaultEdgeOptions={{ type: defaultEdgeType }}
+						defaultEdgeOptions={{ type: edgeType }}
 						isValidConnection={isValidConnection}
 					>
 						<Background />

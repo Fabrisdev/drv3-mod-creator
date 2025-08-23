@@ -3,7 +3,7 @@
 import { useReactFlow } from "@xyflow/react";
 import type { PropsWithChildren } from "react";
 import { useFilename } from "@/file-manager/hooks/useFilename";
-import { useNodes } from "@/nodes/store/store";
+import { createFileStore } from "@/nodes/store/file";
 import type { NodeNameTypes } from "@/nodes/types";
 
 type Props = {
@@ -17,7 +17,8 @@ export function NodeOption({
 	children,
 }: PropsWithChildren<Props>) {
 	const { filename } = useFilename();
-	const { addNode } = useNodes((state) => state.actions);
+	const useFileStore = createFileStore(filename);
+	const { addNode } = useFileStore((state) => state.actions);
 	const { screenToFlowPosition } = useReactFlow();
 
 	function handleAddNode() {
@@ -26,7 +27,7 @@ export function NodeOption({
 			y: window.innerHeight / 2,
 		});
 
-		addNode(type, position, filename as string);
+		addNode(type, position);
 	}
 
 	if (disabled)

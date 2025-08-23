@@ -1,19 +1,23 @@
-import { useNodes } from "@/nodes/store/store";
+import { createFileStore } from "@/nodes/store/file";
 import type { NodeNameTypes } from "@/nodes/types";
 
 export function useConnect() {
-	const { addNode, joinNodes } = useNodes((state) => state.actions);
 	function connect(filename: string) {
+		const fileStore = createFileStore(filename);
+		const { addNode, joinNodes, setNodes, setEdges } =
+			fileStore.getState().actions;
 		let lastNodeId = "";
 		let lastXPosition = 0;
 		function spawnNode(type: NodeNameTypes, data?: Record<string, unknown>) {
-			const id = addNode(type, { x: lastXPosition, y: 0 }, filename, data);
-			if (lastNodeId !== "") joinNodes(lastNodeId, id, filename);
+			const id = addNode(type, { x: lastXPosition, y: 0 }, data);
+			if (lastNodeId !== "") joinNodes(lastNodeId, id);
 			lastNodeId = id;
 			lastXPosition += 300;
 		}
 		const builder = {
 			start(_: Record<string, never>) {
+				setNodes([]);
+				setEdges([]);
 				spawnNode("start");
 				return this as WithoutStart;
 			},

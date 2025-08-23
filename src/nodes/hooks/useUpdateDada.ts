@@ -1,5 +1,5 @@
 import { useFilename } from "@/file-manager/hooks/useFilename";
-import { useNodes } from "../store/store";
+import { createFileStore } from "../store/file";
 
 type Update = {
 	id: string;
@@ -7,11 +7,12 @@ type Update = {
 };
 
 export function useUpdateData() {
-	const { updateNodeData } = useNodes((state) => state.actions);
 	const { filename } = useFilename();
+	const useFileStore = createFileStore(filename);
+	const { updateNodeData } = useFileStore((state) => state.actions);
 
 	function update({ id, data }: Update) {
-		updateNodeData(id, data, filename);
+		updateNodeData(id, data);
 	}
 
 	return { update };

@@ -1,12 +1,11 @@
 import { useId } from "react";
-import { useFilename } from "@/file-manager/hooks/useFilename";
 import { useData } from "../hooks/useData";
-import { useNodes } from "../store/store";
+import { useCurrentFileStore } from "../store/hooks/useCurrentFileStore";
 import type { ParameterProps } from "../types";
 
 export function CharacterParameter({ id }: ParameterProps) {
-	const { updateNodeData } = useNodes((state) => state.actions);
-	const { filename } = useFilename();
+	const useFileStore = useCurrentFileStore();
+	const { updateNodeData } = useFileStore((state) => state.actions);
 	const characterSelectId = useId();
 	const character = useData({ id, prop: "character" });
 
@@ -18,13 +17,9 @@ export function CharacterParameter({ id }: ParameterProps) {
 				id={characterSelectId}
 				className="bg-[#3c3c3c] w-full p-1 rounded-sm"
 				onChange={(e) =>
-					updateNodeData(
-						id,
-						{
-							character: e.target.value,
-						},
-						filename as string,
-					)
+					updateNodeData(id, {
+						character: e.target.value,
+					})
 				}
 			>
 				<option value="unset">Same as before</option>

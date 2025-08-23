@@ -1,12 +1,10 @@
 import { useId } from "react";
-import { useFilename } from "@/file-manager/hooks/useFilename";
-import { useNodes } from "@/nodes/store/store";
+import { useFilesStore } from "@/nodes/store/files";
 
 export function EdgeTypeSelector() {
-	const { updateEdgeType } = useNodes((state) => state.actions);
-	const defaultEdgeType = useNodes((state) => state.defaultEdgeType);
+	const { setEdgeType } = useFilesStore((state) => state.actions);
+	const defaultEdgeType = "default";
 	const selectId = useId();
-	const { filename } = useFilename();
 
 	return (
 		<div className="flex items-center gap-2">
@@ -15,7 +13,9 @@ export function EdgeTypeSelector() {
 				value={defaultEdgeType}
 				id={selectId}
 				className="bg-gray-600 p-2 rounded-sm cursor-pointer"
-				onChange={(e) => updateEdgeType(e.target.value, filename as string)}
+				onChange={(e) => {
+					setEdgeType(e.target.value);
+				}}
 			>
 				<option value="default">Bezier (default)</option>
 				<option value="step">Step</option>

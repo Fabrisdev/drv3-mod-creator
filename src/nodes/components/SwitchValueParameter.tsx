@@ -1,7 +1,7 @@
 import { useFilename } from "@/file-manager/hooks/useFilename";
 import { Select } from "@/ui/Select";
 import { useData } from "../hooks/useData";
-import { useNodes } from "../store/store";
+import { createFileStore } from "../store/file";
 
 type Props = {
 	id: string;
@@ -9,15 +9,14 @@ type Props = {
 
 export function SwitchValueParameter({ id }: Props) {
 	const { filename } = useFilename();
-	const { updateSwitchVariable } = useNodes((state) => state.actions);
+	const useFileStore = createFileStore(filename);
+	const { updateSwitchVariable } = useFileStore((state) => state.actions);
 	const variable = useData({ id, prop: "variable" }) ?? "wak050_scene";
 	return (
 		<div className="flex gap-2 items-center">
 			<p>Value</p>
 			<Select
-				onChange={(newVariable) =>
-					updateSwitchVariable(id, filename as string, newVariable)
-				}
+				onChange={(newVariable) => updateSwitchVariable(id, newVariable)}
 				value={variable}
 			>
 				<option value="wak050_scene">wak050_scene</option>
